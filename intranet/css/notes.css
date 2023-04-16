@@ -1,0 +1,379 @@
+.content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content .notebody {
+    display: flex;
+    height: 93%;
+}
+
+.shadow-border {
+    margin: 0 1rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem #21212150;
+}
+
+.scroll {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 18px;
+
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background-color: #d6dee1ff;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+span {
+    user-select: none;
+}
+
+.content .selected {
+    background-color: #00000010;
+}
+
+.folder, .notes, .editor {
+    height: 98%;
+
+    background-color: #fcfcfc;
+}
+
+/* header */
+.content .header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+}
+
+.content .header h4 {
+    font-size: 2rem;
+    padding: .5rem 1rem;
+}
+
+.content .header .right {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 2rem;
+}
+
+.content .header .right a.new {
+    color: #a1a1a1;
+    user-select: none;
+}
+
+.content .header .right a span {
+    font-size: 2rem;
+}
+
+/* folder */
+.content .folder {
+    width: 15%;
+}
+
+.content .folder button, .content .notes button {
+    height: fit-content;
+    width: fit-content;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #1d1d1d;
+    opacity: 75%;
+    transition: opacity ease-in-out 250ms;
+}
+
+.content .folder button:hover, .content .notes button:hover {
+    opacity: 100%;
+}
+.content .folder .option, .content .notes .option {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    padding: .5rem;
+    gap: .5rem;
+}
+
+#searchNote, #searchFolder {
+    border: none;
+    border-bottom: 1px solid #a1a1a1;
+    outline: none;
+    width: 100%;
+    padding: .5rem;
+    font-size: 1.05rem;
+}
+
+.content .folder div.single {
+    border-bottom: .5px solid #a1a1a1;
+    padding: .75rem;
+    display: flex;
+    user-select: none;
+    width: 100%;
+}
+
+.content .folder div.single .btn {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.content .folder .text {
+    max-width: 90%;
+    cursor: pointer;
+}
+
+.content .folder h1 {
+    font-size: 1.3rem;
+}
+
+.content .folder p.text {
+    padding: .5rem;
+}
+
+.content .folder p.text, .content .folder h1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* notes */
+.content .notes {
+    width: 15%;
+}
+
+.content .notes div.single {
+    border-bottom: .5px solid #a1a1a1;
+    padding: .75rem;
+
+    user-select: none;
+    cursor: pointer;
+}
+
+.content .notes h1 {
+    font-size: 1.3rem;
+}
+
+.content .notes p.text {
+    padding: .5rem;
+}
+
+.content .notes p.date {
+    padding-left: .5rem;
+    color: #a1a1a1;
+    font-size: .9rem;
+}
+
+.content .notes p.text, .content .notes h1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* editor */
+.content .editor .inputs * {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.content .editor {
+    width: 70%;
+}
+
+.content .editor form {
+    height: 100%;
+    display: flex;
+	flex-direction: column;
+}
+
+.content .editor .tools, .content .editor .tools .top {
+    width: 100%;
+    min-height: fit-content;
+    /*height: 3rem;*/
+
+    padding: 1rem 1rem 0 1rem;
+
+    display: flex;
+    align-items: center;
+}
+
+.content .editor .tools {
+    flex-direction: column;
+}
+
+.content .editor .tools input[type=submit] {
+    display: none;
+}
+
+.content .editor .tools label {
+    margin-right: .5rem;
+}
+
+.content .editor .tools label span {
+    font-size: 1.5rem;
+    color: #1d1d1d;
+    opacity: 75%;
+    cursor: pointer;
+
+    transition: opacity ease-in-out 250ms;
+}
+
+.content .editor .tools label span:hover {
+    opacity: 100%;
+}
+
+
+.content .editor .tools .left {
+    width: 100%;
+    display: flex;
+}
+
+.content .editor .tools .right {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.content .editor .tools a {
+    color: #1d1d1d;
+    opacity: 75%;
+    cursor: pointer;
+    user-select: none;
+
+    transition: opacity ease-in-out 250ms;
+}
+
+.content .editor .tools .specText {
+    display: flex;
+    flex-wrap: wrap;
+    width: fit-content;
+    padding-left: 2rem;
+    gap: .5rem;
+}
+
+.content .editor .tools span {
+    user-select: none;
+    cursor: pointer;
+}
+
+
+.content .editor .tools #deleteNote {
+    display: flex;
+}
+
+.content .editor .tools a:hover {
+    opacity: 100%;
+}
+
+.content .editor .inputs {
+    padding: 1rem;
+    overflow: auto;
+
+    flex: 1;
+}
+
+.content .editor .inputs input[type=text].title {
+    margin-bottom: .5rem;
+    width: 100%;
+    padding-bottom: .25rem;
+    border-bottom: .5px solid #000 !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.content .editor .inputs .textbox {
+    width: 100%;
+    font-size: 1.1rem;
+
+    outline: none;
+}
+
+.content .editor .inputs .texboxOut {
+    width: 100%;
+    max-height: 100%;
+}
+
+.content .editor textarea[name=text] {
+    display: none !important;
+}
+
+.content .editor .inputs textarea, .content .editor .inputs input[type=text].title{
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.content .editor .footer {
+    margin-top: 1.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    font-size: .75rem;
+    color: #a1a1a1;
+
+    display: flex;
+
+    height: fit-content;
+}
+
+.content .editor .fleft {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+}
+
+.content .editor .fright {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+
+/* special screen */
+@media screen and (max-width: 1200px) {
+
+    .content .editor {
+        width: 50%;
+    }
+
+    .content .folder, .content .notes {
+        width: 25%;
+    }
+
+
+}
+
+@media screen and (max-width: 1000px) {
+
+    .content{
+        width: fit-content;
+    } 
+
+    .content .editor {
+        width: 50%;
+    }
+
+    .content .folder, .content .notes {
+        width: 90vw;
+    }
+
+
+}
+
+/* animations */
+@keyframes fadeinout {
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }

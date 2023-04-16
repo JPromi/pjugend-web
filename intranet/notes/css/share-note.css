@@ -1,0 +1,89 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* popup */
+.popup {
+    position: absolute;
+    z-index: 10;
+
+    margin-top: 10rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.popup form {
+    padding: 3rem;
+    background-color: #d3d3d350;
+    border-radius: 1rem;
+    box-shadow: 1rem 1rem 5rem #00000050;
+
+    backdrop-filter: blur(50px);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.popup form h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.popup form #searchUser {
+    outline: none;
+    border: none;
+    padding: .5rem;
+    border-bottom: 1px solid #1a1a1a;
+    background-color: transparent;
+}
+
+.popup form .select {
+    max-height: 30vh;
+    overflow-y: scroll;
+}
+
+.popup form table tbody tr td.btn{
+    text-align: center;
+} 
+
+.popup form input[type=submit] {
+    margin-top: 2rem;
+    background-color: #bebebe;
+    padding: .25rem;
+    border: none;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+/* background */
+.background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.background .block {
+    position: absolute;
+    z-index: -1;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: #00000075;
+}
+
+.background iframe {
+    filter: blur(5px);
+    position: absolute;
+    z-index: -2;
+    height: 100%;
+    width: 100%;
+    pointer-events: unset!important;
+}
