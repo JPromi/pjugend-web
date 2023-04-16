@@ -14,7 +14,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
         //$URL = str_replace("?", "%3F", $URL);
         //$URL = str_replace("=", "%3D", $URL);
         //$URL = str_replace("/", "%2F", $URL);
-        header("Location: ".$domain["auth"]."/?direct=".$URL);
+        header("Location: https://".$domain["auth"]."/?direct=".$URL);
         exit();
     }
 ?>
