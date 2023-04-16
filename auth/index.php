@@ -40,9 +40,8 @@
 
         if ($rows == 1) {
             $error = "";
-
             $coockie_hash = bin2hex(random_bytes(40));
-            setcookie("SESSION_ID", $coockie_hash, time() + (86400 * 7), "");
+            setcookie("SESSION_ID", $coockie_hash, time() + (86400 * 7), "", ".".$domain["default"]);
             $generateSession =    "INSERT INTO `session` 
                         (user_id, username, firstname, lastname, cookie_hash, used_for)
                         VALUES
@@ -102,7 +101,7 @@
                 </label>
 
                 <a href="password-reset">Forgot password?</a>
-                
+
                 <input type="submit" value="Login" name="submit"require/>
             </form>
 
