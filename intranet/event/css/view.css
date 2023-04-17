@@ -19,39 +19,37 @@
 .content .left {
     overflow: auto;
     width: 25rem;
-    display: flex;
-    flex-direction: column;
+
     gap: 2rem;
     padding: 2rem;
 }
 
-.content .left .image {
+.content .left .main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    gap: 2rem;
+}
+
+.content .left .main .image {
     width: 100%;
     height: 45%;
 }
 
-.content .left .image img {
+.content .left .main .image img {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-.content .left .information p {
+.content .left .main .information p {
     margin-bottom: 1rem;
-}
-
-
-/* content middle side */
-.content .middle {
-    overflow: auto;
-    padding: 2rem;
-    width: 100%;
-    height: 100%;
-    background-color: #80808020;
 }
 
 .content .left .tools {
     width: fit-content;
+    margin-bottom: 1rem;
 }
 
 .content .left .tools button {
@@ -62,6 +60,16 @@
 
 .content .left .tools button span {
     color: #00000075;
+}
+
+
+/* content middle side */
+.content .middle {
+    overflow: auto;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    background-color: #80808020;
 }
 
 .content .middle h4 {
@@ -86,15 +94,20 @@
 
     .content .left {
         width: 100%;
-        flex-direction: row;
         overflow: visible;
     }
 
-    .content .left .image {
-        height: 75%;
+    .content .left .main {
+        flex-direction: column;
+        overflow: visible;
     }
 
-    .content .left .information {
+    .content .left .main .image {
+        height: 35%;
+        width: 100%;
+    }
+
+    .content .left .main .information {
         width: 45%;
     }
 

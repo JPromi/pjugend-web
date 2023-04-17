@@ -42,57 +42,59 @@ include("../../private/intranet/assets/nav.php")
 
         <div class="content">
             <div class="left">
-                <div class="image">
-                    <img src="https://cdn.pjugend.jpromi.com/event/placeholder/image.png">
-                </div>
+                <div class="main">
+                    <div class="image">
+                        <img src="https://cdn.pjugend.jpromi.com/event/placeholder/image.png">
+                    </div>
 
-                <div class="information">
-                    <h6>Datum: </h6>
-                    <p>
+                    <div class="information">
+                        <h6>Datum: </h6>
+                        <p>
+                            <?php
+                            if(date("j.n.Y", strtotime($event["date_from"])) == date("j.n.Y", strtotime($event["date_to"]))) {
+                                echo(date("j.n.Y", strtotime($event["date_from"])));
+                            } else {
+                                echo(date("j.n.Y", strtotime($event["date_from"])) . " - ". date("j.n.Y", strtotime($event["date_to"])));
+                            }
+                            ?>
+                        </p>
+
+                        <h6>Uhrzeit: </h6>
+                        <p>
+                            <?php
+                                echo(date("H:i", strtotime($event["date_from"])) . " - ". date("H:i", strtotime($event["date_to"])));
+                            ?>
+                        </p>
                         <?php
-                        if(date("j.n.Y", strtotime($event["date_from"])) == date("j.n.Y", strtotime($event["date_to"]))) {
-                            echo(date("j.n.Y", strtotime($event["date_from"])));
-                        } else {
-                            echo(date("j.n.Y", strtotime($event["date_from"])) . " - ". date("j.n.Y", strtotime($event["date_to"])));
+                        if(isset($event["location"])) {
+                            echo '
+                            <h6>Ort: </h6>
+                            <p>'.$event["location"].'</p>';
                         }
                         ?>
-                    </p>
 
-                    <h6>Uhrzeit: </h6>
-                    <p>
                         <?php
-                            echo(date("H:i", strtotime($event["date_from"])) . " - ". date("H:i", strtotime($event["date_to"])));
+                        if(isset($event["age_from"])) {
+                            echo '
+                            <h6>Alter: </h6>
+                            <p>'.$event["age_from"].' - '.$event["age_to"].'</p>';
+                        }
                         ?>
-                    </p>
-                    <?php
-                    if(isset($event["location"])) {
-                        echo '
-                        <h6>Ort: </h6>
-                        <p>'.$event["location"].'</p>';
-                    }
-                    ?>
 
-                    <?php
-                    if(isset($event["age_from"])) {
-                        echo '
-                        <h6>Alter: </h6>
-                        <p>'.$event["age_from"].' - '.$event["age_to"].'</p>';
-                    }
-                    ?>
+                        <h6>Veranstalter: </h6>
+                        <p>
+                            <?php
+                                $organizerString = str_replace(";", "','", $event["organizer"]);
+                                $organizer = "SELECT firstname, lastname FROM `accounts` WHERE id IN ('$organizerString')";
+                                $organizer = $con_new->query($organizer);
 
-                    <h6>Veranstalter: </h6>
-                    <p>
-                        <?php
-                            $organizerString = str_replace(";", "','", $event["organizer"]);
-                            $organizer = "SELECT firstname, lastname FROM `accounts` WHERE id IN ('$organizerString')";
-                            $organizer = $con_new->query($organizer);
-
-                            while ($person = $organizer->fetch_assoc()) {
-                                echo($person["firstname"] . " " . $person["lastname"] . "<br>");
-                            }
-                        ?>
-                    </p>
-                    
+                                while ($person = $organizer->fetch_assoc()) {
+                                    echo($person["firstname"] . " " . $person["lastname"] . "<br>");
+                                }
+                            ?>
+                        </p>
+                        
+                    </div>
                 </div>
                 <div class="tools">
                     <?php
