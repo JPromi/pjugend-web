@@ -45,6 +45,7 @@ include("../private/database/public.php");
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/event.css">
+    <link rel="stylesheet" href="event/css/header.css">
 </head>
 <?php
 //include navigation bar
@@ -52,25 +53,10 @@ include("../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
 
-    <div class="top">
-
-        <div class="left">
-            <h4><a href="/event">Veranstaltungen</a></h4>
-        </div>
-
-        <div class="middle">
-
-        </div>
-
-        <div class="right">
-            <button title="Neue Veranstalltung" onclick="window.location.href=`/event/add`">
-                <span class="material-symbols-outlined">
-                add
-                </span>
-            </button>
-        </div>
-
-    </div>
+    <?php
+    include("../private/intranet/event/header.php");
+    top("Veranstaltungen");
+    ?>
     
     <div class="search">
         <form method="post">
