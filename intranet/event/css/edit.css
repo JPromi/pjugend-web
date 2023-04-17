@@ -129,15 +129,20 @@
 
     .content .left {
         width: 100%;
-        flex-direction: row;
         overflow: visible;
     }
 
-    .content .left .image {
-        height: 75%;
+    .content .left .main {
+        flex-direction: column;
+        overflow: visible;
     }
 
-    .content .left .information {
+    .content .left .main .image {
+        height: 35%;
+        width: 100%;
+    }
+
+    .content .left .main .information {
         width: 45%;
     }
 
