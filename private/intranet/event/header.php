@@ -8,10 +8,6 @@ function top($title) {
         <h4><a href="/event"><?php echo($title); ?></a></h4>
     </div>
 
-    <div class="middle">
-
-    </div>
-
     <div class="right">
         <button title="Neue Veranstalltung" onclick="window.location.href=`/event/add`">
             <span class="material-symbols-outlined">
