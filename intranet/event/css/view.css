@@ -18,7 +18,7 @@
 
 .content .left {
     overflow: auto;
-    width: 25%;
+    width: 25rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -75,4 +75,30 @@
 
 .content .middle .links a {
     color: #0066CC;
+}
+
+@media screen and (max-width: 700px) {
+
+    .content {
+        margin: .75rem;
+        flex-direction: column;
+    }
+
+    .content .left {
+        width: 100%;
+        flex-direction: row;
+        overflow: visible;
+    }
+
+    .content .left .image {
+        height: 75%;
+    }
+
+    .content .left .information {
+        width: 45%;
+    }
+
+    .content .middle {
+        overflow: visible;
+    }
 }
