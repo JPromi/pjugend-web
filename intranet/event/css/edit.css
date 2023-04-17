@@ -28,12 +28,28 @@
 .content .left .image {
     width: 100%;
     height: 45%;
+    overflow: hidden;
 }
 
 .content .left .image img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.content .left .image .btn {
+    margin-top: -2.5rem;
+    margin-left: .5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.content .left .image .btn label {
+    cursor: pointer;
+}
+
+.content .left .image .btn input {
+    display: none;
 }
 
 .content .left .information h6 {

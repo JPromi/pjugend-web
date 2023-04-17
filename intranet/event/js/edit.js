@@ -45,3 +45,16 @@ function removealert() {
         document.getElementsByClassName("alertbox")[i].classList.add("disabled");
     }
 }
+
+/* image */
+function CoverimagePreview() {
+        cover.src=URL.createObjectURL(event.target.files[0]);
+}
+
+function coverDelete(cdn) {
+    if (document.getElementById('coverDel').checked){
+        cover.src = 'https://' + cdn + '/event/placeholder/image.png';
+    } else {
+        cover.src = document.querySelector("#cover").dataset.originalFile;
+    }    
+}

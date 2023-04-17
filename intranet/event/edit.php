@@ -47,7 +47,7 @@ include("../../private/intranet/assets/nav.php")
     top("Veranstaltung Bearbeiten");
     ?>
     
-        <form class="content" method="post">
+        <form class="content" method="post" enctype="multipart/form-data">
 
             <div class="alert disabled" id="alert">
                 <div class="alertbox organizer disabled" id="organizer">
@@ -80,7 +80,35 @@ include("../../private/intranet/assets/nav.php")
 
             <div class="left">
                 <div class="image">
-                    <img src="https://cdn.pjugend.jpromi.com/event/placeholder/image.png">
+                    <?php
+                    $img_path = '../../cdn/event/image/img-t_'. substr(md5($event["id"]), 5).'.jpg';
+                    if(!file_exists($img_path)){
+                        $img_path = 'https://'.$domain["cdn"].'/event/placeholder/image.png';
+                    } else {
+                        $img_path = 'https://'.$domain["cdn"].'/event/image/img-t_'. $event["id"].'.jpg';
+                    };
+                    ?>
+                    <img src="<?php echo($img_path); ?>" id="cover" data-original-file="<?php echo($img_path); ?>">
+
+                    <div class="btn">
+                        <label>
+                            <input type="file" name="cover" dragable onchange="CoverimagePreview()" accept="image/jpeg">
+                            <span class="material-symbols-outlined">
+                            upload
+                            </span>
+                        </label>
+                        <label>
+                        <?php
+                        echo '
+                        <input id="coverDel" type="checkbox" onclick="coverDelete(`'.$domain["cdn"].'`)">
+                        ';
+                        ?>
+                            
+                            <span class="material-symbols-outlined">
+                            delete
+                            </span>
+                        </label>
+                    </div>
                 </div>
 
                 <div class="information">
