@@ -36,3 +36,16 @@ span {
     color: #a1a1a1;
     font-size: 2rem;
 }
+
+.top {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    background-color: #fff;
+}
+
+@media screen and (max-width: 700px) {
+    .top {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

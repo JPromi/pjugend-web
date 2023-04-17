@@ -104,3 +104,13 @@
         width: 100%
     }
 }
+
+@media screen and (max-width: 400px) {
+    .search .input {
+        width: 95%;
+    }
+
+    .search .input input[type=text] {
+        width: 100%;
+    }
+}
