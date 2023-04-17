@@ -23,10 +23,16 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
         </a>
 
         <!--Notes-->
-            <a href="/notes" id="singlenav" class="navOpen">
-                <span class="material-symbols-outlined icon">note</span>
-                <p id="navtext">Notizen</p>
-            </a>
+        <a href="/notes" id="singlenav" class="navOpen">
+            <span class="material-symbols-outlined icon">note</span>
+            <p id="navtext">Notizen</p>
+        </a>
+
+        <!--Events-->
+        <a href="/event" id="singlenav" class="navOpen">
+            <span class="material-symbols-outlined icon">event</span>
+            <p id="navtext">Veranstaltungen</p>
+        </a>
 
         <!--Admin Settings-->
         <?php
