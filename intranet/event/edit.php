@@ -48,6 +48,36 @@ include("../../private/intranet/assets/nav.php")
     ?>
     
         <form class="content" method="post">
+
+            <div class="alert disabled" id="alert">
+                <div class="alertbox organizer disabled" id="organizer">
+                    <h1>Veranstalter Bearbeiten</h1>
+                    <div class="list">
+                        <?php
+                        $organizerIds = explode(";", $event["organizer"]);
+                        $user = "SELECT id, firstname, lastname FROM `accounts` ORDER BY firstname";
+                        $user = $con_new->query($user);
+                        while ($suser = $user->fetch_assoc()) {
+                            $isOrganizer = "";
+                            if(in_array($suser["id"], $organizerIds)) {
+                                $isOrganizer = "checked";
+                            };
+                            echo '
+                                <label>
+                                    <input type="checkbox" name="organizer[]" value="'.$suser["id"].'" '.$isOrganizer.'>
+                                    <p>'.$suser["firstname"].' '.$suser["lastname"].'</p>
+                                </label>
+                            ';
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <div class="back disabled" id="back" onclick="removealert()">
+
+                </div>
+            </div>
+
             <div class="left">
                 <div class="image">
                     <img src="https://cdn.pjugend.jpromi.com/event/placeholder/image.png">
@@ -76,17 +106,11 @@ include("../../private/intranet/assets/nav.php")
                         </div>
 
                     <h6>Veranstalter: </h6>
-                    <p>
-                        <?php
-                            $organizerString = str_replace(";", "','", $event["organizer"]);
-                            $organizer = "SELECT firstname, lastname FROM `accounts` WHERE id IN ('$organizerString')";
-                            $organizer = $con_new->query($organizer);
-
-                            while ($person = $organizer->fetch_assoc()) {
-                                echo($person["firstname"] . " " . $person["lastname"] . "<br>");
-                            }
-                        ?>
-                    </p>
+                    <a onclick="alertadd('organizer')">
+                        <span class="material-symbols-outlined">
+                        edit
+                        </span>
+                    </a>
                     
                 </div>
             </div>
@@ -146,16 +170,27 @@ include("../../private/intranet/assets/scripts-bottom.php")
 if(!empty($_POST["submit"])) {
     $Ptitle = htmlspecialchars($_POST["title"]);
     $Pdescription = htmlspecialchars($_POST["description"]);
-    $Pdate_from = date("Y-m-d H:i", strtotime($_POST["date_from"]));
-    $Pdate_to = date("Y-m-d H:i", strtotime($_POST["date_to"]));
+
+    if(!(empty($_POST["date_from"]))) {
+        $Pdate_from = date("Y-m-d H:i", strtotime($_POST["date_from"]));
+    } else {
+        $Pdate_from = "";
+    };
+
+    if(!(empty($_POST["date_to"]))) {
+        $Pdate_to = date("Y-m-d H:i", strtotime($_POST["date_to"]));
+    } else {
+        $Pdate_to = "";
+    };
+    
     $Page_from = $_POST["age_from"];
     $Page_to = $_POST["age_to"];
     $Plocation = htmlspecialchars($_POST["location"]);
     $eventID = $eventID;
     //$Pprice = $_POST["price"];
     //$Pspec_group = $_POST["only_specific_group"];
-    //$Porganizer = $_POST["organizer"];
-
+    $Porganizer = implode(";", $_POST["organizer"]);
+    echo($Porganizer);
     $updateEvent = "UPDATE `event` SET 
                                         `title` = '$Ptitle',
                                         `description` = '$Pdescription',
@@ -163,7 +198,8 @@ if(!empty($_POST["submit"])) {
                                         `date_to` = '$Pdate_to',
                                         `age_from` = '$Page_from',
                                         `age_to` = '$Page_to',
-                                        `location` = '$Plocation'
+                                        `location` = '$Plocation',
+                                        `organizer` = '$Porganizer'
                                         WHERE `id`='$eventID'";
     mysqli_query($con_public, $updateEvent);
 
@@ -172,7 +208,6 @@ if(!empty($_POST["submit"])) {
     mysqli_query($con_public, $removeLinks);
 
     for ($i=0; $i < count($_POST["link"]); $i++) { 
-        echo($i);
         $addLink = "INSERT INTO `event_link` (event_id, title, link) VALUES ('$eventID', '".$_POST["linkTitle"][$i]."', '".$_POST["link"][$i]."')";
         mysqli_query($con_public, $addLink);
     }
