@@ -6,6 +6,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
 <header>
     <link rel="stylesheet" href="/css/style/nav.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     
     <nav id="sidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn navOpen menubtn" onclick="toggleNav()" id="singlenav">
