@@ -35,6 +35,12 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
             <p id="navtext">Veranstaltungen</p>
         </a>
 
+        <!--Form-->
+        <a href="/form" id="singlenav" class="navOpen">
+            <span class="material-symbols-outlined icon">assignment</span>
+            <p id="navtext">Formular</p>
+        </a>
+
         <!--Admin Settings-->
         <?php
         if (in_array("admin", $dbSESSION_perm)) {
