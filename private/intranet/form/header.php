@@ -11,7 +11,7 @@ function top($title) {
 
     <div class="right">
         <?php
-        if(in_array("event", $dbSESSION_perm)) {
+        if(in_array("form", $dbSESSION_perm)) {
         ?>
         <button title="Neue Veranstalltung" onclick="window.location.href=`/form/add`">
             <span class="material-symbols-outlined">
