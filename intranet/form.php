@@ -33,7 +33,7 @@ include("../private/database/public.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formular - PJugend</title>
+    <title>Formular -  <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/form.css">
