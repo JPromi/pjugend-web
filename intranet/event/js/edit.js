@@ -8,9 +8,10 @@ function addLink() {
     //last element
     var lastChild = document.getElementById('links').lastElementChild;
     var lastID = lastChild.id.replace("link", "");
+    if(lastID === "") {
+        lastID = 0;
+    }
     var newID = parseInt(lastID) + 1;
-
-    let div = document.createElement("div");
     
     const links = document.getElementById("links");
     var codeblock = `
