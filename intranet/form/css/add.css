@@ -1,0 +1,229 @@
+.content {
+    width: 50rem;
+    background-color: #fff;
+    margin: 3rem auto 0 auto;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0.25rem 0.25rem 2rem #21212120;
+}
+/* alerts */
+
+.alert {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    background-color: #00000099;
+    height: 100%;
+    width: 100%;
+}
+
+.content .disabled {
+    display: none;
+}
+
+.content .alert .back {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.content .alert .alertbox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: .5rem .5rem 2rem #00000050;
+    border-radius: 1rem;
+}
+
+/* alert settings */
+.content .alert .alertbox.settings {
+    min-width: 50%;
+    height: 75%;
+}
+
+.content .alert .alertbox.settings label {
+    user-select: none;
+}
+
+
+.content .alert .alertbox.settings .elements {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 2rem;
+}
+
+.content .alert .alertbox.settings .elements .element {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.content .alert .alertbox.settings .elements .element h3 {
+    margin-left: -.5rem;
+}
+
+.content .alert .alertbox.settings .elements .element input[type=text] {
+    border: 0;
+    background-color: transparent;
+    padding: .15rem;
+    border-bottom: 1px solid #000;
+    outline: none;
+}
+
+/* header informations */
+.content .top {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.content .top input, .content .top textarea {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    resize: none;
+    padding: .5rem;
+}
+
+.content .top input {
+    border-bottom: 1px solid #000;
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.content .top textarea {
+    height: 17rem;
+    background-color: #00000010;
+}
+
+/* builder */
+.content .builder {
+    margin-top: 1rem;
+}
+
+.content .builder .single {
+    width: 100%;
+
+    border-top: 1px solid #21212120;
+    padding: 1rem 0;
+}
+
+.content .builder .single .settings {
+    width: fit-content;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.content .builder .single .settings select {
+    background-color: transparent;
+    border: 0;
+    padding: .1rem;
+    border-bottom: 1px solid #000;
+    font-size: 1rem;
+    margin: 0 1rem;
+    outline: none;
+}
+
+.content .builder .single .settings select option {
+    font-size: .85rem;
+}
+
+.content .builder .single .settings a {
+    cursor: pointer;
+}
+
+.content .builder .single .input {
+    width: 100%;
+    display: flex;
+    margin-top: 1rem;
+}
+
+.content .builder .single .input .important {
+    margin-left: auto;
+    width: fit-content;
+}
+
+.content .builder .single .input input:enabled {
+    background-color: transparent;
+    border: 0;
+    padding: .25rem;
+    border-bottom: 1px solid #000;
+    font-size: 1rem;
+    margin-left: 1rem;
+    outline: none;
+}
+
+.content .builder .single .input input:disabled {
+    opacity: 50%;
+    background-color: #00000010;
+    border: 0;
+    padding: .25rem;
+    border-bottom: 1px solid #000;
+    font-size: 1rem;
+    margin-left: 1rem;
+    outline: none;
+}
+
+.content .builder .single .input .title {
+    width: 70%;
+}
+
+.content .builder .single .input .title input {
+    width: 100%;
+}
+
+.content .builder .single .input .description {
+    width: 100%;
+}
+
+.content .builder .single .input .description textarea {
+    width: 100%;
+    resize: none;
+    height: 10rem;
+    outline: none;
+    padding: .5rem;
+    border: 0;
+    background-color: #00000010;
+}
+
+.content .builder-settings {
+    width: fit-content;
+    margin-left: auto;
+}
+
+.content .builder-settings a {
+    cursor: pointer;
+}
+
+.content .builder-settings a span {
+    font-size: 1.75rem;
+}
+
+.content .btn  {
+    display: flex;
+    gap: 2rem;
+}
+
+.content .btn input, .content .btn a {
+    border: 0;
+    background-color: #00000020;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    border-radius: .5rem;
+
+    color: #000;
+    text-decoration: none;
+    font-size: .95rem;
+}
