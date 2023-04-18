@@ -56,6 +56,9 @@ include("../../private/intranet/assets/nav.php")
                     </div>
 
                     <div class="information">
+                        <?php
+                            if(!empty($event["date_from"])) {
+                        ?>
                         <h6>Datum: </h6>
                         <p>
                             <?php
@@ -73,6 +76,11 @@ include("../../private/intranet/assets/nav.php")
                                 echo(date("H:i", strtotime($event["date_from"])) . " - ". date("H:i", strtotime($event["date_to"])));
                             ?>
                         </p>
+
+                        <?php
+                        }
+                        ?>
+
                         <?php
                         if(isset($event["location"])) {
                             echo '

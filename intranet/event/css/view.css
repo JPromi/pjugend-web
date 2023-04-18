@@ -19,22 +19,25 @@
 .content .left {
     overflow: auto;
     width: 25rem;
-
+    height: 100%;
     gap: 2rem;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .content .left .main {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: fit-content;
+    height: 100%;
     gap: 2rem;
 }
 
 .content .left .main .image {
     width: 100%;
     height: 45%;
+    overflow: hidden;
 }
 
 .content .left .main .image img {
