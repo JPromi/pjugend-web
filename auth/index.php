@@ -74,7 +74,7 @@
         <!--login-->
         <section class="login <?php echo($error)?>">
             <div class="title">
-                <img src="https://<?php echo($domain["cdn"]);?>/logo/pjugend/logo.svg">
+                <img src="https://<?php echo($domain["cdn"]);?>/logo/pjugend/p_jugend-blue.svg">
                 <h1>Intranet Login</h1>
             </div>
             
