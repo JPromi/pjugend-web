@@ -12,7 +12,6 @@ if(!(in_array("form", $dbSESSION_perm))) {
     header("Location: ../form");
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -55,34 +54,52 @@ include("../../private/intranet/assets/nav.php")
 
                     <div class="element">
                         <h3>Mitglieder</h3>
-                        <label>Dieses Feature wird bald verfügbar sein</label>
-                        <div class="list">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Bearbeiten</th>
-                                        <th>Betrachter</th>
-                                        <th>Benutzer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" name="editor[]" value="1">
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" name="viewer[]" value="1">
-                                        </td>
-                                        <td>
-                                            <p>Jonas Prominzer</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <p>Bearbeiter / Betrachter hinzufügen</p>
+                        <a onclick="alertadd('member')">
+                            <span class="material-symbols-outlined">
+                            add
+                            </span>
+                        </a>
                     </div>
 
                 </div>
+            </div>
+
+            <!--advanced settings-->
+            <div class="alertbox disabled member" id="member">
+                <h1>Mitglieder</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bearbeiten</th>
+                                <th>Betrachter</th>
+                                <th>Benutzer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $users = "SELECT id, firstname, lastname, username FROM `accounts` WHERE NOT id = '".$dbSESSION["user_id"]."'";
+                            $users = $con_new->query($users);
+
+                            while ($user = $users->fetch_assoc()) {
+                                echo '
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="editor[]" value="'.$user["id"].'">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="viewer[]" value="'.$user["id"].'">
+                                    </td>
+                                    <td>
+                                        <p>'.$user["firstname"].' '.$user["lastname"].'</p>
+                                    </td>
+                                </tr>
+                                ';
+                            };
+                            ?>
+                            
+                        </tbody>
+                    </table>
             </div>
 
             <div class="back disabled" id="back" onclick="removealert()">
@@ -138,13 +155,26 @@ if(!(empty($_POST["submit"]))) {
 
     $tableArray = array();
 
+    //permissions
+    $viewerID = array();
+    $editorID = array();
+
+    if(!empty($_POST["editor"])) {
+        $editorID = implode(";", $_POST["editor"]);
+    };
+
+    if(!empty($_POST["viewer"])) {
+        $viewerID = implode(";", $_POST["viewer"]);
+    };
+
     //insert into form settings
-    $addForm = "INSERT INTO `form`    (`title`, `description`, `owner`) VALUES
-                                        ('$PostTitle', '$PostDesc', '$ownerID')";
+    $addForm = "INSERT INTO `form`    (`title`, `description`, `owner`, `result_viewer`, `user_edit`) VALUES
+                                        ('$PostTitle', '$PostDesc', '$ownerID', '$viewerID', '$editorID')";
     $con_public->query($addForm);
     $formID = $con_public->insert_id;
 
     //insert in form index
+    if (!empty($_POST["type"])) {
     for ($i=0; $i < count($_POST["type"]); $i++) {
         $required = "0";
         if(!($_POST["type"] == "")) {
@@ -177,7 +207,7 @@ if(!(empty($_POST["submit"]))) {
         )";
         
     $con_form_new->query($createTable);
-
+    }
     //go back
     echo('<meta http-equiv="refresh" content="0; url=view?id='.$formID.'">');
 }
