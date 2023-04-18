@@ -181,6 +181,7 @@ include("../../private/intranet/assets/nav.php")
                 <div class="btn">
                     <input type="submit" value="Speichern" name="submit">
                     <input type="submit" value="Abbrechen" name="cancle">
+                    <input type="submit" value="Löschen" name="delete">
                 </div>
             </div>
         </form>
@@ -242,6 +243,24 @@ if(!empty($_POST["submit"])) {
 
     echo '<meta http-equiv="refresh" content="0; url=view?id='.$eventID.'">';
     
+} else if (!empty($_POST["delete"])) {
+
+    //remove cover
+    if(!(empty($_POST["coverDel"]))) {
+        unlink('../../cdn/event/image/img-t_'. substr(md5($eventID), 5) .'.jpg');
+    }
+
+    //remove links
+    $removeLinks = "DELETE FROM `event_link` WHERE `event_id`='$eventID'";
+    mysqli_query($con_public, $removeLinks);
+
+    //remove event
+    $removeEvent = "DELETE FROM `event` WHERE `id`='$eventID'";
+    mysqli_query($con_public, $removeEvent);
+
+    echo '<meta http-equiv="refresh" content="0; url=../event">';
+
+
 } else if (!empty($_POST["cancle"])) {
     echo '<meta http-equiv="refresh" content="0; url=view?id='.$eventID.'">';
 }
