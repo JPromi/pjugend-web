@@ -85,14 +85,14 @@ include("../../private/intranet/assets/nav.php")
                     if(!file_exists($img_path)){
                         $img_path = 'https://'.$domain["cdn"].'/event/placeholder/image.png';
                     } else {
-                        $img_path = 'https://'.$domain["cdn"].'/event/image/img-t_'. $event["id"].'.jpg';
+                        $img_path = 'https://'.$domain["cdn"].'/event/image/img-t_'. substr(md5($event["id"]), 5) .'.jpg';
                     };
                     ?>
                     <img src="<?php echo($img_path); ?>" id="cover" data-original-file="<?php echo($img_path); ?>">
 
                     <div class="btn">
                         <label>
-                            <input type="file" name="cover" dragable onchange="CoverimagePreview()" accept="image/jpeg">
+                            <input type="file" name="cover" dragable onchange="CoverimagePreview()" accept="image/jpeg, image/png">
                             <span class="material-symbols-outlined">
                             upload
                             </span>
@@ -100,7 +100,7 @@ include("../../private/intranet/assets/nav.php")
                         <label>
                         <?php
                         echo '
-                        <input id="coverDel" type="checkbox" onclick="coverDelete(`'.$domain["cdn"].'`)">
+                        <input id="coverDel" type="checkbox" name="coverDel" onclick="coverDelete(`'.$domain["cdn"].'`)">
                         ';
                         ?>
                             
@@ -196,53 +196,74 @@ include("../../private/intranet/assets/scripts-bottom.php")
 
 <?php
 if(!empty($_POST["submit"])) {
-    $Ptitle = htmlspecialchars($_POST["title"]);
-    $Pdescription = htmlspecialchars($_POST["description"]);
+    $Ptitle = valueCheck(htmlspecialchars($_POST["title"]));
+    $Pdescription = valueCheck(htmlspecialchars($_POST["description"]));
 
-    if(!(empty($_POST["date_from"]))) {
-        $Pdate_from = date("Y-m-d H:i", strtotime($_POST["date_from"]));
-    } else {
-        $Pdate_from = "";
-    };
-
-    if(!(empty($_POST["date_to"]))) {
-        $Pdate_to = date("Y-m-d H:i", strtotime($_POST["date_to"]));
-    } else {
-        $Pdate_to = "";
-    };
+    $Pdate_from = valueCheckDate($_POST["date_from"]);
+    $Pdate_to = valueCheckDate($_POST["date_to"]);
     
-    $Page_from = $_POST["age_from"];
-    $Page_to = $_POST["age_to"];
-    $Plocation = htmlspecialchars($_POST["location"]);
-    $eventID = $eventID;
+    $Page_from = valueCheck($_POST["age_from"]);
+    $Page_to =  valueCheck($_POST["age_to"]);
+    $Plocation = valueCheck($_POST["location"]);
     //$Pprice = $_POST["price"];
     //$Pspec_group = $_POST["only_specific_group"];
     $Porganizer = implode(";", $_POST["organizer"]);
+
     echo($Porganizer);
     $updateEvent = "UPDATE `event` SET 
-                                        `title` = '$Ptitle',
-                                        `description` = '$Pdescription',
-                                        `date_from` = '$Pdate_from',
-                                        `date_to` = '$Pdate_to',
-                                        `age_from` = '$Page_from',
-                                        `age_to` = '$Page_to',
-                                        `location` = '$Plocation',
-                                        `organizer` = '$Porganizer'
+                                        `title` = $Ptitle,
+                                        `description` = $Pdescription,
+                                        `date_from` = $Pdate_from,
+                                        `date_to` = $Pdate_to,
+                                        `age_from` = $Page_from,
+                                        `age_to` = $Page_to,
+                                        `location` = $Plocation,
+                                        `organizer` = $Porganizer
                                         WHERE `id`='$eventID'";
     mysqli_query($con_public, $updateEvent);
 
     //links
     $removeLinks = "DELETE FROM `event_link` WHERE `event_id`='$eventID'";
     mysqli_query($con_public, $removeLinks);
+    if (!empty($_POST["link"])) {
+        for ($i=0; $i < count($_POST["link"]); $i++) { 
+            $addLink = "INSERT INTO `event_link` (event_id, title, link) VALUES ('$eventID', ".valueCheck($_POST["linkTitle"][$i]).", ".valueCheck($_POST["link"][$i]).")";
+            mysqli_query($con_public, $addLink);
+        }
+    }
+    //cover
+    if(!(empty($_FILES["cover"]["tmp_name"]))) {
+        move_uploaded_file($_FILES["cover"]["tmp_name"], '../../cdn/event/image/img-t_'. substr(md5($eventID), 5) .'.jpg');
+    }
 
-    for ($i=0; $i < count($_POST["link"]); $i++) { 
-        $addLink = "INSERT INTO `event_link` (event_id, title, link) VALUES ('$eventID', '".$_POST["linkTitle"][$i]."', '".$_POST["link"][$i]."')";
-        mysqli_query($con_public, $addLink);
+    if(!(empty($_POST["coverDel"]))) {
+        unlink('../../cdn/event/image/img-t_'. substr(md5($eventID), 5) .'.jpg');
     }
 
     echo '<meta http-equiv="refresh" content="0; url=view?id='.$eventID.'">';
     
 } else if (!empty($_POST["cancle"])) {
     echo '<meta http-equiv="refresh" content="0; url=view?id='.$eventID.'">';
+}
+
+// function value checker for null
+function valueCheck($input)
+{
+    if($input == "") {
+        $input = "NULL";
+    } else {
+        $input = "'". $input ."'";
+    }
+    return $input;
+}
+
+function valueCheckDate($input)
+{
+    if($input == "") {
+        $input = "NULL";
+    } else {
+        $input = "'". date("Y-m-d H:i", strtotime($input)) ."'";
+    }
+    return $input;
 }
 ?>
