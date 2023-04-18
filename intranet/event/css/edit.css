@@ -45,7 +45,17 @@
 }
 
 .content .left .image .btn label {
+    display: flex;
     cursor: pointer;
+    background-color: #ffffff;
+    padding: .1rem;
+    border-radius: .25rem;
+    opacity: 50%;
+    transition: opacity ease-in-out 150ms;
+}
+
+.content .left .image .btn label:hover {
+    opacity: 75%;
 }
 
 .content .left .image .btn input {
