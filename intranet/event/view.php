@@ -44,7 +44,15 @@ include("../../private/intranet/assets/nav.php")
             <div class="left">
                 <div class="main">
                     <div class="image">
-                        <img src="https://cdn.pjugend.jpromi.com/event/placeholder/image.png">
+                    <?php
+                    $img_path = '../../cdn/event/image/img-t_'. substr(md5($event["id"]), 5).'.jpg';
+                    if(!file_exists($img_path)){
+                        $img_path = 'https://'.$domain["cdn"].'/event/placeholder/image.png';
+                    } else {
+                        $img_path = 'https://'.$domain["cdn"].'/event/image/img-t_'. substr(md5($event["id"]), 5) .'.jpg';
+                    };
+                    ?>
+                    <img src="<?php echo($img_path); ?>">
                     </div>
 
                     <div class="information">
