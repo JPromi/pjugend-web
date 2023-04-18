@@ -7,7 +7,7 @@ include("../../private/database/public.php");
 ?>
 
 <?php
-if(!(in_array("admin", $dbSESSION_perm))) {
+if(!(in_array("event", $dbSESSION_perm))) {
     header("Location: ../event");
     exit();
 }
