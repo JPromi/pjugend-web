@@ -18,7 +18,7 @@ if(empty($event)) {
     exit();
 };
 
-if(!(in_array($dbSESSION["user_id"], explode(";", $event["organizer"]))) && !(in_array("admin", $dbSESSION_perm))) {
+if(!(in_array($dbSESSION["user_id"], explode(";", $event["organizer"]))) && !(in_array("jugendteam_admin", $dbSESSION_perm))) {
     header("Location: ../event");
     exit();
 }
