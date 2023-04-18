@@ -8,4 +8,9 @@ $domain  = array(
     "default" =>    "pjugend.jpromi.com" //doamin for default
 );
 
+$conf_title  = array(
+    "intranet" =>   "P'Jugend", //used in titel intranet
+    "web" =>   "P'Jugend", //used in titel public side
+);
+
 ?>
