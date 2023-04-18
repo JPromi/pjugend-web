@@ -9,8 +9,9 @@ $dbSESSION = $dbSESSION->fetch_assoc();
 
 
 //get all perms from user
-$userPermissions = $con_new->query("SELECT permission FROM accounts WHERE `id`='".$dbSESSION["user_id"]."'");
+$userPermissions = $con_new->query("SELECT permission, permission_group FROM accounts WHERE `id`='".$dbSESSION["user_id"]."'");
 $userPermissions = $userPermissions->fetch_assoc();
+$userPermissionsGroup = explode(";", $userPermissions["permission_group"]);
 $userPermissions = explode(";", $userPermissions["permission"]);
 
 //get all perms
@@ -38,6 +39,28 @@ foreach ($userPermissions as $perms) {
     }
 }
 
+
+//select permission group from table
+foreach ($userPermissionsGroup as $permGroupID) {
+
+    //select permission from permission group
+    $permGroup = $con_new->query("SELECT * FROM permissions_group WHERE `id`='$permGroupID'");
+    $permGroup = $permGroup->fetch_assoc();
+    $permGroup = explode(";", $permGroup["permission_ids"]);
+
+    foreach ($permGroup as $permID) {
+        //check if array element is empty
+        if (!($permID == "")) {
+            //select name from permission table
+            $getPermDB = $con_new->query("SELECT * FROM `permissions` WHERE `id`='$permID'");
+            $getPermDB = $getPermDB->fetch_assoc();
+
+            //set perm
+            array_push($dbSESSION_perm, $getPermDB['perm']);
+        }
+    }
+}
+
 //check if user has admin permission
 if (in_array("admin", $dbSESSION_perm)) {
     //forech every permission
@@ -51,9 +74,8 @@ if (in_array("admin", $dbSESSION_perm)) {
         //set perm
         array_push($dbSESSION_perm, $getPermDB['perm']);
     }
-
-    //remove double entries
-    $dbSESSION_perm = array_unique($dbSESSION_perm);
 }
 
+//remove double enties
+$dbSESSION_perm = array_unique($dbSESSION_perm);
 ?>
