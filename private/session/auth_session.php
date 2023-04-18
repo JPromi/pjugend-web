@@ -4,8 +4,6 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
 ?>
 
 <?php
-    //session_start();
-    //if(!isset($_SESSION["username"])) {
     if (empty($dbSESSION)) {
 
         //set redirect
