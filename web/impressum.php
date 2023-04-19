@@ -37,6 +37,7 @@ include '../private/web/assets/nav.php';
         <div class="article">
             <h4>Bildmaterial</h4>
             <p>Jonas Prominzer</p>
+            <p>Pixabay</p>
         </div>
    </section>
 </body>
