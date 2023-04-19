@@ -81,6 +81,8 @@ nav .right .profile img {
     display: flex;
     flex-direction: column;
     min-width: 25rem;
+
+    z-index: 200;
 }
 
 .accountmenu.hidden {
