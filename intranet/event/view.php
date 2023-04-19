@@ -115,7 +115,7 @@ include("../../private/intranet/assets/nav.php")
                 <div class="tools">
                     <?php
                     $organizerIDs = explode(";", $event["organizer"]);
-                    if(in_array($dbSESSION["user_id"], $organizerIDs) || in_array("admin", $dbSESSION_perm)) {
+                    if(in_array($dbSESSION["user_id"], $organizerIDs) || in_array("jugendteam_admin", $dbSESSION_perm)) {
                         ?>
                         <button onclick="window.location.href=`/event/edit?id=<?php echo($eventID); ?>`">
                             <span class="material-symbols-outlined">
