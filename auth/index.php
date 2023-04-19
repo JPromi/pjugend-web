@@ -32,44 +32,73 @@ include '../private/config.php';
         $username = mysqli_real_escape_string($con, $username);
         $password = stripslashes($_REQUEST['password']);
         $password = mysqli_real_escape_string($con, $password);
-        // Check user is exist in the database
-        $query    = "SELECT * FROM `accounts` WHERE username='$username' AND
-                     password='" . md5($password) . "'";
-        $result = mysqli_query($con, $query);
-        $rows = mysqli_num_rows($result);
 
-        //get other informations of user
-        $resultsOT = $con_new->query($query);
-                $rowsOT = $resultsOT->fetch_assoc();
+        //log login
+        $LOG_IP = $_SERVER['REMOTE_ADDR'];
 
-        if ($rows == 1) {
-            $error = "";
-            $coockie_hash = bin2hex(random_bytes(40));
-            setcookie("SESSION_ID", $coockie_hash, time() + (86400 * 7), "", ".".$domain["default"]);
-            $generateSession =    "INSERT INTO `session` 
-                        (user_id, username, firstname, lastname, cookie_hash, used_for)
-                        VALUES
-                        ('".$rowsOT['id']."', '".$rowsOT['username']."', '".$rowsOT['firstname']."', '".$rowsOT['lastname']."', '$coockie_hash', 'web')";
-            mysqli_query($con_new, $generateSession);
+        //failed attemps
+        $failed = "SELECT * FROM `login_log` WHERE username = '$username'";
+        $failed = mysqli_query($con, $failed);
 
-            // Set log var
-            $LOG_IP = $_SERVER['REMOTE_ADDR'];
-            $LOG_USERID = $rowsOT['id'];
+        $failedCounterIP = 0;
+        $failedCounter = 0;
+
+        while ($fa = $failed->fetch_assoc()) {
+            
+            if(strtotime(date("Y-m-d h:i", strtotime("-3 minutes"))) <= strtotime($fa["timestamp"])) {
+                if($fa["ip"] == $LOG_IP) {
+                $failedCounterIP++;
+                }
+                $failedCounter++;
+            }
+
+            if($fa["status"] == "login") {
+                $failedCounterIP = 0;
+                $failedCounter = 0;
+            }
+
+        }
+
+        if($failedCounter <= 10) {
+            // Check user is exist in the database
+            // ARGON2ID
+            $verify = "SELECT * FROM `accounts` WHERE username = '$username'";
+            $verify = mysqli_query($con, $verify);
+            $verify = $verify->fetch_assoc();
+        
+            $passwordVerify = password_verify($password, $verify["password"]);
+
+            if ($passwordVerify == 1) {
+                $loginStatus = "login";
+                $error = "";
+                $coockie_hash = bin2hex(random_bytes(40));
+                setcookie("SESSION_ID", $coockie_hash, time() + (86400 * 7), "", ".".$domain["default"]);
+                $generateSession =    "INSERT INTO `session` 
+                            (user_id, username, firstname, lastname, cookie_hash, used_for)
+                            VALUES
+                            ('".$verify['id']."', '".$verify['username']."', '".$verify['firstname']."', '".$verify['lastname']."', '$coockie_hash', 'web')";
+                mysqli_query($con_new, $generateSession);
+
+                // Set log var
+                $userID = "'".$verify['id']."'";
+
+                // Redirect to user home page
+                header("Location: /redirect".$redirect_url);
+            } else {
+                $loginStatus = "error";
+                $error = "loginerror";
+                $userID = "NULL";
+            }
 
             //log login
-            $loginlog_query =    "INSERT INTO `login_log` 
-                        (user_id, 
-                        ip)
-                        VALUES 
-                        ('$LOG_USERID',
-                        '$LOG_IP')";
-            mysqli_query($con_new, $loginlog_query);
-            
-            // Redirect to user home page
-            header("Location: /redirect".$redirect_url);
+            mysqli_query($con_new, "INSERT INTO `login_log` (username, ip, `status`, user_id) VALUES ('$username', '$LOG_IP', '$loginStatus', $userID)");
         } else {
-            $error = "loginerror";
+            $error = "attempts";
         }
+
+        
+
+
     }
 ?>
 <body>
@@ -114,6 +143,8 @@ include '../private/config.php';
     <?php
         if ($error == "loginerror") {
             echo "<p class='error'>Flasches Passwort oder Benutzername</p>";
+        } else if ($error == "attempts") {
+            echo "<p class='error'>Zu viele Versuche, versuche es in 3 min wieder</p>";
         }
     ?>
 
