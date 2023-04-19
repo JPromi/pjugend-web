@@ -98,7 +98,7 @@ include '../../private/web/assets/nav.php';
                             $organizer = $con_new->query($organizer);
 
                             while ($person = $organizer->fetch_assoc()) {
-                                echo($person["firstname"] . " " . $person["lastname"] . "<br>");
+                                echo($person["firstname"] . " " . substr($person["lastname"], 0, 2) . ".<br>");
                             }
                         ?>
                     </p>
