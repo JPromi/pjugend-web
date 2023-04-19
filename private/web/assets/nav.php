@@ -15,7 +15,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/session/get_session.php");
             <div class="line3"></div>
         </div>
         
-        <div class="content">
+        <div class="nav">
             <div class="left">
                 <a href="/">
                     <img src="https://<?php echo($domain["cdn"]);?>/logo/pjugend/p_jugend-blue.svg">
