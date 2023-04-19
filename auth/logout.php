@@ -6,6 +6,8 @@
 
     //delete cookie
     setcookie("SESSION_ID", "", 0, "", ".".$domain["default"]);
-    
-    header("Location: https://".$domain["auth"]."/");
+    if(isset($_GET["direct"])) {
+        $parameter = "?direct=".$_GET["direct"];
+    }
+    header("Location: https://".$domain["auth"]."/".$parameter);
 ?>
