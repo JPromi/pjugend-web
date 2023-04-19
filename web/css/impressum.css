@@ -1,0 +1,14 @@
+.content {
+    margin: 7rem auto 20rem auto;
+    background-color: #ffffff;
+    box-shadow: .5rem .5rem 5rem #00000050;
+    border-radius: 1rem;
+    padding: 1rem;
+    width: fit-content;
+    min-width: 50%;
+    max-width: 95%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
