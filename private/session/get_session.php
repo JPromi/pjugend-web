@@ -19,6 +19,7 @@ $allPermDB = $con_new->query("SELECT `id` FROM `permissions`");
 
 //set user permissions
 $dbSESSION_perm = array();
+$dbSESSION_group = array();
 foreach ($userPermissions as $perms) {
     $explodePermID = explode(";", $perms);
 
@@ -46,6 +47,9 @@ foreach ($userPermissionsGroup as $permGroupID) {
     //select permission from permission group
     $permGroup = $con_new->query("SELECT * FROM permissions_group WHERE `id`='$permGroupID'");
     $permGroup = $permGroup->fetch_assoc();
+
+    array_push($dbSESSION_group, $permGroup["perm"]);
+
     $permGroup = explode(";", $permGroup["permission_ids"]);
 
     foreach ($permGroup as $permID) {
