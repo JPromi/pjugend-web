@@ -90,7 +90,7 @@ include '../private/web/assets/nav.php';
     <div class="content">
         <?php
         $pageLimit = 10;
-        $allEvents = "SELECT * FROM `event` WHERE only_specific_group = '0'";
+        $allEvents = "SELECT * FROM `event` WHERE only_specific_group = '0' AND visibility = 'all'";
         $allEvents = $con_public_new->query($allEvents);
         $eventsIds = array();
 
