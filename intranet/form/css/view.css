@@ -7,6 +7,16 @@
     box-shadow: 0.25rem 0.25rem 2rem #21212120;
 }
 
+.content .settings {
+    display: flex;
+    gap: 1rem;
+}
+
+.content .settings a {
+    display: flex;
+    cursor: pointer;
+}
+
 /* header informations */
 .content .top {
     display: flex;
