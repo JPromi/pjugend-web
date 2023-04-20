@@ -141,7 +141,7 @@ if(isset($_POST["submit"])) {
     $email          = checkInput($_POST["email"]);
 
     $show_age       = checkBoolean($_POST["show_age"]);
-    $disabled       = checkBoolean($_POST["disabled"]);
+    $disabled       = checkBoolean($_POST["disable"]);
     $user_id        = $dbSESSION["user_id"];
 
 
