@@ -18,7 +18,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/session/get_session.php");
         <div class="nav">
             <div class="left">
                 <a href="/">
-                    <img src="https://<?php echo($domain["cdn"]);?>/logo/pjugend/p_jugend-blue.svg">
+                    <img src="https://<?php echo($domain["cdn"]);?>/logo/pjugend/p_jugend-white.svg">
                 </a>
                 <a href="/events">Veranstaltungen</a>
                 <a href="/gallery">Galerie</a>
