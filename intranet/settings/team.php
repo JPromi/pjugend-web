@@ -147,7 +147,7 @@ if(isset($_POST["submit"])) {
 
     //entry
     if(!empty($teamProfile)) {
-        $profileUpdate = "UPDATE team SET `name` = $name, `description` = $description, `show_age` = $show_age, `focus` = $focus, `email` = $email, `user_id` = $user_id, `disabled` = $disabled WHERE id = '$user_id'";
+        $profileUpdate = "UPDATE team SET `name` = $name, `description` = $description, `show_age` = $show_age, `focus` = $focus, `email` = $email, `user_id` = $user_id, `disabled` = $disabled WHERE user_id = '$user_id'";
         $con_public->query($profileUpdate);
     } else {
         $profileInsert = "INSERT INTO team (`name`, `description`, `show_age`, `focus`, `email`, `user_id`, `disabled`) VALUE ($name, $description, '$show_age', $focus, $email, '$user_id', '$disabled')";
@@ -169,7 +169,7 @@ if(isset($_POST["submit"])) {
         unlink('../../cdn/profile/team/picture/im_p-'.substr(md5($user_id), 0, 10).$user_id.'.jpg');
     }
 
-    echo '<meta http-equiv="refresh" content="0; url=team">';
+    //echo '<meta http-equiv="refresh" content="0; url=team">';
 }
 ?>
 <?php
