@@ -35,3 +35,17 @@
 .error {
     color: #ff0000;
 }
+
+@media screen and (max-width: 600px) {
+    .set .block label {
+        flex-direction: column;
+    }
+
+    .set .block label input[type=text],
+    .set .block label input[type=email],
+    .set .block label input[type=password],
+    .set .block label input[type=date] {
+        min-width: 100%;
+        width: 100%;
+    }
+}

@@ -26,3 +26,24 @@ span {
     width: 100%;
     overflow: auto;
 }
+
+@media screen and (max-width: 1000px) {
+    .content {
+        min-height: 100%;
+        max-height: fit-content;
+        height: fit-content;
+    }
+
+    .content .settings {
+        flex-direction: column;
+        overflow: visible;
+        height: fit-content;
+
+        margin: 0 1rem 1rem 1rem;
+    }
+
+    .content .settings .middle {
+        height: fit-content;
+        overflow: visible;
+    }
+}
