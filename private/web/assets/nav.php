@@ -31,10 +31,10 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/session/get_session.php");
                 if(isset($dbSESSION)) {
 
                     //profile picture checker
-                    $img_profile_root = $_SERVER["DOCUMENT_ROOT"]."/../cdn/profile/picture/im_p-".md5($dbSESSION["user_id"]).".jpg";
+                    $img_profile_root = $_SERVER["DOCUMENT_ROOT"]."/../cdn/profile/picture/im_p-".substr(md5($dbSESSION["user_id"]), 0, 10).$dbSESSION["user_id"].'.jpg';
 
                     if(file_exists($img_profile_root)) {
-                        $img_profile_path = "https://".$domain["cdn"]."/profile/picture/im_p-".md5($dbSESSION["user_id"]).".jpg";
+                        $img_profile_path = "https://".$domain["cdn"]."/profile/picture/im_p-".substr(md5($dbSESSION["user_id"]), 0, 10).$dbSESSION["user_id"].".jpg";
                     } else {
                         $img_profile_path = "https://".$domain["cdn"]."/profile/placeholder/picture.jpg";
                     }
