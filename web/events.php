@@ -158,7 +158,7 @@ include '../private/web/assets/nav.php';
             if(file_exists($event_img_root_path)) {
                 $event_img_path = "https://".$domain["cdn"].'/event/image/img-t_'.substr(md5($event["id"]), 5).'.jpg';
             } else {
-                $event_img_path = "https://".$domain["cdn"].'/event/placeholder/image.png';
+                $event_img_path = "";
             }
             ?>
 
