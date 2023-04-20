@@ -1,7 +1,7 @@
 .content {
     width: 50rem;
     background-color: #fff;
-    margin: 3rem auto 0 auto;
+    margin: 3rem auto 2rem auto;
     border-radius: 1rem;
     padding: 1.5rem;
     box-shadow: 0.25rem 0.25rem 2rem #21212120;
@@ -27,6 +27,14 @@
     gap: 1.25rem;
 }
 
+.content .elements .single label {
+    display: flex;
+}
+
+.content .required {
+    color: #ff0000;
+}
+
 .content .elements .single h3 {
     margin-top: 2rem;
 }
@@ -37,6 +45,11 @@
     padding: .25rem;
     background-color: transparent;
     outline: none;
+}
+
+.content .required.info {
+    margin-top: 2rem;
+    opacity: .5;
 }
 
 .content .btn {

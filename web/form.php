@@ -51,9 +51,18 @@ include '../private/web/assets/nav.php';
 
                 while ($formElement = $formIndex->fetch_assoc()) {
                     echo '<div class="single">';
+
+                    if($formElement["required"] == "1") {
+                        $thisRequired = "required";
+                        $requiredStard = '<p class="required">*</p>';
+                    } else {
+                        $thisRequired = "";
+                        $requiredStard = "";
+                    }
+
                     if(!(in_array($formElement["type"], $noInputs))) {
                         echo '
-                            <label>'.$formElement["title"].'<input type="'.$formElement["type"].'" name="form_field'.$formElement["place_index"].'"></label>
+                            <label>'.$requiredStard.' '.$formElement["title"].'<input type="'.$formElement["type"].'" name="form_field'.$formElement["place_index"].'" '.$thisRequired.'></label>
                         ';
                     } else if($formElement["type"] == "stTitle") {
                         echo '
@@ -69,6 +78,7 @@ include '../private/web/assets/nav.php';
                 ?>
             </div>
             </div>
+            <p class="required info">* = Pflichtfeld</p>
             <div class="btn">
                 <input type="submit" name="submit" value="Speichern">
             </div>
