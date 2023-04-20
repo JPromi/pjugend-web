@@ -62,7 +62,7 @@ include '../private/web/assets/nav.php';
 
                     if(!(in_array($formElement["type"], $noInputs))) {
                         echo '
-                            <label>'.$requiredStard.' '.$formElement["title"].'<input type="'.$formElement["type"].'" name="form_field'.$formElement["place_index"].'" '.$thisRequired.'></label>
+                            <label>'.$requiredStard.' '.$formElement["title"].'<input type="'.$formElement["type"].'" name="form_field'.$formElement["id"].'" '.$thisRequired.'></label>
                         ';
                     } else if($formElement["type"] == "stTitle") {
                         echo '

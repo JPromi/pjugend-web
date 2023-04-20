@@ -192,7 +192,9 @@ if(!(empty($_POST["submit"]))) {
                                                         ('$formID', '$placeIndex', '$title','$type' , '$required')";
             $con_public->query($addFormIndex);
 
-            array_push($tableArray, "form_field" . $i+1 . " VARCHAR(255)");
+            $formFieldID = $con_public->insert_id;
+
+            array_push($tableArray, "form_field" . $formFieldID . " VARCHAR(255)");
         }
     }
 
