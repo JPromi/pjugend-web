@@ -1,0 +1,23 @@
+.content .left {
+    width: 15%;
+    background-color: #4595a310;
+    padding: 1rem;
+}
+
+.content .left .links {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+    padding-left: .25rem;
+}
+
+.content .left .links a {
+    gap: .5rem;
+    font-size: 1.1rem;
+    display: flex;
+    color: #000;
+    text-decoration: none;
+    width: fit-content;
+}
