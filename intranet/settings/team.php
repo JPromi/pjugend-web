@@ -169,7 +169,7 @@ if(isset($_POST["submit"])) {
         unlink('../../cdn/profile/team/picture/im_p-'.substr(md5($user_id), 0, 10).$user_id.'.jpg');
     }
 
-    //echo '<meta http-equiv="refresh" content="0; url=team">';
+    echo '<meta http-equiv="refresh" content="0; url=team">';
 }
 ?>
 <?php
