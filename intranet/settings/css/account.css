@@ -15,6 +15,10 @@
     border-bottom: 1px solid #00000020;
 }
 
+.set .block label {
+    width: fit-content;
+}
+
 .set .block label input[type=text],
 .set .block label input[type=email],
 .set .block label input[type=password],
