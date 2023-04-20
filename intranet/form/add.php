@@ -194,7 +194,7 @@ if(!(empty($_POST["submit"]))) {
 
             $formFieldID = $con_public->insert_id;
 
-            array_push($tableArray, "form_field" . $formFieldID . " VARCHAR(255)");
+            array_push($tableArray, "form_field" . $formFieldID . " TEXT");
         }
     }
 
