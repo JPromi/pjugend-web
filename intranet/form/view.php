@@ -53,11 +53,27 @@ include("../../private/intranet/assets/nav.php")
         <!--normal content-->
         <div class="top">
             <div class="settings">
-                <a href="result?id=<?php echo($form["id"]); ?>">
+
+                <a href="result?id=<?php echo($form["id"]); ?>" title="Ergebnisse">
                     <span class="material-symbols-outlined">
                     menu_book
                     </span>
                 </a>
+
+                <a href="https://<?php echo($domain["web"]); ?>/form?id=<?php echo($form["id"]); ?>" title="Formular">
+                    <span class="material-symbols-outlined">
+                    description
+                    </span>
+                </a>
+
+                <a onclick="copy('https://<?php echo($domain['web']); ?>/form?id=<?php echo($form['id']); ?>')" title="In Zwischenablage kopieren">
+                    <span class="material-symbols-outlined">
+                    content_copy
+                    </span>
+                </a>
+
+                <script src="js/copy.js"></script>
+
             </div>
             <h2><?php echo($form["title"]); ?></h2>
             <p><?php echo(str_replace("\n", "<br>", $form["title"])); ?></p>
