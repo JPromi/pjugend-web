@@ -29,7 +29,7 @@ if(isset($_POST["submit"])) {
         move_uploaded_file($_FILES["profile_picture"]["tmp_name"], '../../cdn/profile/picture/im_p-'.substr(md5($account["id"]), 0, 10).$account["id"].'.jpg');
     }
 
-    if($_POST["profile_picture_delete"] == "1") {
+    if(isset($_POST["profile_picture_delete"])) {
         unlink('../../cdn/profile/picture/im_p-'.substr(md5($account["id"]), 0, 10).$account["id"].'.jpg');
     }
 
