@@ -43,7 +43,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
 
         <!--Admin Settings-->
         <?php
-        if (in_array("admin", $dbSESSION_perm)) {
+        if (in_array("admin", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
             echo('
             <a href="/admin-settings" id="singlenav" class="navOpen">
                 <span class="material-symbols-outlined icon">admin_panel_settings</span>
