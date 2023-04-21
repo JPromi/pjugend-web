@@ -5,6 +5,13 @@ include("../../private/database/public.php");
 ?>
 
 <?php
+if(!(in_array("jugendteam", $dbSESSION_group))) {
+    header("Location: ../settings");
+    exit();
+}
+?>
+
+<?php
 $userID = $dbSESSION["user_id"];
 $teamProfile = "SELECT * FROM team WHERE user_id = '$userID'";
 $teamProfile = $con_public_new->query($teamProfile);
