@@ -1,0 +1,36 @@
+.middle {
+
+}
+
+.middle table {
+    border-spacing: 0;
+    max-width: 95%;
+    width: 50rem;
+    min-width: fit-content;
+    margin: 2rem auto 0 auto;
+}
+
+.middle table th  {
+    text-align: left;
+    font-size: 1.25rem;
+}
+
+.middle table thead tr th {
+    border-bottom: 1px solid #00000020;
+}
+
+.middle table th, .middle table td  {
+    padding: .5rem 1rem;
+}
+
+.middle table tbody tr {
+    transition: background-color ease-in-out 150ms;
+}
+
+.middle table tbody tr:nth-child(2n+2)  {
+    background-color: #21212110;
+}
+
+.middle table tbody tr:hover  {
+    background-color: #21212125;
+}

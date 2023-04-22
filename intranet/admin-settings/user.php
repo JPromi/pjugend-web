@@ -1,6 +1,7 @@
 <?php
 //include auth_session.php file on all user panel pages
 include("../../private/session/auth_session.php");
+include '../../private/database/int.php';
 ?>
 
 <?php
@@ -21,7 +22,7 @@ if(!(in_array("admin", $dbSESSION_perm))) {
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/admin-settings.css">
+    <link rel="stylesheet" href="css/user.css">
 </head>
 <?php
 //include navigation bar
@@ -43,6 +44,38 @@ include("../../private/intranet/assets/nav.php")
                 - add user
                 - group
             -->
+            <div class="middle">
+
+            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Benutzername</th>
+                            <th>Vorname</th>
+                            <th>Nachname</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $accounts = "SELECT id, username, lastname, firstname FROM accounts ORDER BY firstname";
+                    $accounts = $con_new->query($accounts);
+                    while ($account = $accounts->fetch_assoc()) {
+                        echo '
+                        <tr onclick="window.location.href=`/admin-settings/user/info?id='.$account["id"].'`">
+                            <td>'.$account["id"].'</td>
+                            <td>'.$account["username"].'</td>
+                            <td>'.$account["firstname"].'</td>
+                            <td>'.$account["lastname"].'</td>
+                        </tr>
+                        ';
+                    }
+                    ?>
+
+                    </tbody>
+                </table>
+            </div>
+            
         </div>
     </div>
 
