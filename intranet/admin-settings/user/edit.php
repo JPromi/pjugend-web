@@ -2,6 +2,7 @@
 //include auth_session.php file on all user panel pages
 include("../../../private/session/auth_session.php");
 include("../../../private/database/int.php");
+include("../../../private/intranet/image/profile_picture.php");
 ?>
 
 <?php
@@ -214,14 +215,15 @@ if(isset($_POST["submit"])) {
     $con->query($editUser);
 
     if(!(empty($_FILES["profile_picture"]["tmp_name"]))) {
-        move_uploaded_file($_FILES["profile_picture"]["tmp_name"], '../../../cdn/profile/picture/im_p-'.substr(md5($account["id"]), 0, 10).$account["id"].'.jpg');
+        createProfilePicture($_FILES["profile_picture"]["tmp_name"], $_FILES["profile_picture"]["type"], 'im_p-'.substr(md5($account["id"]), 0, 10).$account["id"]);
     }
 
     if(isset($_POST["profile_picture_delete"])) {
-        unlink('../../../cdn/profile/picture/im_p-'.substr(md5($account["id"]), 0, 10).$account["id"].'.jpg');
+        $mask = '../../../cdn/profile/picture/im_p-'.substr(md5($account["id"]), 0, 10).$account["id"]."*.*";
+        array_map('unlink', glob($mask));
     }
 
-    //echo '<meta http-equiv="refresh" content="0; url=">';
+    echo '<meta http-equiv="refresh" content="0; url=">';
 }
 ?>
 

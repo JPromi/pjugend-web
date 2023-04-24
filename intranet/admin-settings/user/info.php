@@ -77,10 +77,10 @@ include("../../../private/intranet/assets/nav.php")
                         <h3>Profilbild</h3>
                         <?php
                         //grt profile picture
-                        $img_profile_root = "../../../cdn/profile/picture/im_p-".substr(md5($account["id"]), 0, 10).$account["id"].'.jpg';
+                        $img_profile_root = "../../../cdn/profile/picture/im_p-".substr(md5($account["id"]), 0, 10).$account["id"].'-512.jpg';
 
                         if(file_exists($img_profile_root)) {
-                            $img_profile_path = "https://".$domain["cdn"]."/profile/picture/im_p-".substr(md5($account["id"]), 0, 10).$account["id"].".jpg";
+                            $img_profile_path = "https://".$domain["cdn"]."/profile/picture/im_p-".substr(md5($account["id"]), 0, 10).$account["id"]."-512.jpg";
                         } else {
                             $img_profile_path = "https://".$domain["cdn"]."/profile/placeholder/picture.jpg";
                         }
