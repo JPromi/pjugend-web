@@ -169,7 +169,7 @@ if(isset($_POST["submit"])) {
 
     //profile picture
     if(!(empty($_FILES["profile_picture"]["tmp_name"]))) {
-        createTeamPicture($_FILES["profile_picture"]["tmp_name"], $_FILES["profile_picture"]["type"], 'im_p-'.substr(md5($user_id), 0, 10).$user_id.'.jpg');
+        createTeamPicture($_FILES["profile_picture"]["tmp_name"], $_FILES["profile_picture"]["type"], 'im_p-'.substr(md5($user_id), 0, 10).$user_id);
     }
 
     if(isset($_POST["profile_picture_delete"])) {
