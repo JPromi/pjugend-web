@@ -36,9 +36,9 @@ include '../private/web/assets/nav.php';
             $team = $con_public_new->query($team);
 
             while ($person = $team->fetch_assoc()) {
-                $profile_image_root_path = "../cdn/profile/team/picture/im_p-".substr(md5($person["user_id"]), 0, 10).$person["user_id"].'.jpg';
+                $profile_image_root_path = "../cdn/profile/team/picture/im_p-".substr(md5($person["user_id"]), 0, 10).$person["user_id"].'-512.jpg';
                 if(file_exists($profile_image_root_path)) {
-                    $profile_image_path = "https://".$domain["cdn"].'/profile/team/picture/im_p-'.substr(md5($person["user_id"]), 0, 10).$person["user_id"].'.jpg';
+                    $profile_image_path = "https://".$domain["cdn"].'/profile/team/picture/im_p-'.substr(md5($person["user_id"]), 0, 10).$person["user_id"].'-512.jpg';
                 } else {
                     $profile_image_path = "https://".$domain["cdn"].'/profile/placeholder/picture.jpg';
                 }
