@@ -4,6 +4,8 @@ include("../../private/session/auth_session.php");
 
 include("../../private/database/int.php");
 include("../../private/database/public.php");
+
+include("../../private/intranet/image/event_cover.php");
 ?>
 
 <?php
@@ -207,11 +209,12 @@ if(!empty($_POST["submit"])) {
     }
     //cover
     if(!(empty($_FILES["cover"]["tmp_name"]))) {
-        move_uploaded_file($_FILES["cover"]["tmp_name"], '../../cdn/event/image/img-t_'. substr(md5($eventID), 5) .'.jpg');
+        createEventCover($_FILES["cover"]["tmp_name"], $_FILES["cover"]["type"], 'img-t_'. substr(md5($eventID), 5));
     }
 
     if(!(empty($_POST["coverDel"]))) {
-        unlink('../../cdn/event/image/img-t_'. substr(md5($eventID), 5) .'.jpg');
+        $mask = '../../cdn/event/image/img-t_'. substr(md5($eventID), 5) ."*.*";
+        array_map('unlink', glob($mask));
     }
 
     echo '<meta http-equiv="refresh" content="0; url=view?id='.$eventID.'">';
