@@ -20,6 +20,7 @@ if(!(in_array("admin", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSI
     <title>Admin Einstellungen - <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
+    <link rel="stylesheet" href="/admin-settings/css/style.css">
     <link rel="stylesheet" href="css/admin-settings.css">
             
     <?php
@@ -33,8 +34,17 @@ include("../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
     <div class="content">
-        <div class="header">
-            <h4>Admin Einstellungen</h4>
+        <?php
+        include '../private/intranet/admin-settings/header.php';
+        top("Admin Einstellungen");
+        ?>
+        <div class="settings">
+            <?php
+            include '../private/intranet/admin-settings/nav.php';
+            ?>
+            <div class="middle">
+
+            </div>
         </div>
     </div>
     <?php
