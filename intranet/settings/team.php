@@ -2,6 +2,7 @@
 //include auth_session.php file on all user panel pages
 include("../../private/session/auth_session.php");
 include("../../private/database/public.php");
+include("../../private/intranet/image/team_profile.php");
 ?>
 
 <?php
@@ -168,17 +169,19 @@ if(isset($_POST["submit"])) {
 
     //profile picture
     if(!(empty($_FILES["profile_picture"]["tmp_name"]))) {
-        move_uploaded_file($_FILES["profile_picture"]["tmp_name"], '../../cdn/profile/team/picture/im_p-'.substr(md5($user_id), 0, 10).$user_id.'.jpg');
+        createTeamPicture($_FILES["profile_picture"]["tmp_name"], $_FILES["profile_picture"]["type"], 'im_p-'.substr(md5($user_id), 0, 10).$user_id.'.jpg');
     }
 
     if(isset($_POST["profile_picture_delete"])) {
-        unlink('../../cdn/profile/team/picture/im_p-'.substr(md5($user_id), 0, 10).$user_id.'.jpg');
+        $mask = '../../cdn/profile/team/picture/im_p-'.substr(md5($user_id), 0, 10).$user_id."*.*";
+        array_map('unlink', glob($mask));
     }
 
     //delte entry
     if(isset($_POST["delete"])) {
         $con_public->query("DELETE FROM team WHERE user_id = '$user_id'");
-        unlink('../../cdn/profile/team/picture/im_p-'.substr(md5($user_id), 0, 10).$user_id.'.jpg');
+        $mask = '../../cdn/profile/team/picture/im_p-'.substr(md5($user_id), 0, 10).$user_id."*.*";
+        array_map('unlink', glob($mask));
     }
 
     echo '<meta http-equiv="refresh" content="0; url=team">';
