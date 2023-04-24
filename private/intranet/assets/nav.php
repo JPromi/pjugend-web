@@ -29,6 +29,18 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
             <p id="navtext">Notizen</p>
         </a>
 
+        <!--Admin Settings-->
+        <?php
+        if (in_array("news", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
+            echo('
+            <a href="/news" id="singlenav" class="navOpen">
+                <span class="material-symbols-outlined icon">newspaper</span>
+                <p id="navtext">News</p>
+            </a>
+            ');
+        };
+        ?>
+
         <!--Events-->
         <a href="/event" id="singlenav" class="navOpen">
             <span class="material-symbols-outlined icon">event</span>
