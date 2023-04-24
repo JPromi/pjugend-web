@@ -27,6 +27,7 @@
 
 .content .left .image {
     width: 100%;
+    min-height: 17rem;
     height: 45%;
 }
 
