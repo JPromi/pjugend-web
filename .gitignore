@@ -5,3 +5,7 @@
 
 /cdn/event/image
 /cdn/event/flyer
+
+
+# config files
+/private/config.php
