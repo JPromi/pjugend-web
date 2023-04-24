@@ -26,14 +26,6 @@ if(isset($_POST["submit"])) {
     $accountUpdate = $con->query($accountUpdate);
 
     //profile picture
-    /*if(!(empty($_FILES["profile_picture"]["tmp_name"]))) {
-        move_uploaded_file($_FILES["profile_picture"]["tmp_name"], '../../cdn/profile/picture/im_p-'.substr(md5($account["id"]), 0, 10).$account["id"].'.jpg');
-    }
-
-    if(isset($_POST["profile_picture_delete"])) {
-        unlink('../../cdn/profile/picture/im_p-'.substr(md5($account["id"]), 0, 10).$account["id"].'.jpg');
-    }*/
-
     if(!(empty($_FILES["profile_picture"]["tmp_name"]))) {
         createProfilePicture($_FILES["profile_picture"]["tmp_name"], $_FILES["profile_picture"]["type"], 'im_p-'.substr(md5($account["id"]), 0, 10).$account["id"]);
     }
