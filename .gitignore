@@ -9,3 +9,6 @@
 
 # config files
 /private/config.php
+
+# not relevant files
+.clocignore
