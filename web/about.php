@@ -32,7 +32,7 @@ include '../private/web/assets/nav.php';
 
         <div class="persons">
             <?php
-            $team = "SELECT * FROM `team` WHERE NOT `disabled` = '1'";
+            $team = "SELECT * FROM `team` WHERE NOT `disabled` = '1' ORDER BY `name`";
             $team = $con_public_new->query($team);
 
             while ($person = $team->fetch_assoc()) {
