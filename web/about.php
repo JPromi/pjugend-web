@@ -14,6 +14,11 @@ include '../private/database/int.php';
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/about.css">
+    
+    <?php
+    include '../private/favicon/main.php';
+    ?>
+    
 </head>
 
 <?php

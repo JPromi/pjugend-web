@@ -28,6 +28,11 @@ if (empty($form)) {
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/form.css">
+    
+    <?php
+    include '../private/favicon/main.php';
+    ?>
+    
 </head>
 
 <?php

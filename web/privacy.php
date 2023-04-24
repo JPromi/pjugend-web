@@ -12,6 +12,11 @@ include '../private/config.php';
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/impressum.css">
+    
+    <?php
+    include '../private/favicon/main.php';
+    ?>
+    
 </head>
 
 <?php

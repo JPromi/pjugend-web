@@ -17,6 +17,7 @@ include '../private/config.php';
     <?php
     include '../private/favicon/main.php';
     ?>
+    
 </head>
 <?php
     include "../intranet/assets/html/favicon.html";
