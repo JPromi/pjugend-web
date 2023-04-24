@@ -43,11 +43,11 @@ include '../../private/web/assets/nav.php';
             <div class="main">
                 <div class="image">
                 <?php
-                $img_path = '../../cdn/event/image/img-t_'. substr(md5($event["id"]), 5).'.jpg';
+                $img_path = '../../cdn/event/image/img-t_'. substr(md5($event["id"]), 5).'-512.jpg';
                 if(!file_exists($img_path)){
                     $img_path = 'https://'.$domain["cdn"].'/event/placeholder/image.png';
                 } else {
-                    $img_path = 'https://'.$domain["cdn"].'/event/image/img-t_'. substr(md5($event["id"]), 5) .'.jpg';
+                    $img_path = 'https://'.$domain["cdn"].'/event/image/img-t_'. substr(md5($event["id"]), 5) .'-512.jpg';
                 };
                 ?>
                 <img src="<?php echo($img_path); ?>">

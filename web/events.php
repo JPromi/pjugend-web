@@ -158,10 +158,10 @@ include '../private/web/assets/nav.php';
 
         while ($event = $allEvents->fetch_assoc()) {
 
-            $event_img_root_path = '../cdn/event/image/img-t_'.substr(md5($event["id"]), 5).'.jpg';
+            $event_img_root_path = '../cdn/event/image/img-t_'.substr(md5($event["id"]), 5).'-256.jpg';
 
             if(file_exists($event_img_root_path)) {
-                $event_img_path = "https://".$domain["cdn"].'/event/image/img-t_'.substr(md5($event["id"]), 5).'.jpg';
+                $event_img_path = "https://".$domain["cdn"].'/event/image/img-t_'.substr(md5($event["id"]), 5).'-256.jpg';
             } else {
                 $event_img_path = "";
             }
