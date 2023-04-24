@@ -21,6 +21,11 @@ if(!(in_array("admin", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSI
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/admin-settings.css">
+            
+    <?php
+    include '../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar
@@ -43,9 +48,9 @@ include("../private/intranet/assets/nav.php")
 
     <?php
     //jt admin settings
-    if(in_array("jugendteamadmin", $dbSESSION_perm)) {
+    if(in_array("jugendteam_admin", $dbSESSION_perm)) {
     ?>
-        
+        <a href="admin-settings/social-media">Social Media</a>
     <?php
     }
     ?>

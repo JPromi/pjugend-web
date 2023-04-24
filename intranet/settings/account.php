@@ -73,6 +73,11 @@ if(isset($_POST["submit"])) {
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/account.css">
     <link rel="stylesheet" href="/settings/css/style.css">
+                
+    <?php
+    include '../../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

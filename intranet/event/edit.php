@@ -36,6 +36,11 @@ if(!(in_array($dbSESSION["user_id"], explode(";", $event["organizer"]))) && !(in
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/edit.css">
+                
+    <?php
+    include '../../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

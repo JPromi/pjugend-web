@@ -20,6 +20,11 @@ include '../private/database/int.php';
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/notes.css">
+
+    <?php
+    include '../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

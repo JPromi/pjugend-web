@@ -14,6 +14,11 @@ include("../private/session/auth_session.php");
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/index.css">
+        
+    <?php
+    include '../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

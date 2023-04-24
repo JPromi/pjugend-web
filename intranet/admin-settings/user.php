@@ -23,6 +23,11 @@ if(!(in_array("admin", $dbSESSION_perm))) {
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/user.css">
+                
+    <?php
+    include '../../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

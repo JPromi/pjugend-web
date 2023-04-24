@@ -33,6 +33,11 @@ $groups = $con_new->query($groups);
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="/admin-settings/css/style.css">
     <link rel="stylesheet" href="css/add.css">
+                    
+    <?php
+    include '../../../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

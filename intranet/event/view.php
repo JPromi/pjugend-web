@@ -29,6 +29,11 @@ if(empty($event)) {
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/view.css">
+                
+    <?php
+    include '../../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

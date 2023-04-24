@@ -32,6 +32,11 @@ if (empty($dbNOTEinfo)) {
     <title>Notiz Freigeben - <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="css/share-note.css">
+                
+    <?php
+    include '../../private/favicon/main.php';
+    ?>
+
 </head>
 <body>
     <section class="popup">

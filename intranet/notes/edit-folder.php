@@ -30,6 +30,11 @@ if (empty($dbFOLDERinfo)) {
     <title>Ordner Bearbeiten - <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="css/add-edit-folder.css">
+                
+    <?php
+    include '../../private/favicon/main.php';
+    ?>
+
 </head>
 <body>
     <section class="popup">

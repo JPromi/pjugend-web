@@ -25,6 +25,11 @@ if(!(in_array("form", $dbSESSION_perm))) {
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/add.css">
+                
+    <?php
+    include '../../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

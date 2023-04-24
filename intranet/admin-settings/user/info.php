@@ -38,6 +38,11 @@ if(empty($account)) {
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="/admin-settings/css/style.css">
     <link rel="stylesheet" href="css/info.css">
+                
+    <?php
+    include '../../../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

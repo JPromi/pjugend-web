@@ -46,6 +46,11 @@ include("../private/database/public.php");
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/event.css">
     <link rel="stylesheet" href="event/css/header.css">
+            
+    <?php
+    include '../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar

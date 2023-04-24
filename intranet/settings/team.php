@@ -30,6 +30,11 @@ $teamProfile = $teamProfile->fetch_assoc();
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/team.css">
     <link rel="stylesheet" href="/settings/css/style.css">
+            
+    <?php
+    include '../../private/favicon/main.php';
+    ?>
+
 </head>
 <?php
 //include navigation bar
