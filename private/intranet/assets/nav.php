@@ -29,7 +29,19 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
             <p id="navtext">Notizen</p>
         </a>
 
-        <!--Admin Settings-->
+        <!--Gallery-->
+        <?php
+        if (in_array("gallery", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
+            echo('
+            <a href="/gallery" id="singlenav" class="navOpen">
+                <span class="material-symbols-outlined icon">gallery_thumbnail</span>
+                <p id="navtext">Gallery</p>
+            </a>
+            ');
+        };
+        ?>
+
+        <!--News-->
         <?php
         if (in_array("news", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
             echo('
