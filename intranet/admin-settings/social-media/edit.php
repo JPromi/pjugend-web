@@ -48,6 +48,38 @@ include("../../../private/intranet/assets/nav.php")
             <?php
             include '../../../private/intranet/admin-settings/nav-social_media.php';
             ?>
+            <form class="middle" method="POST">
+                <h2>Social Media</h2>
+
+                <div class="linklist">
+                    <div class="links" id="links">
+                        <a class="single" data-id="1">
+                            <div class="btn">
+                                <span class="material-symbols-outlined" onclick="deleteLink('1')">
+                                delete
+                                </span>
+                            </div>
+
+                            <div class="edit" id="edit1">
+                                <input type="hidden" name="id[]" id="1">
+                                <input type="text" name="name[]" placeholder="Titel" class="name" value="">
+                                <input type="text" name="link[]" placeholder="Link" value="">
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <a class="single add" onclick="addLink()">
+                        <p class="ele">
+                            <span class="material-symbols-outlined">
+                            add
+                            </span>
+                            Neues Element
+                        </p>
+                    </a>
+                </div>
+
+            </form>
+            <script src="js/edit.js"></script>
         </div>
     </div>
 

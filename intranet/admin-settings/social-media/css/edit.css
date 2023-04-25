@@ -1,0 +1,68 @@
+.linklist {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin: 3rem auto 0 auto;
+    gap: 2rem;
+}
+
+.linklist .single {
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+
+    min-width: 40vw;
+
+    text-decoration: none;
+    border-radius: .25rem;
+    padding: .75rem;
+    background-color: #00000088;
+    box-shadow: .25rem .25rem 2rem #00000020;
+    color: #fff;
+
+    transition: transform ease-in-out 200ms;
+}
+
+.linklist .single:hover {
+    transform: translateY(-.0rem);
+}
+
+.linklist .single p {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.linklist .single .edit {
+    display: flex;
+    flex-direction: column;
+    opacity: .5;
+}
+
+.linklist .single .edit input.name {
+    text-align: center;
+}
+
+.linklist .single .btn {
+    opacity: 0;
+    display: flex;
+    gap: 1rem;
+    transition: opacity ease-in-out 100ms;
+}
+
+.linklist .single:hover .btn {
+    opacity: 1;
+}
+
+.linklist .single .btn span {
+    cursor: pointer;
+}
+
+.linklist .single.add .ele {
+    cursor: pointer;
+}
+
+.linklist .single.add .ele {
+    display: flex;
+    justify-content: center;
+}

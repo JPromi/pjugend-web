@@ -48,6 +48,25 @@ include("../../private/intranet/assets/nav.php")
             <?php
             include '../../private/intranet/admin-settings/nav-social_media.php';
             ?>
+            <div class="middle">
+                <h2>Social Media</h2>
+
+                <div class="linklist">
+                    <a class="single" href="https://jpromi.com">
+                        <p>Facebook</p>
+                    </a>
+                    <a class="single" href="https://jpromi.com">
+                        <p>Twitter</p>
+                    </a>
+                    <a class="single" href="https://jpromi.com">
+                        <p>YouTube</p>
+                    </a>
+                    <a class="single" href="https://jpromi.com">
+                        <p>Instagram</p>
+                    </a>
+                </div>
+
+            </div>
         </div>
     </div>
 
