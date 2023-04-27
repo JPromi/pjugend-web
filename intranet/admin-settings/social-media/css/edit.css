@@ -6,6 +6,12 @@
     gap: 2rem;
 }
 
+.linklist .links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .linklist .single {
     min-width: fit-content;
     display: flex;
@@ -36,7 +42,7 @@
 .linklist .single .edit {
     display: flex;
     flex-direction: column;
-    opacity: .5;
+    gap: 2rem;
 }
 
 .linklist .single .edit input.name {
@@ -65,4 +71,13 @@
 .linklist .single.add .ele {
     display: flex;
     justify-content: center;
+}
+
+.linklist .single input[type=text] {
+    background-color: transparent;
+    border: 0;
+    color: #fff;
+    outline: none;
+
+    border-bottom: 1px solid #ffffff50;
 }

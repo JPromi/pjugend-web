@@ -12,10 +12,26 @@ function addLink() {
         var linkID = 0;
     };
 
-    var newLink = document.createElement("div");
+    newID = parseInt(linkID)+1;
+
+    var newLink = document.createElement("a");
     newLink.classList.add("single");
-    newLink.setAttribute('data-id',(parseInt(linkID)+1));
-    newLink.innerHTML = `<p></p>`;
+    newLink.setAttribute('data-id',newID);
+    //newLink.setAttribute('draggable', true);
+    newLink.innerHTML = `
+        <div class="btn">
+            <span class="material-symbols-outlined" onclick="deleteLink('`+newID+`')">
+            delete
+            </span>
+        </div>
+
+        <div class="edit" id="edit1">
+            <input type="hidden" name="id[]" value="">
+            <input type="hidden" name="index_id[]" value="`+newID+`">
+            <input type="text" name="title[]" placeholder="Titel" class="name" value="" required>
+            <input type="text" name="link[]" placeholder="Link" value="" required>
+        </div>
+    `;
 
     document.getElementById("links").appendChild(newLink);
 }
