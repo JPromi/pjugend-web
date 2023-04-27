@@ -1,0 +1,35 @@
+/* alert */
+.alert {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.alert .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -5;
+    background-color: #00000099;
+}
+
+.hidden {
+    display: none;
+}
+
+.alert .window {
+    background-color: #fff;
+    min-width: fit-content;
+    width: 30rem;
+    padding: 1rem;
+    border-radius: .75rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
