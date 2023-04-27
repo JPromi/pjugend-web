@@ -159,7 +159,7 @@ if(isset($_POST["submit"])) {
         $con_public->query($delete);
     }
 
-    echo '<meta http-equiv="refresh" content="0; url=">';
+    echo '<meta http-equiv="refresh" content="0; url=../social-media">';
     
 }
 
