@@ -44,6 +44,13 @@ include '../private/web/assets/nav.php';
                 Sobald Sie Ihre persönlichen Daten im Zusammenhang mit einer bestimmten Aktion auf der Web-Site an den Betreiber weitergeben, erklären Sie sich damit einverstanden, dass zum Zwecke der Abwicklung der Aktion und der Aktualisierung damit verbundener Datenbestände der Betreiber diese Daten übermitteln, speichern und verarbeiten darf.
             </p>
         </div>
+
+        <div class="article">
+            <h4>3. Dateninfostelle</h4>
+            <p>
+                Infos, Beschwerden, Datenauskünfte unter <a href="mailto: jonas.prominzer@jpromi.com">jonas.prominzer@jpromi.com</a>
+            </p>
+        </div>
    </section>
 </body>
 

@@ -28,10 +28,11 @@ include '../private/web/assets/nav.php';
         <h2>Impressum</h2>
 
         <div class="article">
-            <p>Adresse</p>
-            <p>PLZ Ort</p>
-            <p>Tel.: <a href="tel:+43123465789">+123456789</a></p>
-            <p>E-Mail.: <a href="mailto:ex@mp.le">ex@mp.le</a></p>
+            <p>Röm.-kath. Pfarre Perchtoldsdorf</p>
+            <p>Marktplatz 14</p>
+            <p>2380 Perchtoldsdorf</p>
+            <p>Österreich</p>
+            <p>DVR: 0029874(005)</p>
         </div>
 
         <div class="article">
@@ -42,7 +43,7 @@ include '../private/web/assets/nav.php';
         <div class="article">
             <h4>Bildmaterial</h4>
             <p>Jonas Prominzer</p>
-            <p>Pixabay</p>
+            <p>Röm.-kath. Pfarre Perchtoldsdorf</p>
         </div>
    </section>
 </body>
