@@ -28,8 +28,8 @@ function addLink() {
         <div class="edit" id="edit1">
             <input type="hidden" name="id[]" value="">
             <input type="hidden" name="index_id[]" value="`+newID+`">
-            <input type="text" name="title[]" placeholder="Titel" class="name" value="" required>
-            <input type="text" name="link[]" placeholder="Link" value="" required>
+            <label>Titel: <input type="text" name="title[]" placeholder="Titel" class="name" value="" required></label>
+            <label>Link: <input type="text" name="link[]" placeholder="Link" value="" required></label>
         </div>
     `;
 

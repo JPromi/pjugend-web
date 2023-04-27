@@ -45,10 +45,6 @@
     gap: 2rem;
 }
 
-.linklist .single .edit input.name {
-    text-align: center;
-}
-
 .linklist .single .btn {
     opacity: 0;
     display: flex;
@@ -78,6 +74,14 @@
     border: 0;
     color: #fff;
     outline: none;
-
+    width: 100%;
     border-bottom: 1px solid #ffffff50;
+
+    padding: .25rem;
+}
+
+.linklist .single label {
+    display: flex;
+    width: 100%;
+    align-items: center;
 }

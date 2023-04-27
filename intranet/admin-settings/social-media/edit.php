@@ -67,8 +67,8 @@ include("../../../private/intranet/assets/nav.php")
                                 <div class="edit" id="edit1">
                                     <input type="hidden" name="id[]" value="<?php echo($social["id"]); ?>">
                                     <input type="hidden" name="index_id[]" value="<?php echo($social["index_id"]); ?>">
-                                    <input type="text" name="title[]" placeholder="Titel" class="name" value="<?php echo($social["title"]); ?>" required>
-                                    <input type="text" name="link[]" placeholder="Link" value="<?php echo($social["link"]); ?>" required>
+                                    <label>Titel: <input type="text" name="title[]" placeholder="Titel" class="name" value="<?php echo($social["title"]); ?>" required></label>
+                                    <label>Link: <input type="text" name="link[]" placeholder="Link" value="<?php echo($social["link"]); ?>" required></label>
                                 </div>
                             </a>
 

@@ -12,7 +12,7 @@ if(!(in_array("jugendteam_admin", $dbSESSION_perm))) {
 ?>
 
 <?php
-$socialmedias = "SELECT * FROM socialmedia";
+$socialmedias = "SELECT * FROM socialmedia ORDER BY index_id";
 $socialmedias = $con_public->query($socialmedias);
 ?>
 
@@ -52,18 +52,15 @@ include("../../private/intranet/assets/nav.php")
                 <h2>Social Media</h2>
 
                 <div class="linklist">
-                    <a class="single" href="https://jpromi.com">
-                        <p>Facebook</p>
-                    </a>
-                    <a class="single" href="https://jpromi.com">
-                        <p>Twitter</p>
-                    </a>
-                    <a class="single" href="https://jpromi.com">
-                        <p>YouTube</p>
-                    </a>
-                    <a class="single" href="https://jpromi.com">
-                        <p>Instagram</p>
-                    </a>
+                    <?php
+                    while ($social = $socialmedias->fetch_assoc()) {
+                        echo '
+                        <a class="single" href="'.$social["link"].'" target="_blank" rel="noopener noreferrer">
+                            <p>'.$social["title"].'</p>
+                        </a>
+                        ';
+                    }
+                    ?>
                 </div>
 
             </div>
