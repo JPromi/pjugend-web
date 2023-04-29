@@ -43,6 +43,46 @@ use PHPMailer\PHPMailer\Exception;
 <body>
     <section class="top">
    
+    <?php
+    $resetIDget = mysqli_real_escape_string($con, $_GET["reset"]);
+    $reset = "SELECT * FROM `password_reset` WHERE reset_id = '$resetIDget'";
+    $reset = $con->query($reset);
+    $reset = $reset->fetch_assoc();
+
+    if(isset($reset)) {
+    ?>
+        <div class="login">
+            <div class="title">
+                <h1>Passwort zurücksetzten</h1>
+
+                <form class="form" method="POST">
+
+                    <!--Password-->
+                    <p>Passwort: </p>
+                    <label>
+                        <span class="material-symbols-outlined">
+                        lock
+                        </span>
+                        <input type="password" name="password[]" placeholser="Passwort" required>
+                    </label>
+
+                    <!--Password repeat-->
+                    <p>Wiederholen: </p>
+                    <label>
+                        <span class="material-symbols-outlined">
+                        lock
+                        </span>
+                        <input type="password" name="password[]" placeholser="Passwort" required>
+                    </label>
+                    
+                    <input type="submit" value="Zurücksetzen" name="reset" require/>
+                </form>
+            </div>
+    </div>
+    <?php
+    } else {
+
+    ?>
         <!--login-->
         <section class="login <?php echo($error)?>">
             <div class="title">
@@ -71,13 +111,17 @@ use PHPMailer\PHPMailer\Exception;
                     <input type="text" name="username" require/>
                 </label>
                 
-                <input type="submit" value="Zurücksetzen" name="submit" require/>
+                <input type="submit" value="Zurücksetzen" name="resetpassword" require/>
             </form>
             <?php
             }
             ?>
         </section>
     </section>
+
+    <?php
+    }
+    ?>
 </body>
 
 <?php
@@ -95,7 +139,11 @@ if(isset($_POST["username"])) {
     
     if(!empty($user)) {
 
-        //$resetID = $user["id"].bin2hex(random_bytes(10)).$user["username"];;
+        $resetID = $user["id"].bin2hex(random_bytes(10)).$user["username"];;
+        $user_id = $user["id"];
+
+        $insertReset = "INSERT INTO `password_reset` (user_id, reset_id) VALUES ('$user_id', '$resetID')";
+        $con->query($insertReset);
 
     
         $message = '
@@ -229,4 +277,23 @@ if(isset($_POST["username"])) {
 }
 ?>
 
+<?php
+if(isset($_POST["reset"])) {
+    if($_POST["password"][0] == $_POST["password"][1]) {
+
+        $password = stripslashes($_POST['password'][0]);
+        $password = mysqli_real_escape_string($con, $password);
+        $password = password_hash($password, PASSWORD_ARGON2ID);
+        $userID = $reset["user_id"];
+
+        $updatePassword = "UPDATE accounts SET `password` = '$password' WHERE id = '$userID'";
+        $con->query($updatePassword);
+
+        $deleteReset = "DELETE FROM password_reset WHERE reset_id = '$resetIDget'";
+        $con->query($deleteReset);
+
+        echo '<meta http-equiv="refresh" content="0; url=/">';
+    }
+}
+?>
 
