@@ -1,0 +1,40 @@
+.content h2 {
+    margin-top: 4rem;
+    text-align: center;
+    font-size: 5rem;
+}
+
+.links {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin: 7rem auto 4rem auto;
+    gap: 2rem;
+}
+
+.links .single {
+    min-width: fit-content;
+    display: flex;
+    align-items: center;
+
+    min-width: 40vw;
+
+    text-decoration: none;
+    border-radius: .25rem;
+    padding: .75rem;
+    background-color: #00000088;
+    box-shadow: .25rem .25rem 2rem #00000020;
+    color: #fff;
+
+    transition: transform ease-in-out 200ms;
+}
+
+.links .single:hover {
+    transform: translateY(-.25rem);
+}
+
+.links .single p {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}

@@ -1,0 +1,121 @@
+#main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    height: 100%;
+    margin: 3rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    overflow: auto;
+    box-shadow: .25rem .25rem 2rem #21212120;
+}
+
+/* content left side */
+
+.content .left {
+    overflow: auto;
+    width: 25rem;
+    height: 100%;
+    gap: 2rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.content .left .main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 2rem;
+}
+
+.content .left .main .image {
+    width: 100%;
+    height: 45%;
+    min-height: 17rem;
+    overflow: hidden;
+}
+
+.content .left .main .image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.content .left .main .information p {
+    margin-bottom: 1rem;
+}
+
+.content .left .tools {
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+.content .left .tools button {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.content .left .tools button span {
+    color: #00000075;
+}
+
+
+/* content middle side */
+.content .middle {
+    overflow: auto;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    background-color: #80808020;
+}
+
+.content .middle h4 {
+    font-size: 3rem;
+}
+
+.content .middle .links {
+    margin-top: 1.5rem;
+
+}
+
+.content .middle .links a {
+    color: #0066CC;
+}
+
+@media screen and (max-width: 700px) {
+
+    .content {
+        margin: .75rem;
+        flex-direction: column;
+    }
+
+    .content .left {
+        width: 100%;
+        overflow: visible;
+    }
+
+    .content .left .main {
+        flex-direction: column;
+        overflow: visible;
+    }
+
+    .content .left .main .image {
+        height: 35%;
+        width: 100%;
+    }
+
+    .content .left .main .information {
+        width: 45%;
+    }
+
+    .content .middle {
+        overflow: visible;
+    }
+}

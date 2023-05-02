@@ -1,0 +1,16 @@
+.box {
+    width: fit-content;
+    max-width: 90%;
+    height: fit-content;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: #fff;
+    box-shadow: .25rem .25rem 2rem #00000020;
+
+    margin: 15vh auto 2rem auto;
+}
+
+
+.box a {
+    color: #000;
+}

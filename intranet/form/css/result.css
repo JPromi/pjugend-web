@@ -1,0 +1,50 @@
+.content {
+    width: 90rem;
+    max-width: 90%;
+    background-color: #fff;
+    margin: 3rem auto 0 auto;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0.25rem 0.25rem 2rem #21212120;
+}
+
+.content .settings {
+    display: flex;
+    gap: 1rem;
+}
+
+.content .settings a {
+    display: flex;
+    cursor: pointer;
+}
+
+/* header informations */
+.content .top {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.content .top h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.content .elements {
+    width: fit-content;
+    overflow: auto;
+}
+
+.content .elements table {
+    border-spacing: 0;
+}
+
+.content .elements table td, .content .elements table th {
+    padding: .5rem 1rem;
+    max-width: 40rem;
+    text-align: left;
+}
+
+.content .elements table tbody tr:nth-child(2n + 2) {
+    background-color: #21212120;
+}

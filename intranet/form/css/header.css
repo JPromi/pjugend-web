@@ -1,0 +1,53 @@
+span {
+    user-select: none;
+}
+
+/* top header */
+.top {
+    /*display: grid;
+    grid-template-columns: 1fr 1fr;*/
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+}
+
+.top h4 {
+    font-size: 2rem;
+    padding: .5rem 1rem;
+
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.top a {
+    text-decoration: none;
+    color: #000;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.top .right {
+    display: flex;
+    /*justify-content: right;*/
+    margin: 0 0 0 auto;
+    width: fit-content;
+    padding: .5rem 2rem;
+}
+
+.top .left {
+    width: 100%;
+    overflow: hidden;
+}
+
+.top button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.top button span {
+    color: #a1a1a1;
+    font-size: 2rem;
+}

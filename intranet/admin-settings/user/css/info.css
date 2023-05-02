@@ -1,0 +1,43 @@
+.info {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.info .block {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.info .block h3 {
+    border-bottom: 1px solid #00000020;
+}
+
+.info .block label {
+    width: fit-content;
+}
+
+.info .block .list {
+    display: flex;
+    flex-direction: column;
+    max-height: 30rem;
+    overflow: auto;
+}
+
+.info .block img {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+}
+
+.error {
+    color: #ff0000;
+}
+
+@media screen and (max-width: 600px) {
+    .info .block label {
+        flex-direction: column;
+    }
+}

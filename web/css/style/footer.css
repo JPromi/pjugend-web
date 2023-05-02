@@ -1,0 +1,31 @@
+footer {
+    margin-top: auto;
+    width: 100%;
+    background-color: #38a9b8bb;
+    min-height: 15rem;
+    /*height: fit-content*/;
+    padding: 2rem 1rem 1rem 1rem;
+}
+
+footer a {
+    color: #000;
+}
+
+footer .main {
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+    column-gap: 10vw;
+}
+
+footer .main .block{
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+footer .bottom {
+    width: fit-content;
+    margin: 2rem auto 0 auto;
+}

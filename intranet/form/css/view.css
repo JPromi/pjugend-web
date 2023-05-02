@@ -1,0 +1,50 @@
+.content {
+    width: 50rem;
+    background-color: #fff;
+    margin: 3rem auto 0 auto;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0.25rem 0.25rem 2rem #21212120;
+}
+
+.content .settings {
+    display: flex;
+    gap: 1rem;
+}
+
+.content .settings a {
+    display: flex;
+    cursor: pointer;
+}
+
+/* header informations */
+.content .top {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.content .top h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.content .elements {
+    border-top: 1px solid #000;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.content .elements .single h3 {
+    margin-top: 2rem;
+}
+
+.content .elements .single input {
+    border: 0;
+    border-bottom: 1px solid #000;
+    padding: .25rem;
+    background-color: transparent;
+    opacity: 50%;
+}

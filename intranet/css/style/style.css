@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    overflow: auto;
+    background-color: #ececec;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+html {
+    width: 100%;
+}
