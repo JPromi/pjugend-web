@@ -90,8 +90,10 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/session/get_session.php");
                         </span>
                         Logout
                     </a>
-                </div>
 
+                    
+                </div>
+                <span onclick="menu()" class="fullscreenback hidden" id="accountmenuBack"></span>
                 
                 <?php
             }
