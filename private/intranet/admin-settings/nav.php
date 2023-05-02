@@ -25,6 +25,13 @@
                 </span>
                 Social Media
             </a>
+
+            <a href="/admin-settings/team">
+                <span class="material-symbols-outlined">
+                groups
+                </span>
+                Team
+            </a>
         <?php
         }
         ?>
