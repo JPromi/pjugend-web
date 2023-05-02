@@ -1,13 +1,6 @@
-// use with cookies
-
-//i dont use it yet, becaus of some buggs
-
-const cookiesNav = document.cookie.split('=');
-
-var cookieMAIN = ";domain=;path=/";
-
-if (cookiesNav[2] == "false") {
-    document.cookie = "navOpen=false" + cookieMAIN; 
+// use with local storage
+if(localStorage.getItem("nav") == "open") {
+    localStorage.setItem("nav", "open");
 
     document.querySelectorAll("#navtext").forEach(function (elem) {
         elem.classList.remove('textClose');
@@ -27,7 +20,8 @@ if (cookiesNav[2] == "false") {
     clicked = false;
 
   } else { 
-    document.cookie = "navOpen=true" + cookieMAIN; 
+    localStorage.setItem("nav", "close");
+
     //remove text close
     document.querySelectorAll('#navtext').forEach(function (elem) {
         elem.classList.add('textClose');

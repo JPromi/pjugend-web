@@ -1,9 +1,8 @@
 var clicked = false;
-var cookieMAIN = ";domain=;path=/";
 
 function toggleNav(button) {
   if (clicked) {
-    document.cookie = "navOpen=false" + cookieMAIN; 
+    localStorage.setItem("nav", "open");
 
     document.querySelectorAll("#navtext").forEach(function (elem) {
         elem.classList.remove('textClose');
@@ -25,7 +24,7 @@ function toggleNav(button) {
     clicked = false;
 
   } else { 
-    document.cookie = "navOpen=true" + cookieMAIN; 
+    localStorage.setItem("nav", "close");
     //remove text close
     document.querySelectorAll('#navtext').forEach(function (elem) {
         elem.classList.add('textClose');
