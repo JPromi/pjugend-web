@@ -4,6 +4,7 @@ include("../../private/session/auth_session.php");
 
 include("../../private/database/int.php");
 include("../../private/database/public.php");
+include("../../private/intranet/image/gallery.php");
 ?>
 
 <?php
@@ -101,11 +102,14 @@ include("../../private/intranet/assets/nav.php")
                 <input type="text" name="title" placeholder="Titel">
                 <textarea name="description"></textarea>
 
-                <div class="settings">
+                <div class="block settings">
                     <label><input type="checkbox" name="public_view"> Öffentlich sichtbar</label>
                     <!--<input type="password" name="password" placeholder="Passwort">-->
                     <a onclick="openAlert('user')">Benutzer</a>
                     <a onclick="openAlert('event')">Veranstalltung</a>
+                </div>
+                <div class="block">
+                    <input type="file" name="images[]" accept="image/png, image/jpeg" multiple>
                 </div>
                 <input type="submit" name="submit" value="Speichern">
             </form>
@@ -136,6 +140,16 @@ if(isset($_POST["submit"])) {
 
 
     mkdir("../../cdn/gallery/".$hashID);
+    mkdir("../../cdn/gallery/".$hashID.'/thumbnail');
+    mkdir("../../cdn/gallery/".$hashID.'/images');
+    mkdir("../../cdn/gallery/".$hashID.'/original');
+
+    //gallery
+    for($i=0 ; $i < count($_FILES["images"]["name"]); $i++) {
+        createImage($_FILES['images']['tmp_name'][$i], $_FILES['images']['type'][$i], substr(md5(date("Y-m-d h:m:i")) , 0, 5)."-".$_FILES['images']['filename'][$i], $hashID);
+    }
+
+    echo '<meta http-equiv="refresh" content="0; url=view?id='.$hashID.'">';
 }
 ?>
 
