@@ -25,6 +25,37 @@
     width: fit-content;
 }
 
+/* galleries */
+.content .left .overview {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+.content .left .overview a {
+    padding: .5rem 0;
+    border-top: 1px solid #a1a1a1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.content .left .overview a p {
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%; 
+}
+
+.content .left .overview img {
+    height: 2rem;
+    width: 2rem;
+    object-fit: cover;
+    border-radius: .25rem;
+    border: 1px solid #21212125;
+}
+
 @media screen and (max-width: 1000px) {
     .content .left {
         width: 100%;
