@@ -93,6 +93,7 @@ include("../../private/intranet/assets/nav.php")
                     <div class="preview">
                         <?php
                         $imageUrl = 'https://'.$domain["cdn"].'/gallery/'.$hash_id.'/images/'.$imageName;
+                        $imageUrlOriginal = 'https://'.$domain["cdn"].'/gallery/'.$hash_id.'/original/'.$imageName;
                         ?>
                         <img src="<?php echo($imageUrl); ?>">
                     </div>
@@ -117,7 +118,7 @@ include("../../private/intranet/assets/nav.php")
                     ?>
                 </div>
                 <!--<div class="btn">
-                    <a href="<?php echo($imageUrl); ?>" download>
+                    <a href="<?php echo($imageUrlOriginal); ?>" download>
                         <span class="material-symbols-outlined">
                         download
                         </span>
