@@ -1,0 +1,24 @@
+.images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: fit-content;
+    max-width: 95%;
+    margin: 2rem auto 0 auto;
+}
+
+.images img {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    cursor: pointer;
+    box-shadow: .5rem .5rem 2rem #00000025;
+
+    transition: transform ease-in-out 250ms;
+}
+
+.images img:hover {
+    transform: scale(102%) translateY(-.25rem);
+}
