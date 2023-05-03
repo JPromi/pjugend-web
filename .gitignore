@@ -6,6 +6,7 @@
 /cdn/event/image
 /cdn/event/flyer
 
+/cdn/gallery
 
 # config files
 /private/config.php
