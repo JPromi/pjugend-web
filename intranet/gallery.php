@@ -1,6 +1,9 @@
 <?php
 //include auth_session.php file on all user panel pages
 include("../private/session/auth_session.php");
+
+include("../private/database/public.php");
+include("../private/config.php");
 ?>
 
 <?php
