@@ -26,6 +26,19 @@ if(!isset($selectedGallery) || !isset($_GET["i"])) {
     exit();
 }
 
+?>
+
+<?php
+if($selectedGallery["owner"] == $dbSESSION["user_id"] || in_array("jugendteam_admin", $dbSESSION_perm) || in_array($dbSESSION["user_id"], explode(";", $selectedGallery["user_edit"]))) {
+
+} else {
+    header("Location: ../gallery");
+    exit();
+}
+?>
+
+<?php
+
 $imageName = str_replace("/", "", $_GET["i"]);
 
 $galleryFolder = scandir('../../cdn/gallery/'.$selectedGallery["hash_id"].'/images');

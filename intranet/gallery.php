@@ -7,7 +7,9 @@ include("../private/config.php");
 ?>
 
 <?php
-if(!(in_array("gallery", $dbSESSION_perm)) || !(in_array("jugendteam_admin", $dbSESSION_perm))) {
+if(in_array("gallery", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
+    
+} else {
     header("Location: /");
     exit();
 }
