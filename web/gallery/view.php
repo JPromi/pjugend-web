@@ -53,7 +53,7 @@ include '../../private/web/assets/nav.php';
             } else {
                 echo '<meta http-equiv="refresh" content="0; url=verify?id='.$hashID.'">';
                 exit();
-            }            
+            }
         }
         ?>
 
