@@ -26,7 +26,7 @@ function publicSession()
     if(!$_COOKIE["PUBLIC_SESSION_ID"] || $checkSession["id"] == "") {
         $con_public->query("INSERT INTO session_public (ip, user_id, cookie_hash) VALUES ('$userIP', $userID, '$cookie_hash')");
         setcookie("PUBLIC_SESSION_ID", $cookie_hash, time() + (86400 * 7), "/", $domain["web"]);
-        return $cockie_hash;
+        return $cookie_hash;
     } else {
         return $_COOKIE["PUBLIC_SESSION_ID"];
     }
