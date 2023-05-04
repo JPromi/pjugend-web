@@ -145,11 +145,20 @@ if(isset($_POST["submit"])) {
     mkdir("../../cdn/gallery/".$hashID.'/original');
 
     //gallery
-    for($i=0 ; $i < count($_FILES["images"]["name"]); $i++) {
-        createImage($_FILES['images']['tmp_name'][$i], $_FILES['images']['type'][$i], substr(md5(date("Y-m-d h:m:i")) , 0, 5)."-".$_FILES['images']['filename'][$i], $hashID);
+    if($_FILES["images"]["tmp_name"][0] != "") {
+        //gallery
+        for($i=0 ; $i < count($_FILES["images"]["name"]); $i++) {
+            try {
+                createImage($_FILES['images']['tmp_name'][$i], $_FILES['images']['type'][$i], substr(md5(date("Y-m-d h:m:i")) , 0, 5).$i."-".pathinfo($_FILES['images']['name'][$i], PATHINFO_FILENAME), $hashID);
+            } catch (\Throwable $th) {
+                //throw $th;
+                echo("<p class='error'>Fehler: ".$_FILES['images']['name'][$i]."</p>");
+                exit();
+            }
+        }
     }
 
-    echo '<meta http-equiv="refresh" content="0; url=view?id='.$hashID.'">';
+    echo '<meta http-equiv="refresh" content="0; url=/gallery">';
 }
 ?>
 
