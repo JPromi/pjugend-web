@@ -33,7 +33,8 @@ if(isset($_POST["submit"])) {
             $con_public->query("INSERT INTO gallery_session (gallery_id, cookie_hash) VALUES ('$galleryID', '$cookieHash')");
         }
         
-        echo '<meta http-equiv="refresh" content="0; url=view?id='.$gallery["hash_id"].'">';
+        //echo '<meta http-equiv="refresh" content="0; url=view?id='.$gallery["hash_id"].'">';
+        header('Location: view?id='.$gallery["hash_id"].'');
     }
 }
 ?>
