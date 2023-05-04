@@ -33,15 +33,70 @@ include '../../private/web/assets/nav.php';
 ?>
 
 <body>
-    <div class="content">
         <?php
         //check if gallery has password
         if($gallery["password"]) {
-            echo '<meta http-equiv="refresh" content="0; url=verify?id='.$hashID.'">';
-            exit();
+
+            //check if cookie isset
+            if($_COOKIE["PUBLIC_SESSION_ID"]) {
+                $sessionPublic = $_COOKIE["PUBLIC_SESSION_ID"];
+                $galleryID = $gallery["id"];
+                
+                $gallerySession = $con_public->query("SELECT * FROM gallery_session WHERE cookie_hash = '$sessionPublic' AND gallery_id = '$galleryID'");
+                $gallerySession = $gallerySession->fetch_assoc();
+
+                //check if cookie is expired
+                if(empty($gallerySession)) {
+                    echo '<meta http-equiv="refresh" content="0; url=verify?id='.$hashID.'">';
+                    exit();
+                }
+            } else {
+                echo '<meta http-equiv="refresh" content="0; url=verify?id='.$hashID.'">';
+                exit();
+            }            
         }
         ?>
-    </div>
+
+    <form class="content" method="POST">
+        
+
+        <div class="top">
+            <h1><?php echo($gallery["title"]); ?></h1>
+            <div class="btn">
+                <input type="submit" name="download_all" title="Alle Elemente Herunterladen" value="Download">
+            </div>
+            <div class="btn">
+                <input type="submit" name="download_selection"  title="Auswahl Herunterladen" value="Download">
+                <input type="button" title="Alle Elemente Auswählen" value="Alle Auswählen">
+            </div>
+        </div>
+
+        <div class="gallery">
+        <?php
+                    //select images
+                    $files = scandir('../../cdn/gallery/'.$gallery["hash_id"].'/images/');
+                    try {
+                        $files = array_slice($files, 2);
+                        foreach ($files as $image) {
+                            $imagePath = 'https://'.$domain["cdn"].'/gallery/'.$gallery["hash_id"].'/thumbnail/'.$image;
+                            echo '
+                            <label>
+                                <input type="checkbox" name="image[]" value="'.$image.'" class="imageCheckbox">
+                                    <span class="material-symbols-outlined checkbox">
+                                    check_circle
+                                    </span>
+                                <img src="'.$imagePath.'" onclick="window.location.href=`image?g='.$gallery["hash_id"].'&i='.$image.'`">
+                            </label>
+                            ';
+                        }
+                    } catch (\Throwable $th) {
+
+                    }
+                    ?>
+        </div>
+
+
+    </form>
 </body>
 
 <?php
@@ -49,3 +104,56 @@ include '../../private/web/assets/footer.php';
 ?>
 
 </html>
+
+<?php
+//download all
+if(isset($_POST["download_all"])) {
+
+    $filename = $hashID."-".strtotime(date("Y-m-d H:i:s")).".zip";
+
+    $pathdir = "../../cdn/gallery/".$hashID."/original/"; 
+    $zipcreated = "../../cdn/gallery/tmp/".$filename;
+
+    $zip = new ZipArchive;
+    
+    if($zip -> open($zipcreated, ZipArchive::CREATE ) === TRUE) {
+
+        $dir = opendir($pathdir);
+        
+        while($file = readdir($dir)) {
+            if(is_file($pathdir.$file)) {
+                $zip -> addFile($pathdir.$file, $file);
+            }
+        }
+        $zip ->close();
+    }
+
+    //echo '<meta http-equiv="refresh" content="0; url=https://'.$domain["cdn"].'/gallery/tmp/'.$filename.'">';
+    echo '<meta http-equiv="refresh" content="0; url=/gallery/module/download?tmp='.$filename.'">';
+}
+
+//download specific
+if(isset($_POST["download_selection"])) {
+
+    $filename = $hashID."-".strtotime(date("Y-m-d H:i:s")).".zip";
+
+    $pathdir = "../../cdn/gallery/".$hashID."/original/"; 
+    $zipcreated = "../../cdn/gallery/tmp/".$filename;
+
+    $zip = new ZipArchive;
+    
+    if($zip -> open($zipcreated, ZipArchive::CREATE ) === TRUE) {
+
+        //$dir = opendir($pathdir);
+
+        foreach ($_POST["image"] as $image) {
+            $zip -> addFile($pathdir.$image, $image);
+        }
+
+        $zip ->close();
+    }
+
+    //echo '<meta http-equiv="refresh" content="0; url=https://'.$domain["cdn"].'/gallery/tmp/'.$filename.'">';
+    echo '<meta http-equiv="refresh" content="0; url=/gallery/module/download?tmp='.$filename.'">';
+}
+?>
