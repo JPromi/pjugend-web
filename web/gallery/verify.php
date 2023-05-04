@@ -27,7 +27,13 @@ if(isset($_POST["submit"])) {
         $cookieHash = publicSession();
         $galleryID = $gallery["id"];
         //add permission to gallery_session
-        $con_public->query("INSERT INTO gallery_session (gallery_id, cookie_hash) VALUES ('$galleryID', '$cookieHash')");
+        $checkEntry = $con_public->query("SELECT * FROM gallery_session WHERE cookie_hash = '$cookieHash' AND gallery_id = '$galleryID'");
+        $checkEntry = $checkEntry->fetch_assoc();
+        if(!$checkEntry) {
+            $con_public->query("INSERT INTO gallery_session (gallery_id, cookie_hash) VALUES ('$galleryID', '$cookieHash')");
+        }
+        
+        echo '<meta http-equiv="refresh" content="0; url=view?id='.$gallery["hash_id"].'">';
     }
 }
 ?>
