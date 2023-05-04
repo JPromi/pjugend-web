@@ -1,0 +1,38 @@
+.gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    width: 90%;
+    margin: 3rem auto 0 auto;
+}
+
+.gallery .single {
+    width: 18rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: .5rem;
+    box-shadow: .5rem .5rem 2rem #00000020;
+
+    cursor: pointer;
+
+    transition: transform ease-in-out 250ms;
+}
+
+.gallery .single:hover {
+    transform: scale(101%) translateY(-.25rem);
+}
+
+
+.gallery .single img {
+    width: 100%;
+    height: 16rem;
+    object-fit: cover;
+}
+
+.gallery .single h3 {
+    padding: .5rem 1rem;
+}
