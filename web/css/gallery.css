@@ -13,9 +13,6 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: #ffffff;
-    border-radius: .5rem;
-    box-shadow: .5rem .5rem 2rem #00000020;
 
     cursor: pointer;
 
@@ -31,6 +28,7 @@
     width: 100%;
     height: 16rem;
     object-fit: cover;
+    border-radius: .5rem;
 }
 
 .gallery .single h3 {
