@@ -63,11 +63,22 @@ include '../../private/web/assets/nav.php';
         <div class="top">
             <h1><?php echo($gallery["title"]); ?></h1>
             <div class="btn">
-                <input type="submit" name="download_all" title="Alle Elemente Herunterladen" value="Download">
+                <label title="Alle Elemente Herunterladen">
+                    <input type="submit" name="download_all" value="dl_all">
+                    <span class="material-symbols-outlined">
+                    download
+                    </span>
+                </label>
             </div>
+
             <div class="btn hidden" id="checkedSettings">
-                <input type="submit" name="download_selection"  title="Auswahl Herunterladen" value="Download">
-                <input type="button" title="Alle Elemente Auswählen" value="Alle Auswählen">
+                <h4>Auswahl</h4>
+                <label title="Auswahl Herunterladen">
+                    <input type="submit" name="download_selection" value="dl">
+                    <span class="material-symbols-outlined">
+                    download
+                    </span>
+                </label>
             </div>
         </div>
 

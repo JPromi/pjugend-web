@@ -68,6 +68,27 @@
     display: none;
 }
 
+.btn {
+    display: flex;
+    padding: 1rem 1rem;
+    gap: 2rem;
+    align-items: center;
+
+    border-bottom: 1px solid #00000020;
+}
+
+.btn label {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    display: flex;
+    padding: .25rem;
+}
+
+.btn label input {
+    display: none;
+}
+
 /* screen size */
 @media screen and (max-width: 750px) {
     .gallery {
@@ -78,5 +99,9 @@
         height: 8rem;
         max-width: 15rem;
         border-radius: .25rem;
+    }
+
+    .gallery label:hover {
+        transform: scale(100%) translateY(0rem);
     }
 }
