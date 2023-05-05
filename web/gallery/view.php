@@ -65,13 +65,13 @@ include '../../private/web/assets/nav.php';
             <div class="btn">
                 <input type="submit" name="download_all" title="Alle Elemente Herunterladen" value="Download">
             </div>
-            <div class="btn">
+            <div class="btn hidden" id="checkedSettings">
                 <input type="submit" name="download_selection"  title="Auswahl Herunterladen" value="Download">
                 <input type="button" title="Alle Elemente Auswählen" value="Alle Auswählen">
             </div>
         </div>
 
-        <div class="gallery">
+        <div class="gallery" id="gallery">
         <?php
                     //select images
                     $files = scandir('../../cdn/gallery/'.$gallery["hash_id"].'/images/');
@@ -80,8 +80,8 @@ include '../../private/web/assets/nav.php';
                         foreach ($files as $image) {
                             $imagePath = 'https://'.$domain["cdn"].'/gallery/'.$gallery["hash_id"].'/thumbnail/'.$image;
                             echo '
-                            <label>
-                                <input type="checkbox" name="image[]" value="'.$image.'" class="imageCheckbox">
+                            <label class="image">
+                                <input type="checkbox" name="image[]" value="'.$image.'" class="imageCheckbox" id="btn-'.$image.'">
                                     <span class="material-symbols-outlined checkbox">
                                     check_circle
                                     </span>
@@ -97,6 +97,7 @@ include '../../private/web/assets/nav.php';
 
 
     </form>
+    <script src="js/select.js"></script>
 </body>
 
 <?php

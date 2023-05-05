@@ -3,8 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 1rem;
-    width: fit-content;
-    width: 95%;
+    width: 90%;
     margin: 2rem auto 4rem auto;
 }
 
@@ -32,6 +31,10 @@
     padding: .25rem;
 
     cursor: default;
+}
+
+.gallery.selected label .checkbox {
+    opacity: 100% !important;
 }
 
 .gallery label input[type=checkbox]:checked ~ .checkbox {
@@ -63,4 +66,17 @@
 
 .btn.hidden {
     display: none;
+}
+
+/* screen size */
+@media screen and (max-width: 750px) {
+    .gallery {
+        gap: .25rem;
+    }
+    
+    .gallery label {
+        height: 8rem;
+        max-width: 15rem;
+        border-radius: .25rem;
+    }
 }
