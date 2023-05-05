@@ -32,6 +32,8 @@ images.forEach(el => {
     
     onLongPress(el, function(element) {
         el.querySelector('input').checked = true;
+        document.getElementById("gallery").classList.add("selected");
+        document.getElementById("checkedSettings").classList.remove("hidden");
     });
 
 });
