@@ -32,7 +32,9 @@ include '../private/config.php';
     }
     
     // When form submitted, check and create user session.
-    if (isset($_POST['username'])) {
+
+    //intranet login
+    if (isset($_POST['username']) && (empty($_GET["l"]) || $_GET["l"] == "int")) {
         $username = stripslashes($_REQUEST['username']);    // removes backslashes
         $username = mysqli_real_escape_string($con, $username);
         $password = stripslashes($_REQUEST['password']);
@@ -106,6 +108,10 @@ include '../private/config.php';
 
     }
 ?>
+<?php
+//intranet login
+if(empty($_GET["l"]) || $_GET["l"] == "int") {
+?>
 <body>
     <section class="top">
    
@@ -154,6 +160,61 @@ include '../private/config.php';
     ?>
 
 </body>
+
+<?php
+} else if ($_GET["l"] == "fir") {
+?>
+<body class="firmung">
+    <section class="top">
+   
+        <!--login-->
+        <section class="login <?php echo($error)?>">
+            <div class="title">
+                <img src="https://<?php echo($domain["cdn"]);?>/logo/pjugend/p_jugend-blue.svg">
+                <h1>Intranet Login</h1>
+            </div>
+            
+            <form class="form" method="POST" name="login">
+
+                <!--Username-->
+                <p>Benutzername</p>
+                <label>
+                    <span class="material-symbols-outlined">
+                    person
+                    </span>
+                    <input type="text" name="username" require/>
+                </label>
+
+                    <span class="spacetext"></span>
+                
+                <!--Password-->
+                <p>Password</p>
+                <label>
+                    <span class="material-symbols-outlined">
+                    lock
+                    </span>
+                    <input type="password" name="password" require/>
+                </label>
+
+                <!--<a href="password-reset?l=fir">Forgot password?</a>-->
+
+                <input type="submit" value="Login" name="submit"require/>
+            </form>
+
+        </section>
+    </section>
+    <?php
+        if ($error == "loginerror") {
+            echo "<p class='error'>Flasches Passwort oder Benutzername</p>";
+        } else if ($error == "attempts") {
+            echo "<p class='error'>Zu viele Versuche, versuche es in 3 min wieder</p>";
+        }
+    ?>
+
+</body>
+<?php
+}
+?>
 
 <?php
     include("../private/session/get_session.php");
