@@ -2,7 +2,7 @@
 $db_HOST = "localhost";
 $db_USER = "pjugend";
 $db_PASSWD = "";
-$db_DATABASE = "pjugend_form";
+$db_DATABASE = "pjugend_firmung";
 $db_PORT = 3306;
 
 $con_form = mysqli_connect($db_HOST,$db_USER,$db_PASSWD,$db_DATABASE,$db_PORT);
