@@ -35,7 +35,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
             echo('
             <a href="/firmung" id="singlenav" class="navOpen">
                 <span class="material-symbols-outlined icon">workspace_premium</span>
-                <p id="navtext">News</p>
+                <p id="navtext">Firmung</p>
                 </span>
             </a>
             ');
