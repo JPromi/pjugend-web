@@ -67,20 +67,32 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
         ?>
 
         <!--Events-->
-        <a href="/event" id="singlenav" class="navOpen">
-            <span class="material-symbols-outlined icon">event</span>
-            <p id="navtext">Veranstaltungen</p>
-        </a>
+        <?php
+        if (in_array("event", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
+            echo('
+            <a href="/event" id="singlenav" class="navOpen">
+                <span class="material-symbols-outlined icon">event</span>
+                <p id="navtext">Veranstaltungen</p>
+            </a>
+            ');
+        };
+        ?>
 
         <!--Form-->
-        <a href="/form" id="singlenav" class="navOpen">
-            <span class="material-symbols-outlined icon">assignment</span>
-            <p id="navtext">Formular</p>
-        </a>
+        <?php
+        if (in_array("form", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
+            echo('
+            <a href="/form" id="singlenav" class="navOpen">
+                <span class="material-symbols-outlined icon">assignment</span>
+                <p id="navtext">Formular</p>
+            </a>
+            ');
+        };
+        ?>
 
         <!--Admin Settings-->
         <?php
-        if (in_array("admin", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
+        if (in_array("admin", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm) || in_array("firmung_admin", $dbSESSION_perm)) {
             echo('
             <a href="/admin-settings" id="singlenav" class="navOpen">
                 <span class="material-symbols-outlined icon">admin_panel_settings</span>
