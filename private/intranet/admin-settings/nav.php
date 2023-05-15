@@ -35,5 +35,19 @@
         <?php
         }
         ?>
+
+        <?php
+        //jt admin settings
+        if(in_array("firmung_admin", $dbSESSION_perm)) {
+        ?>
+            <a href="/admin-settings/firmung">
+                <span class="material-symbols-outlined">
+                workspace_premium
+                </span>
+                Firmung
+            </a>
+        <?php
+        }
+        ?>
     </div>
 </div>
