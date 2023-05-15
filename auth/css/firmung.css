@@ -1,8 +1,6 @@
 body {
-    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
-    /*background-color: #212121;*/
     /*background-color: #79161A;*/
-    /*background-color: #4595a3;*/
+    background-color: #800000;
     background-attachment: fixed;
     background-size: cover;
     background-repeat: repeat;
@@ -93,8 +91,8 @@ body {
     width: fit-content;
     padding: .5rem 2rem;
     font-size: 1.2rem;
-    background-color: #45b2fa;
-    box-shadow: 0 0 2rem #45b2fa;
+    background-color: #aa0000d5;
+    box-shadow: 0 0 2rem #800000;
     border: 0;
     color: #fff;
     opacity: 75%;
@@ -168,10 +166,4 @@ body {
     .title p {
         font-size: 10vw;
     }
-}
-
-/* firmung */
-.firmung {
-    background-image: none;
-    background-color: #79161A;
 }
