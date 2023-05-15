@@ -4,7 +4,7 @@ include("../private/session/auth_session.php");
 ?>
 
 <?php
-if(!(in_array("admin", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm))) {
+if(!(in_array("admin", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm) || in_array("firmung_admin", $dbSESSION_perm))) {
     header("Location: /");
     exit();
 }
