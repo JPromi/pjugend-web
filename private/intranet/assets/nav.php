@@ -29,6 +29,19 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
             <p id="navtext">Notizen</p>
         </a>
 
+        <!--Firmung-->
+        <?php
+        if (in_array("firmbegleiter", $dbSESSION_perm) || in_array("firmung_admin", $dbSESSION_perm)) {
+            echo('
+            <a href="/firmung" id="singlenav" class="navOpen">
+                <span class="material-symbols-outlined icon">workspace_premium</span>
+                <p id="navtext">News</p>
+                </span>
+            </a>
+            ');
+        };
+        ?>
+
         <!--Gallery-->
         <?php
         if (in_array("gallery", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
