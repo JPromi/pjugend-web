@@ -35,6 +35,7 @@ include '../private/config.php';
 
     //intranet login
     if (isset($_POST['username'])) {
+        echo("1");
         $username = stripslashes($_REQUEST['username']);    // removes backslashes
         $username = mysqli_real_escape_string($con_firmung, $username);
         $password = stripslashes($_REQUEST['password']);
@@ -67,15 +68,17 @@ include '../private/config.php';
         }
 
         if($failedCounter <= 10) {
+
             // Check user is exist in the database
             // ARGON2ID
-            $verify = "SELECT id, password, firstname, lastname, username FROM `firmling` WHERE username = '$username'";
+            $verify = "SELECT id, `password`, firstname, lastname, username FROM `firmling` WHERE username = '$username'";
             $verify = mysqli_query($con_firmung, $verify);
             $verify = $verify->fetch_assoc();
         
             $passwordVerify = password_verify($password, $verify["password"]);
-
+            echo("2");
             if ($passwordVerify == 1) {
+                echo("3");
                 $loginStatus = "login";
                 $error = "";
                 $coockie_hash = bin2hex(random_bytes(40));
