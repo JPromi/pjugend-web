@@ -82,7 +82,8 @@
 
 .content .middle .links {
     margin-top: 1.5rem;
-
+    display: flex;
+    flex-direction: column;
 }
 
 .content .middle .links a {
