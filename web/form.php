@@ -1,8 +1,8 @@
 <?php
-include '../private/config.php';
-include '../private/database/int.php';
-include '../private/database/public.php';
-include '../private/database/form.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/config.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/public.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/form.php';
 ?>
 
 <?php
@@ -27,16 +27,16 @@ if (empty($form)) {
     <title>Formular - <?php echo($conf_title["web"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="/css/form.css">
     
     <?php
-    include '../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
     
 </head>
 
 <?php
-include '../private/web/assets/nav.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
 ?>
 
 <body>
@@ -93,7 +93,7 @@ include '../private/web/assets/nav.php';
 </body>
 
 <?php
-include '../private/web/assets/footer.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/footer.php';
 ?>
 
 </html>
