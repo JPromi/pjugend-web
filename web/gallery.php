@@ -1,6 +1,6 @@
 <?php
-include '../private/config.php';
-include '../private/database/public.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/config.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/public.php';
 ?>
 
 <!DOCTYPE html>
@@ -12,16 +12,16 @@ include '../private/database/public.php';
     <title>Galerie - <?php echo($conf_title["web"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="/css/gallery.css">
     
     <?php
-    include '../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
     
 </head>
 
 <?php
-include '../private/web/assets/nav.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
 ?>
 
 <body>
@@ -35,7 +35,7 @@ include '../private/web/assets/nav.php';
 
                 while ($gallery = $galleries->fetch_assoc()) {
                     //get thumbnail
-                    $pathGallery = '../cdn/gallery/'.$gallery["hash_id"].'/thumbnail/';
+                    $pathGallery = $_SERVER["DOCUMENT_ROOT"].'/../cdn/gallery/'.$gallery["hash_id"].'/thumbnail/';
                     $galleryFolder = scandir ($pathGallery);
 
                     if($galleryFolder[2] != "") {
@@ -45,7 +45,7 @@ include '../private/web/assets/nav.php';
                     }
 
                     echo '
-                    <div class="single" onclick="window.location.href=`gallery/view?id='.$gallery["hash_id"].'`">
+                    <div class="single" onclick="window.location.href=`/gallery/view?id='.$gallery["hash_id"].'`">
                         <img src="'.$thumbnail.'">
                         <h3>'.$gallery["title"].'</h3>
                     </div>
@@ -57,7 +57,7 @@ include '../private/web/assets/nav.php';
 </body>
 
 <?php
-include '../private/web/assets/footer.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/footer.php';
 ?>
 
 </html>
