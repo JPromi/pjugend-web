@@ -1,7 +1,7 @@
 <?php
 //include auth_session.php file on all user panel pages
-include("../../private/session/auth_session.php");
-include '../../private/database/public.php';
+include($_SERVER["DOCUMENT_ROOT"]."/../private/session/auth_session.php");
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/public.php';
 ?>
 
 <?php
@@ -26,27 +26,27 @@ $socialmedias = $con_public->query($socialmedias);
     <title>Social Media - <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/social-media.css">
+    <link rel="stylesheet" href="/admin-settings/css/style.css">
+    <link rel="stylesheet" href="/admin-settings/css/social-media.css">
                 
     <?php
-    include '../../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
 
 </head>
 <?php
 //include navigation bar
-include("../../private/intranet/assets/nav.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
     <div class="content">
         <?php
-        include '../../private/intranet/admin-settings/header.php';
+        include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/admin-settings/header.php';
         top("Social Media");
         ?>
         <div class="settings">
             <?php
-            include '../../private/intranet/admin-settings/nav-social_media.php';
+            include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/admin-settings/nav-social_media.php';
             ?>
             <div class="middle">
                 <h2>Social Media</h2>
@@ -71,7 +71,7 @@ include("../../private/intranet/assets/nav.php")
 
 <?php
 //include scripts for bottom
-include("../../private/intranet/assets/scripts-bottom.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/scripts-bottom.php")
 ?>
 
 </html>

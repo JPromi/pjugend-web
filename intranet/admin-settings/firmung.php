@@ -1,7 +1,7 @@
 <?php
 //include auth_session.php file on all user panel pages
-include("../../private/session/auth_session.php");
-include '../../private/database/firmung.php';
+include($_SERVER["DOCUMENT_ROOT"]."/../private/session/auth_session.php");
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/firmung.php';
 
 ?>
 
@@ -22,27 +22,27 @@ if(!(in_array("firmung_admin", $dbSESSION_perm))) {
     <title>Firmung - <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/firmung.css">
+    <link rel="stylesheet" href="/admin-settings/css/style.css">
+    <link rel="stylesheet" href="/admin-settings/css/firmung.css">
                 
     <?php
-    include '../../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
 
 </head>
 <?php
 //include navigation bar
-include("../../private/intranet/assets/nav.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
     <div class="content">
         <?php
-        include '../../private/intranet/admin-settings/header.php';
+        include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/admin-settings/header.php';
         top("Firmung");
         ?>
         <div class="settings">
             <?php
-            include '../../private/intranet/admin-settings/nav-firmung.php';
+            include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/admin-settings/nav-firmung.php';
             ?>
             <div class="middle">
                 <?php
@@ -60,7 +60,7 @@ include("../../private/intranet/assets/nav.php")
                             while ($firmung = $firmungen->fetch_assoc()) {
                                 if(strtotime($firmung["start_date"]) <= strtotime(date("Y-m-d")) && strtotime(date("Y-m-d")) <= strtotime($firmung["end_date"])) {
                                     echo '
-                                    <tr onclick="window.location.href=`firmung/view?year='.$firmung["year"].'`">
+                                    <tr onclick="window.location.href=`/admin-settings/firmung/view?year='.$firmung["year"].'`">
                                         <td>'.$firmung["year"].'</td>
                                         <td>'.$firmung["title"].'</td>
                                     </tr>
@@ -84,7 +84,7 @@ include("../../private/intranet/assets/nav.php")
                             $firmungen->data_seek(0);
                                 while ($firmung = $firmungen->fetch_assoc()) {
                                     echo '
-                                    <tr onclick="window.location.href=`firmung/view?year='.$firmung["year"].'`">
+                                    <tr onclick="window.location.href=`/admin-settings/firmung/view?year='.$firmung["year"].'`">
                                         <td>'.$firmung["year"].'</td>
                                         <td>'.$firmung["title"].'</td>
                                     </tr>
@@ -103,7 +103,7 @@ include("../../private/intranet/assets/nav.php")
 
 <?php
 //include scripts for bottom
-include("../../private/intranet/assets/scripts-bottom.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/scripts-bottom.php")
 ?>
 
 </html>

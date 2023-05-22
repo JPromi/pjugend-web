@@ -1,8 +1,8 @@
 <?php
 //include auth_session.php file on all user panel pages
-include("../../private/session/auth_session.php");
-include '../../private/database/int.php';
-include '../../private/database/public.php';
+include($_SERVER["DOCUMENT_ROOT"]."/../private/session/auth_session.php");
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/public.php';
 ?>
 
 <?php
@@ -22,27 +22,27 @@ if(!(in_array("jugendteam_admin", $dbSESSION_perm))) {
     <title>Team - <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/team.css">
+    <link rel="stylesheet" href="/admin-settings/css/style.css">
+    <link rel="stylesheet" href="/admin-settings/css/team.css">
                 
     <?php
-    include '../../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
 
 </head>
 <?php
 //include navigation bar
-include("../../private/intranet/assets/nav.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
     <div class="content">
         <?php
-        include '../../private/intranet/admin-settings/header.php';
+        include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/admin-settings/header.php';
         top("Benutzer");
         ?>
         <div class="settings">
             <?php
-            include '../../private/intranet/admin-settings/nav-team.php';
+            include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/admin-settings/nav-team.php';
             ?>
             
             <div class="middle">
@@ -69,7 +69,7 @@ include("../../private/intranet/assets/nav.php")
                             $teamEntry = $teamEntry->fetch_assoc();
 
                             if (isset($teamEntry)) {
-                                $profile_image_root_path = "../../cdn/profile/team/picture/im_p-".substr(md5($teamEntry["user_id"]), 0, 10).$teamEntry["user_id"].'-512.jpg';
+                                $profile_image_root_path = $_SERVER["DOCUMENT_ROOT"]."/../cdn/profile/team/picture/im_p-".substr(md5($teamEntry["user_id"]), 0, 10).$teamEntry["user_id"].'-512.jpg';
                                 if(file_exists($profile_image_root_path)) {
                                     $profile_image_path = "https://".$domain["cdn"].'/profile/team/picture/im_p-'.substr(md5($teamEntry["user_id"]), 0, 10).$teamEntry["user_id"].'-512.jpg';
                                 } else {
@@ -77,7 +77,7 @@ include("../../private/intranet/assets/nav.php")
                                 }
                                 
                                 echo '
-                                <div class="single" onclick="window.location.href=`team/edit?id='.$user_id.'`">
+                                <div class="single" onclick="window.location.href=`/admin-settings/team/edit?id='.$user_id.'`">
                                     <img src="'.$profile_image_path.'">
                                     <h4>'.$teamEntry["name"].'</h4>
     
@@ -88,7 +88,7 @@ include("../../private/intranet/assets/nav.php")
                                 ';
                             } else {
                                 echo '
-                                <div class="single new" onclick="window.location.href=`team/edit?id='.$user_id.'`">
+                                <div class="single new" onclick="window.location.href=`/admin-settings/team/edit?id='.$user_id.'`">
                                     <img src="https://'.$domain["cdn"].'/profile/placeholder/picture.jpg">
                                     <h4>'.$user["firstname"].' '.$user["lastname"].'</h4>    
                                 </div>
@@ -109,7 +109,7 @@ include("../../private/intranet/assets/nav.php")
 
 <?php
 //include scripts for bottom
-include("../../private/intranet/assets/scripts-bottom.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/scripts-bottom.php")
 ?>
 
 </html>
