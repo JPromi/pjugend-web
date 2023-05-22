@@ -1,7 +1,7 @@
 <?php
-include '../private/config.php';
-include '../private/database/public.php';
-include '../private/database/int.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/config.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/public.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
 ?>
 
 <?php
@@ -42,16 +42,16 @@ include '../private/database/int.php';
     <title>Veranstaltungen - <?php echo($conf_title["web"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/events.css">
+    <link rel="stylesheet" href="/css/events.css">
     
     <?php
-    include '../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
     
 </head>
 
 <?php
-include '../private/web/assets/nav.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
 ?>
 
 <body>
@@ -158,7 +158,7 @@ include '../private/web/assets/nav.php';
 
         while ($event = $allEvents->fetch_assoc()) {
 
-            $event_img_root_path = '../cdn/event/image/img-t_'.substr(md5($event["id"]), 5).'-256.jpg';
+            $event_img_root_path = $_SERVER["DOCUMENT_ROOT"].'/../cdn/event/image/img-t_'.substr(md5($event["id"]), 5).'-256.jpg';
 
             if(file_exists($event_img_root_path)) {
                 $event_img_path = "https://".$domain["cdn"].'/event/image/img-t_'.substr(md5($event["id"]), 5).'-256.jpg';
@@ -167,7 +167,7 @@ include '../private/web/assets/nav.php';
             }
             ?>
 
-            <div class="single" onclick="window.location.href=`events/view?id=<?php echo($event['id']); ?>`"
+            <div class="single" onclick="window.location.href=`/events/view?id=<?php echo($event['id']); ?>`"
             style="
                 background-image: linear-gradient(90deg, rgba(255, 255, 255) 0%, rgba(255, 255, 255, .75) 100%),
                 url(<?php echo($event_img_path); ?>);
@@ -252,11 +252,11 @@ include '../private/web/assets/nav.php';
         };
         ?>
     </div>
-    <script src="events/js/search.js"></script>
+    <script src="/events/js/search.js"></script>
 </body>
 
 <?php
-include '../private/web/assets/footer.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/footer.php';
 ?>
 
 </html>
