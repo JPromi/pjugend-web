@@ -94,6 +94,14 @@ if(isset($_POST["submit"])) {
 
     //insert in database
     $con_firmung->query("INSERT INTO firmung (title, description, year, start_date, end_date) VALUES ($title, $description, $year, $start, $end)");
+    if($con_firmung->error) {
+        try {
+            createLogo($_FILES['logo']['tmp_name'], $_FILES['logo']['type'], $_POST["year"]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            exit();
+        }
+    }
 }
 
 function checkInput($input) {
