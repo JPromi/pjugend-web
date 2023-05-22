@@ -1,6 +1,6 @@
 <?php
 //include auth_session.php file on all user panel pages
-include("../private/session/auth_session.php");
+include($_SERVER["DOCUMENT_ROOT"]."/../private/session/auth_session.php");
 ?>
 
 <!DOCTYPE html>
@@ -13,30 +13,30 @@ include("../private/session/auth_session.php");
     <title>Einstellungen - <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="/css/settings.css">
     <link rel="stylesheet" href="/settings/css/style.css">
 
     <?php
-    include '../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
 
 </head>
 <?php
 //include navigation bar
-include("../private/intranet/assets/nav.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
 
     <div class="content">
 
         <?php
-        include '../private/intranet/settings/header.php';
+        include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/settings/header.php';
         top("Einstellungen");
         ?>
 
         <div class="settings">
             <?php
-            include '../private/intranet/settings/nav.php';
+            include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/settings/nav.php';
             ?>
         </div>
 
@@ -46,7 +46,7 @@ include("../private/intranet/assets/nav.php")
 
 <?php
 //include scripts for bottom
-include("../private/intranet/assets/scripts-bottom.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/scripts-bottom.php")
 ?>
 
 </html>
