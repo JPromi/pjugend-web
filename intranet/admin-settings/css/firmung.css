@@ -1,0 +1,45 @@
+.middle {
+
+}
+
+.middle .dataset {
+    min-width: 50rem;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.middle .dataset h3 {
+    margin-top: 1rem;
+}
+
+.middle .dataset table {
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    min-width: 30rem;
+    border-spacing: 0;
+
+    text-align: left;
+}
+
+.middle .dataset table tr {
+    cursor: pointer;
+    transition: transform ease-in-out 250ms, background-color ease-in-out 250ms;
+}
+
+.middle .dataset table tbody tr:hover {
+    transform: translateX(1rem) scale(102%);
+    background-color: #05212121;
+}
+
+.middle .dataset table tbody tr:nth-child(2n+2) {
+    background-color: #21212110;
+}
+
+.middle .dataset table tr td, .middle .dataset table tr th {
+    padding: .5rem 1rem;
+}
+
+.middle .dataset table thead tr th {
+    border-bottom: 1px solid #00000050;
+}

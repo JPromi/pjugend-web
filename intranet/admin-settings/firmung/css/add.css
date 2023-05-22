@@ -1,0 +1,52 @@
+.middle {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.middle .block {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.middle .block h3 {
+    border-bottom: 1px solid #00000020;
+}
+
+.middle .block label {
+    width: fit-content;
+}
+
+.middle textarea {
+    resize: none;
+    width: 17rem;
+    height: 5rem;
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    padding: 0.5rem;
+
+    background-color: #00000010;
+}
+
+.middle input[type=text], .middle input[type=date], .middle input[type=number] {
+    border: 0;
+    background-color: transparent;
+    border-bottom: 1px solid #000000bb;
+    outline: none;
+    padding: 0.25rem 0.5rem;
+    min-width: 15rem;
+    width: fit-content;
+}
+.middle input[type=submit] {
+    width: fit-content;
+    padding: .5rem 1rem;
+
+    border: 0;
+    background-color: #00000020;
+    border-radius: .5rem;
+
+    cursor: pointer;
+}
