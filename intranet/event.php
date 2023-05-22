@@ -1,9 +1,9 @@
 <?php
 //include auth_session.php file on all user panel pages
-include("../private/session/auth_session.php");
+include($_SERVER["DOCUMENT_ROOT"]."/../private/session/auth_session.php");
 
-include("../private/database/int.php");
-include("../private/database/public.php");
+include($_SERVER["DOCUMENT_ROOT"]."/../private/database/int.php");
+include($_SERVER["DOCUMENT_ROOT"]."/../private/database/public.php");
 ?>
 
 <?php
@@ -30,7 +30,7 @@ include("../private/database/public.php");
         }
         $generateParameter = "?" . substr($generateParameter, 1);
         
-        header("Location: /event" . $generateParameter);
+        header("Location: " . $generateParameter);
     }
 ?>
 
@@ -44,22 +44,22 @@ include("../private/database/public.php");
     <title>Veranstaltungen -  <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/event.css">
-    <link rel="stylesheet" href="event/css/header.css">
+    <link rel="stylesheet" href="/css/event.css">
+    <link rel="stylesheet" href="/event/css/header.css">
             
     <?php
-    include '../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
 
 </head>
 <?php
 //include navigation bar
-include("../private/intranet/assets/nav.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
 
     <?php
-    include("../private/intranet/event/header.php");
+    include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/event/header.php");
     top("Veranstaltungen");
     ?>
     
@@ -162,7 +162,7 @@ include("../private/intranet/assets/nav.php")
         while ($event = $allEvents->fetch_assoc()) {
             ?>
 
-            <div class="single" onclick="window.location.href=`event/view?id=<?php echo($event["id"]); ?>`">
+            <div class="single" onclick="window.location.href=`/event/view?id=<?php echo($event["id"]); ?>`">
                 <div class="text">
                     <h1>
                         <?php 
@@ -239,7 +239,7 @@ include("../private/intranet/assets/nav.php")
 
 <?php
 //include scripts for bottom
-include("../private/intranet/assets/scripts-bottom.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/scripts-bottom.php")
 ?>
 
 </html>
