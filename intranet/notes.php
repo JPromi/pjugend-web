@@ -1,12 +1,12 @@
 <?php
 //include auth_session.php file on all user panel pages
-include("../private/session/auth_session.php");
+include($_SERVER["DOCUMENT_ROOT"]."/../private/session/auth_session.php");
 ?>
 
 <?php
 //include database
 $userID = $dbSESSION['user_id'];
-include '../private/database/int.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
 ?>
 
 <!DOCTYPE html>
@@ -19,16 +19,16 @@ include '../private/database/int.php';
     <title>Notizen - <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/notes.css">
+    <link rel="stylesheet" href="/css/notes.css">
 
     <?php
-    include '../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
 
 </head>
 <?php
 //include navigation bar
-include("../private/intranet/assets/nav.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
 
@@ -56,7 +56,7 @@ include("../private/intranet/assets/nav.php")
             <div class="folder shadow-border" id="folder">
                 <div class="scroll">
                     <div class="option">
-                        <button onclick="window.location.href=`notes/add-folder`">
+                        <button onclick="window.location.href=`/notes/add-folder`">
                             <span class="material-symbols-outlined">
                             create_new_folder
                             </span>
@@ -94,7 +94,7 @@ include("../private/intranet/assets/nav.php")
                                     <p>'.count(explode(";", $folder["notes_id"])).' Notizen</p>
                                 </div>
                                 <div class="btn">
-                                    <button onclick="window.location.href=`notes/edit-folder?folder='.$folder["id"].'`">
+                                    <button onclick="window.location.href=`/notes/edit-folder?folder='.$folder["id"].'`">
                                         <span class="material-symbols-outlined">
                                         edit
                                         </span>
@@ -240,7 +240,7 @@ include("../private/intranet/assets/nav.php")
                         //out from note when no perm
                         if (isset($_GET["note"])) {
                             if ($writePerm == false && $readPerm == false) {
-                                echo('<meta http-equiv="refresh" content="0; URL=notes">');
+                                echo('<meta http-equiv="refresh" content="0; URL=/notes">');
                             }
                         }
                         
@@ -266,7 +266,7 @@ include("../private/intranet/assets/nav.php")
                         }
 
                             echo '
-                            <form action="notes/post-note?note='.$notePostURL.'" method="post" autocomplete="off" onload="setSendNoteForm()">
+                            <form action="/notes/post-note?note='.$notePostURL.'" method="post" autocomplete="off" onload="setSendNoteForm()">
                                 <div class="tools">
                                     <div class="top">
                                         <div class="left">
@@ -492,14 +492,14 @@ include("../private/intranet/assets/nav.php")
         </div>
         
     </section>
-    <script src="notes/js/search.js"></script>
-    <script src="notes/js/editor.js"></script>
+    <script src="/notes/js/search.js"></script>
+    <script src="/notes/js/editor.js"></script>
     
 </body>
 
 <?php
 //include scripts for bottom
-include("../private/intranet/assets/scripts-bottom.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/scripts-bottom.php")
 ?>
 
 </html>
