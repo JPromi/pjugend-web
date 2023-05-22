@@ -158,7 +158,7 @@ include '../private/config.php';
 </body>
 
 <?php
-    include("../private/session/get_session.php");
+    //include("../private/session/get_session.php");
     if (isset($dbSESSION)) {
         if (isset($_GET["direct_int"])) {
             header("Location: /redirect?direct_int=".$_GET["direct_int"]."&l=f");
