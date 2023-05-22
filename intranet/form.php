@@ -1,9 +1,9 @@
 <?php
 //include auth_session.php file on all user panel pages
-include("../private/session/auth_session.php");
+include($_SERVER["DOCUMENT_ROOT"]."/../private/session/auth_session.php");
 
-include("../private/database/int.php");
-include("../private/database/public.php");
+include($_SERVER["DOCUMENT_ROOT"]."/../private/database/int.php");
+include($_SERVER["DOCUMENT_ROOT"]."/../private/database/public.php");
 ?>
 
 <?php
@@ -36,20 +36,20 @@ include("../private/database/public.php");
     <title>Formular -  <?php echo($conf_title["intranet"]); ?></title>
 
     <link rel="stylesheet" href="/css/style/style.css">
-    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="/css/form.css">
         
     <?php
-    include '../private/favicon/main.php';
+    include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
     ?>
 
 </head>
 <?php
 //include navigation bar
-include("../private/intranet/assets/nav.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
     <?php
-    include("../private/intranet/form/header.php");
+    include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/form/header.php");
     top("Formulare");
     ?>
 
@@ -133,7 +133,7 @@ include("../private/intranet/assets/nav.php")
             if(in_array($dbSESSION["user_id"], $allowedUser)) {
             ?>
 
-            <div class="single" onclick="window.location.href=`form/view?id=<?php echo($form["id"]); ?>`">
+            <div class="single" onclick="window.location.href=`/form/view?id=<?php echo($form["id"]); ?>`">
                 <div class="text">
                     <h1>
                         <?php 
@@ -206,7 +206,7 @@ include("../private/intranet/assets/nav.php")
 
 <?php
 //include scripts for bottom
-include("../private/intranet/assets/scripts-bottom.php")
+include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/scripts-bottom.php")
 ?>
 
 </html>
