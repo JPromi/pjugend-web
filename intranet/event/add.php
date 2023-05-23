@@ -121,6 +121,12 @@ include("../../private/intranet/assets/nav.php")
                             <input type="number" name="age_to">
                         </div>
 
+                        <h6>Kosten: </h6>
+                        <div class="single">
+                            <input type="number" name="costs">
+                            <p>€</p>
+                        </div>
+
                     <h6>Veranstalter: </h6>
                     <a onclick="alertadd('organizer')">
                         <span class="material-symbols-outlined">
@@ -189,12 +195,13 @@ if(!empty($_POST["submit"])) {
     $Page_from = valueCheck($_POST["age_from"]);
     $Page_to =  valueCheck($_POST["age_to"]);
     $Plocation = valueCheck($_POST["location"]);
+    $Pcosts = valueCheck($_POST["costs"]);
     //$Pprice = $_POST["price"];
     //$Pspec_group = $_POST["only_specific_group"];
     $Porganizer = implode(";", $_POST["organizer"]);
 
-    $addEvent = "INSERT INTO `event`    (title, description, date_from, date_to, age_from, age_to, location, organizer) VALUES
-                                        ($Ptitle, $Pdescription, $Pdate_from, $Pdate_to, $Page_from, $Page_to, $Plocation, $Porganizer)";
+    $addEvent = "INSERT INTO `event`    (title, description, date_from, date_to, age_from, age_to, location, organizer, price) VALUES
+                                        ($Ptitle, $Pdescription, $Pdate_from, $Pdate_to, $Page_from, $Page_to, $Plocation, $Porganizer, $Pcosts)";
     $con_public->query($addEvent);
 
     $eventID = $con_public->insert_id;

@@ -140,6 +140,12 @@ include("../../private/intranet/assets/nav.php")
                             <input type="number" name="age_to" value="<?php echo($event["age_to"]); ?>">
                         </div>
 
+                        <h6>Kosten: </h6>
+                        <div class="single">
+                            <input type="number" name="costs" value="<?php echo($event["price"]); ?>">
+                            <p>€</p>
+                        </div>
+
                     <h6>Veranstalter: </h6>
                     <a onclick="alertadd('organizer')">
                         <span class="material-symbols-outlined">
@@ -217,6 +223,8 @@ if(!empty($_POST["submit"])) {
     //$Pspec_group = $_POST["only_specific_group"];
     $Porganizer = implode(";", $_POST["organizer"]);
 
+    $Pcosts = valueCheck($_POST["costs"]);
+
     echo($Porganizer);
     $updateEvent = "UPDATE `event` SET 
                                         `title` = $Ptitle,
@@ -226,7 +234,8 @@ if(!empty($_POST["submit"])) {
                                         `age_from` = $Page_from,
                                         `age_to` = $Page_to,
                                         `location` = $Plocation,
-                                        `organizer` = $Porganizer
+                                        `organizer` = $Porganizer,
+                                        `price` = $Pcosts
                                         WHERE `id`='$eventID'";
     mysqli_query($con_public, $updateEvent);
 
