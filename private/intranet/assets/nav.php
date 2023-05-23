@@ -42,6 +42,19 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
         };
         ?>
 
+        <!--Fileshare-->
+        <?php
+        if (in_array("fileshare", $dbSESSION_perm)) {
+            echo('
+            <a href="/fileshare" id="singlenav" class="navOpen">
+                <span class="material-symbols-outlined icon">upload</span>
+                <p id="navtext">Fileshare</p>
+                </span>
+            </a>
+            ');
+        };
+        ?>
+
         <!--Gallery-->
         <?php
         if (in_array("gallery", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
