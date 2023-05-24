@@ -2,3 +2,14 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^(.*)$ $1.php [NC,L]
+
+# error
+
+#4xx
+#ErrorDocument 401 /e/error?e=401    # protected
+#ErrorDocument 403 /e/error?e=403    # forbidden
+#ErrorDocument 404 /e/error?e=404    # not found
+#ErrorDocument 408 /e/error?e=408    # Request Timeout
+
+#5xx
+#ErrorDocument 500 /e/error?e=500    # Internal Server Error
