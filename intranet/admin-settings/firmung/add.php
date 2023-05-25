@@ -50,8 +50,6 @@ include("../../../private/intranet/assets/nav.php")
 
                 <div class="block">
                     <h3>Allgemein</h3>
-                    <label>Titel: <input type="text" name="title"></label>
-
                     <div class="text">
                         <p>Beschreibung:</p>
                         <textarea name="description"></textarea>
@@ -86,14 +84,13 @@ include("../../../private/intranet/assets/scripts-bottom.php")
 if(isset($_POST["submit"])) {
 
     //check inputs
-    $title = checkInput($_POST["title"]);
     $description = checkInput($_POST["description"]);
     $year = checkInput($_POST["year"]);
     $start = checkInput($_POST["start"]);
     $end = checkInput($_POST["end"]);
 
     //insert in database
-    $con_firmung->query("INSERT INTO firmung (title, description, year, start_date, end_date) VALUES ($title, $description, $year, $start, $end)");
+    $con_firmung->query("INSERT INTO firmung (description, year, start_date, end_date) VALUES ($description, $year, $start, $end)");
     if($con_firmung->error) {
         try {
             createLogo($_FILES['logo']['tmp_name'], $_FILES['logo']['type'], $_POST["year"]);
