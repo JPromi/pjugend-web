@@ -45,3 +45,25 @@
     background-color: #21212175;
     display: block;
 }
+
+@media screen and (max-width: 700px) {
+    .middle .title {
+        flex-direction: column;
+    }
+
+    .middle .title .text h1 {
+        font-size: 10vw;
+    }
+
+    .middle .bot {
+        grid-template-columns: 1fr;
+    }
+
+    .middle .bot .single {
+        border-bottom: 1px solid #21212120;
+    }
+
+    .middle .bot .single:nth-child(2n+1) {
+        border-right: none;
+    }
+}
