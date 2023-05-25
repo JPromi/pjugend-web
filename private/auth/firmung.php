@@ -1,5 +1,21 @@
 <?php
 include '../private/config.php';
+require "../private/database/int.php";
+require "../private/database/firmung.php";
+?>
+
+<?php
+//check current firmung
+if(empty($_GET["year"])) {
+    $today = date('Y-m-d');
+    $currentFirmung = "SELECT * FROM firmung WHERE start_date < '$today' AND end_date >= '$today'";
+} else {
+    $getYEAR = mysqli_real_escape_string($con_firmung, $_GET["year"]);
+    $currentFirmung = "SELECT * FROM firmung WHERE year = '$getYEAR'";
+}
+
+$currentFirmung = $con_firmung->query($currentFirmung);
+$currentFirmung = $currentFirmung->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +24,18 @@ include '../private/config.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firmling Login - <?php echo($conf_title["intranet"]) ?></title>
+    <?php
+    if(isset($currentFirmung)) {
+        echo '
+        <title>Firmung '.$currentFirmung["year"].' Login - '.$conf_title["intranet"].'</title>
+        ';
+    } else {
+        echo '
+        <title>Firmung nicht gefunden - '.$conf_title["intranet"].'</title>
+        ';
+    }
+    ?>
+    
     <link rel="stylesheet" href="css/firmung.css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
@@ -21,8 +48,6 @@ include '../private/config.php';
 </head>
 <?php
     include "../intranet/assets/html/favicon.html";
-    require "../private/database/int.php";
-    require "../private/database/firmung.php";
 
 
     //redirect logic
@@ -34,7 +59,7 @@ include '../private/config.php';
     // When form submitted, check and create user session.
 
     //intranet login
-    if (isset($_POST['username'])) {
+    if (isset($_POST['username']) && isset($currentFirmung)) {
         $username = stripslashes($_REQUEST['username']);    // removes backslashes
         $username = mysqli_real_escape_string($con_firmung, $username);
         $password = stripslashes($_REQUEST['password']);
@@ -67,9 +92,10 @@ include '../private/config.php';
         }
 
         if($failedCounter <= 10) {
+            $firmungID = $currentFirmung["id"];
             // Check user is exist in the database
             // ARGON2ID
-            $verify = "SELECT id, `password`, firstname, lastname, username FROM `firmling` WHERE username = '$username'";
+            $verify = "SELECT id, `password`, firstname, lastname, username FROM `firmling` WHERE username = '$username' AND firmung_id = '$firmungID'";
             $verify = mysqli_query($con_firmung, $verify);
             $verify = $verify->fetch_assoc();
         
@@ -109,13 +135,27 @@ include '../private/config.php';
     }
 ?>
 <body>
+    <?php
+    if(isset($currentFirmung)) {
+    ?>
     <section class="top">
+
+        <?php
+            //get logo
+            $img_logo_root = $_SERVER["DOCUMENT_ROOT"]."/../cdn/firmung/logo/".$currentFirmung["year"].'.png';
+
+            if(file_exists($img_logo_root)) {
+                $img_logo_path = "https://".$domain["cdn"]."/firmung/logo/".$currentFirmung["year"].'.png';
+            } else {
+                $img_logo_path = "https://".$domain["cdn"]."/firmung/logo/default.png";
+            }
+        ?>
    
         <!--login-->
         <section class="login <?php echo($error)?>">
             <div class="title">
-                <img src="https://<?php echo($domain["cdn"]);?>/logo/pjugend/p_jugend-blue.svg">
-                <h1>Firmung 2023 Login</h1>
+                <img src="<?php echo($img_logo_path); ?>">
+                <h1>Firmung <?php echo($currentFirmung["year"]); ?> Login</h1>
             </div>
             
             <form class="form" method="POST" name="login">
@@ -140,19 +180,40 @@ include '../private/config.php';
                     <input type="password" name="password" require/>
                 </label>
 
-                <?php //<a href="password-reset">Forgot password?</a> ?>
-
                 <input type="submit" value="Login" name="submit"require/>
             </form>
 
         </section>
     </section>
+
+
+        <?php
+        } else {
+        ?>
+        <section class="top">
+    
+            <!--login-->
+            <section class="login <?php echo($error)?>">
+                <div class="title">
+                    <img src="https://<?php echo($domain["cdn"]);?>/firmung/logo/default.png">
+                    <?php
+                    if(empty($_GET["year"])) {
+                        echo '
+                            <h1>Zurzeit ist keine Firmung vorhanden</h1>
+                        ';
+                    } else {
+                        echo '
+                            <h1>Die Firmung '.$_GET["year"].' konnte nicht gefunden werden.</h1>
+                        ';
+                    }
+                    ?>
+                    <h1></h1>
+                </div>
+
+            </section>
+        </section>
     <?php
-        if ($error == "loginerror") {
-            echo "<p class='error'>Flasches Passwort oder Benutzername</p>";
-        } else if ($error == "attempts") {
-            echo "<p class='error'>Zu viele Versuche, versuche es in 3 min wieder</p>";
-        }
+    }
     ?>
 
 </body>
@@ -161,9 +222,9 @@ include '../private/config.php';
     //include("../private/session/get_session.php");
     if (isset($dbSESSION)) {
         if (isset($_GET["direct_int"])) {
-            header("Location: /redirect?direct_int=".$_GET["direct_int"]."&l=f");
+            header("Location: https://.".$domain["web"]."/firmung");
         }
-        header("Location: /redirect");
+        header("Location: https://.".$domain["web"]."/firmung");
         exit();
     }
 ?>
