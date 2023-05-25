@@ -9,6 +9,8 @@
 /cdn/gallery/g-*
 /cdn/gallery/tmp
 
+/cdn/firmung/logo/2
+
 # config files
 /private/config.php
 
