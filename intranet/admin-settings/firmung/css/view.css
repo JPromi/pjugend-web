@@ -1,0 +1,47 @@
+.middle {
+    
+}
+
+/* title */
+.middle .title {
+    display: flex;
+    gap: 2rem;
+
+    border-bottom: 1px solid #21212120;
+}
+
+.middle .title .logo {
+    height: 13rem;
+}
+
+.middle .title .text {
+    padding: 1rem 0;
+}
+
+.middle .title .text h1 {
+    font-size: 2.9rem;
+}
+
+
+/* bottom */
+.middle .bot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem;
+}
+
+.middle .bot .single {
+    padding: 1rem 2vw;
+}
+
+.middle .bot .single:nth-child(2n+1) {
+    border-right: 1px solid #21212120;
+}
+
+.middle .bot .line-title {
+    margin: 0 0 .25rem -.5rem;
+    width: 3rem;
+    height: 1px;
+    background-color: #21212175;
+    display: block;
+}
