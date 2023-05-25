@@ -147,7 +147,7 @@ $currentFirmung = $currentFirmung->fetch_assoc();
             if(file_exists($img_logo_root)) {
                 $img_logo_path = "https://".$domain["cdn"]."/firmung/logo/".$currentFirmung["year"].'.png';
             } else {
-                $img_logo_path = "https://".$domain["cdn"]."/firmung/logo/default.png";
+                $img_logo_path = "https://".$domain["cdn"]."/firmung/logo/default.svg";
             }
         ?>
    
