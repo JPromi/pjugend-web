@@ -71,6 +71,12 @@ include("../../private/intranet/assets/nav.php")
                     </span>
                 </a>
 
+                <a href="/form/edit?id=<?php echo($form["id"]); ?>" title="Bearbeiten">
+                    <span class="material-symbols-outlined">
+                    edit
+                    </span>
+                </a>
+
                 <a onclick="copy('https://<?php echo($domain['web']); ?>/form?id=<?php echo($form['id']); ?>')" title="In Zwischenablage kopieren">
                     <span class="material-symbols-outlined">
                     content_copy
