@@ -62,6 +62,7 @@ include '../../private/web/assets/nav.php';
 
         <div class="top">
             <h1><?php echo($gallery["title"]); ?></h1>
+            <p><?php echo(nl2br($gallery["description"])); ?></p>
             <div class="btn">
                 <label title="Alle Elemente Herunterladen">
                     <input type="submit" name="download_all" value="dl_all">

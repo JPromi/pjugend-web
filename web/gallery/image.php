@@ -20,6 +20,31 @@ if(!isset($gallery) || !isset($_GET["i"])) {
 ?>
 
 <?php
+        //check if gallery has password
+        if($gallery["password"]) {
+
+            //check if cookie isset
+            if($_COOKIE["PUBLIC_SESSION_ID"]) {
+                $sessionPublic = $_COOKIE["PUBLIC_SESSION_ID"];
+                $galleryID = $gallery["id"];
+                
+                $gallerySession = $con_public->query("SELECT * FROM gallery_session WHERE cookie_hash = '$sessionPublic' AND gallery_id = '$galleryID'");
+                $gallerySession = $gallerySession->fetch_assoc();
+
+                //check if cookie is expired
+                if(empty($gallerySession)) {
+                    echo '<meta http-equiv="refresh" content="0; url=verify?id='.$hashID.'">';
+                    exit();
+                }
+            } else {
+                echo '<meta http-equiv="refresh" content="0; url=verify?id='.$hashID.'">';
+                exit();
+            }
+        }
+?>
+
+
+<?php
 
 $imageName = str_replace("/", "", $_GET["i"]);
 

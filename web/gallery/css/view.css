@@ -1,3 +1,11 @@
+.top {
+    margin: 1vw 3vw;
+}
+
+.top p {
+    margin: 0 2vw;
+}
+
 .gallery {
     display: flex;
     flex-direction: row;
