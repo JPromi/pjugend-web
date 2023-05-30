@@ -92,12 +92,14 @@
 /* screen size */
 @media screen and (max-width: 750px) {
     .gallery {
-        gap: .25rem;
+        gap: .1rem;
+        width: 99%;
     }
     
     .gallery label {
         height: 8rem;
-        max-width: 15rem;
+        min-width: 12rem;
+        max-width: 45%;
         border-radius: .25rem;
     }
 
