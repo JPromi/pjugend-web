@@ -30,6 +30,12 @@ include("../private/intranet/assets/nav.php")
         <h4>Herzlich Willkommen <?php echo ($dbSESSION['firstname']." ".$dbSESSION['lastname']); ?>!</h4>
     </section>
     
+    <link rel="stylesheet" href="/css/style/widget.css">
+    <section class="widgets">
+        <?php
+            include '../private/intranet/widget/links.php';
+        ?>
+    </section>
 </body>
 
 <?php
