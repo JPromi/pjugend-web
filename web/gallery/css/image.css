@@ -32,3 +32,10 @@
 .content a {
     color: #000;
 }
+
+.btn {
+    width: fit-content;
+    display: flex;
+    gap: 1rem;
+    margin: 1rem auto;
+}

@@ -101,6 +101,14 @@ include '../../private/web/assets/nav.php';
         ?>
     <div class="content">
 
+        <div class="back">
+            <a href="/gallery/view?id=<?php echo($_GET["g"]); ?>" titl="Zurück">
+                <span class="material-symbols-outlined">
+                arrow_back
+                </span>
+            </a>
+        </div>
+
         <div class="maincontent" id="image">
             <?php
             if($imagePosition >= 3) {
@@ -149,13 +157,13 @@ include '../../private/web/assets/nav.php';
             }
             ?>
             </div>
-            <!--<div class="btn">
-                <a href="<?php echo($imageUrlOriginal); ?>" download>
+            <div class="btn">
+                <a href="<?php echo($imageUrlOriginal); ?>" download title="Bild Herunterladen">
                     <span class="material-symbols-outlined">
                     download
                     </span>
                 </a>
-            </div>-->
+            </div>
             
     </div>
 </body>
