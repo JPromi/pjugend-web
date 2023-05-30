@@ -25,7 +25,10 @@ include '../private/web/assets/nav.php';
 
 <body>
     <div class="content">
-        
+        <div class="ph">
+            <h2>Hey,... eh,... schön das du den Weg hier her gefunden hast.</h2>
+            <p>Zurzeit gibt es hier noch nicht wirklich was zu sehen, schau ein anderes mal wieder vorbei</p>
+        </div>
     </div>
 </body>
 
