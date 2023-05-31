@@ -1,0 +1,52 @@
+/* top */
+.middle .btn {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 2rem;
+}
+
+.middle .btn button {
+    outline: none;
+    display: flex;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+/* informations */
+.middle .informations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem;
+}
+
+.middle .informations .single {
+    padding: 1rem 2vw;
+}
+
+.middle .informations .single:nth-child(2n+1) {
+    border-right: 1px solid #21212120;
+}
+
+.middle .informations .line-title {
+    margin: 0 0 .25rem -.5rem;
+    width: 3rem;
+    height: 1px;
+    background-color: #21212175;
+    display: block;
+}
+
+
+@media screen and (max-width: 700px) {
+    .middle .informations {
+        grid-template-columns: 1fr;
+    }
+
+    .middle .informations .single {
+        border-bottom: 1px solid #21212120;
+    }
+
+    .middle .informations .single:nth-child(2n+1) {
+        border-right: none;
+    }
+}
