@@ -70,6 +70,12 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
                         add
                         </span>
                     </button>
+
+                    <button onclick="window.location.href=`/admin-settings/firmung/event/type?year=<?php echo($year); ?>`" title="Aktionsarten Verwallten">
+                        <span class="material-symbols-outlined">
+                        format_list_bulleted
+                        </span>
+                    </button>
                 </div>
 
                 <div class="events">
