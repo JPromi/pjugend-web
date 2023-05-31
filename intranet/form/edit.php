@@ -167,7 +167,7 @@ include("../../private/intranet/assets/nav.php")
             $formIndex = $con_public_new->query($formIndex);
 
             while ($element = $formIndex->fetch_assoc()) {
-                echo($element["place_index"]);
+                //echo($element["place_index"]);
                 echo '
                 <div class="single" id="'.$element["place_index"].'">
                     <div class="settings">
@@ -189,10 +189,31 @@ include("../../private/intranet/assets/nav.php")
                         </a>
                     </div>
                     <div class="input" id="content'.$element["place_index"].'">
-                        
+                ';
+
+                if($element["type"] == 'stTitle') {
+                    echo '
+                        <label class="title"><input type="text" name="text[]" placeholder="Titel"></label>
+                    ';
+                } else if ($element["type"] == 'stDescrption') {
+                    echo '
+                        <label class="description"><textarea name="text[]" placeholder="Beschreibung"></textarea></label>
+                    ';
+                } else {
+                    echo '
+                        <label><input type="text" name="text[]" id="" placeholder="Text"></label>
+                        <input type="text" placeholder="Input" disabled>
+                    ';
+                }
+
+                echo '
                     </div>
+                
+
+                
                 </div>
                 ';
+                
             }
             ?>
         </div>
