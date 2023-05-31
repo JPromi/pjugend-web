@@ -41,7 +41,7 @@ if(!isset($firmung)) {
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="/admin-settings/css/style.css">
-    <link rel="stylesheet" href="/admin-settings/firmung/event/css/edit.css">
+    <link rel="stylesheet" href="/admin-settings/firmung/event/css/add.css">
                 
     <?php
     include $_SERVER["DOCUMENT_ROOT"].'/../private/favicon/main.php';
@@ -128,7 +128,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 
                                     echo '
                                     <tr>
-                                        <td>
+                                        <td class="input">
                                             <input type="checkbox" name="firmbegleiter[]" value="'.$firmbegleiter["id"].'">
                                         </td>
                                         <td>
@@ -145,6 +145,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
                 </div>
 
                 <div class="btn">
+                    <input type="submit" name="quit" value="Abbrechen">
                     <input type="submit" name="submit" value="Erstellen">
                 </div>
 
@@ -162,6 +163,10 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/scripts-bottom.ph
 </html>
 
 <?php
+if(isset($_POST["quit"])) {
+    echo '<meta http-equiv="refresh" content="0; url=/admin-settings/firmung/event?year='.$firmung["year"].'">';
+}
+
 if(isset($_POST["submit"])) {
     //debug
     echo json_encode($_POST);
@@ -186,6 +191,9 @@ if(isset($_POST["submit"])) {
         $con_firmung->query("INSERT INTO firmung_event_firmbegleiter (firmung_id, event_id, user_id) VALUES ($firmbegleiterID, $eventID, $firmbegleiterID)");
         echo $con_firmung->error;
     }
+
+    //redirect back
+    echo '<meta http-equiv="refresh" content="0; url=/admin-settings/firmung/event?year='.$firmung["year"].'">';
 }
 ?>
 
