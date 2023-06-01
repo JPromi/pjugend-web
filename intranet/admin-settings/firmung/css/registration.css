@@ -1,0 +1,124 @@
+.middle .registration {
+    width: fit-content;
+    margin: 3rem auto 0 auto;
+}
+
+.middle .registration table {
+    border-spacing: 0;
+}
+
+.middle .registration table thead tr th .ct {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: .5rem;
+    cursor: pointer;
+}
+
+.middle .registration table tbody tr {
+    cursor: pointer;
+
+    transition: background-color ease-in-out 200ms,
+                transform ease-in-out 200ms;
+}
+
+.middle .registration table tbody tr:hover {
+    background-color: #00000010;
+    transform: scale(101%);
+}
+
+
+.middle .registration table tr td, .middle .registration table tr th {
+    padding: .5rem 1rem;
+}
+
+.middle .registration table tbody tr:nth-child(2n+1) {
+    background-color: #21212120;
+}
+
+.middle .registration table tbody tr.none {
+    display: none;
+}
+
+/* search */
+.middle .registration .search {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    border-bottom: 1px solid #21212120;
+    width: fit-content;
+    padding: .5rem;
+    margin: 0 auto;
+}
+
+.middle .registration .search input[type=text] {
+    border: 0;
+    background-color: transparent;
+    outline: none;
+}
+
+.middle .registration .search span {
+    cursor: pointer;
+}
+
+/* arrow */
+.order-selected .arrow, .order-selected .arrow::before, .order-selected .arrow::after, .arrow {
+    --arrow-transition-time: 200ms;
+    --arrow-transition-type: ease-in-out;
+    transition: transform var(--arrow-transition-type) var(--arrow-transition-time),
+                right var(--arrow-transition-type) var(--arrow-transition-time),
+                top var(--arrow-transition-type) var(--arrow-transition-time),
+                bottom var(--arrow-transition-type) var(--arrow-transition-time),
+                opacity var(--arrow-transition-type) var(--arrow-transition-time);
+}
+
+.arrow {
+    opacity: 0;
+    background: #bdbdbd;
+    height: 2px;
+    width: 10px;
+    margin: 0 auto;
+    position: relative;
+    cursor: pointer;
+    rotate: 90deg;
+    border-radius: 1rem;
+}
+
+.order-selected .arrow {
+    opacity: 1;
+
+}
+.arrow::before, .arrow::after {
+    content: "";
+    background: #bdbdbd;
+    position: absolute;
+    height: 2px;
+    width: 10px;
+    border-radius: 1rem;
+}
+
+.arrow::before {
+    right: -2px;
+    bottom: -3px;
+    transform: rotate(-45deg);
+}
+
+.arrow::after {
+    right: -2px;
+    top: -3px;
+    transform: rotate(45deg);
+}
+
+
+.desc .arrow::before {
+    right: 2px;
+    bottom: -3px;
+    transform: rotate(-135deg);
+}
+
+.desc .arrow::after {
+    right: 2px;
+    bottom: -3px;
+    transform: rotate(135deg);
+}
