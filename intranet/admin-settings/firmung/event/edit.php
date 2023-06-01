@@ -373,8 +373,8 @@ if(isset($_POST["delete"])) {
     $con_firmung->query("DELETE FROM firmung_event WHERE id = $eventID AND firmung_id = $firmungID");
     $con_firmung->query("DELETE FROM firmung_event_firmbegleiter WHERE event_id = $eventID AND firmung_id = $firmungID");
     $con_firmung->query("DELETE FROM firmung_event_firmling WHERE event_id = $eventID AND firmung_id = $firmungID");
-    
-    echo '<meta http-equiv="refresh" content="0; url=/admin-settings/firmung/view?year='.$firmung["year"].'">';
+
+    echo '<meta http-equiv="refresh" content="0; url=/admin-settings/firmung/event?year='.$firmung["year"].'">';
 }
 ?>
 
