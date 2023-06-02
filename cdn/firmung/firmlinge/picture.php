@@ -1,5 +1,5 @@
 <?php
-include $_SERVER["DOCUMENT_ROOT"].'/../private/session/auth_session.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/session/get_session.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/database/firmung.php';
 
 //access
