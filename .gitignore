@@ -9,7 +9,9 @@
 /cdn/gallery/g-*
 /cdn/gallery/tmp
 
-/cdn/firmung/logo/2
+/cdn/firmung/logo/2*
+/cdn/firmung/firmlinge/_picture/2*
+/cdn/firmung/firmlinge/_registration/2*
 
 # config files
 /private/config.php
