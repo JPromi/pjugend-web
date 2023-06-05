@@ -16,15 +16,21 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/session/get_session.php");
         </div>
         
         <div class="nav">
-            <div class="left">
-                <a href="/">
+            <ul class="left">
+                <li><a href="/">
                     <img src="https://<?php echo($domain["cdn"]);?>/logo/pjugend/p_jugend-white.svg">
-                </a>
-                <a href="/events">Veranstaltungen</a>
-                <a href="/gallery">Galerie</a>
-                <a href="/socials">Social Media</a>
-                <a href="/about">Über uns</a>
-            </div>
+                </a></li>
+                <li><a href="/events">Veranstaltungen</a></li>
+                <li><a href="/gallery">Galerie</a></li>
+                <li><a href="/socials">Social Media</a></li>
+                <li>
+                    <a>Sakramente</a>
+                    <ul>
+                        <li><a href="/firmung">Firmung</a></li>
+                    </ul>
+                </li>
+                <li><a href="/about">Über uns</a></li>
+            </ul>
             <div class="right">
                 <?php
                 // intranet
