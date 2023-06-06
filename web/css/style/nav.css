@@ -100,6 +100,7 @@ nav .right {
     height: fit-content;
     width: fit-content;
     margin-left: auto;
+    gap: 1vw;
 }
 
 nav .right .profile {
@@ -120,6 +121,10 @@ nav .right .profile img {
     object-fit: cover;
 }
 
+nav .right .profile.profile-firmling img {
+    border: 2px solid #80000075;
+}
+
 /* account menu */
 .accountmenu {
     position: absolute;
@@ -135,6 +140,8 @@ nav .right .profile img {
     min-width: 25rem;
 
     z-index: 200;
+
+    max-width: 30rem;
 }
 
 .hidden {
@@ -161,10 +168,17 @@ nav .right .profile img {
 
 .accountmenu .links {
     display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 0 2rem;
+}
+
+.accountmenu .links .block {
+    display: flex;
     flex-direction: column;
     border-top: .1px solid #21212150;
     width: fit-content;
-    margin-left: 1.5rem;
 }
 
 .accountmenu .links a {
