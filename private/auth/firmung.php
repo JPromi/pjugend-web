@@ -105,18 +105,18 @@ $currentFirmung = $currentFirmung->fetch_assoc();
                 $loginStatus = "login";
                 $error = "";
                 $coockie_hash = bin2hex(random_bytes(40));
-                setcookie("SESSION_ID", $coockie_hash, time() + (86400 * 7), "", ".".$domain["default"]);
+                setcookie("SESSION_FIRMLING_ID", $coockie_hash, time() + (86400 * 7), "", ".".$domain["default"]);
                 $generateSession =    "INSERT INTO `session` 
-                            (user_id, username, firstname, lastname, cookie_hash, used_for)
+                            (firmling_id, cookie_hash, used_for)
                             VALUES
-                            ('".$verify['id']."', '".$verify['username']."', '".$verify['firstname']."', '".$verify['lastname']."', '$coockie_hash', 'web')";
+                            ('".$verify['id']."', '$coockie_hash', 'web')";
                 mysqli_query($con_firmung_new, $generateSession);
 
                 // Set log var
                 $userID = "'".$verify['id']."'";
 
                 // Redirect to user home page
-                header("Location: /redirect".$redirect_url);
+                header("Location: https://".$domain["web"]."/firmung/firmling");
             } else {
                 $loginStatus = "error";
                 $error = "loginerror";
@@ -219,12 +219,9 @@ $currentFirmung = $currentFirmung->fetch_assoc();
 </body>
 
 <?php
-    //include("../private/session/get_session.php");
-    if (isset($dbSESSION)) {
-        if (isset($_GET["direct_int"])) {
-            header("Location: https://.".$domain["web"]."/firmung");
-        }
-        header("Location: https://.".$domain["web"]."/firmung");
+    include("../private/session/firmung/get_session.php");
+    if (isset($dbSESSION_firmling)) {
+        header("Location: https://".$domain["web"]."/firmung/firmling");
         exit();
     }
 ?>
