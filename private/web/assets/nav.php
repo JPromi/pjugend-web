@@ -104,7 +104,11 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/session/firmung/get_session.php")
                                 Einstellungen
                             </a>
                         </div>
-                        
+
+                        <?php
+                        //check if firmling is logged in
+                        if($dbSESSION_firmling) {
+                        ?>
                         <div class="block">
                             <a href="/firmung/firmling">
                                 <span class="material-symbols-outlined">
@@ -127,6 +131,9 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/session/firmung/get_session.php")
                                 Firm Einstellungen
                             </a>
                         </div>
+                        <?php
+                        };
+                        ?>
                         
                     </div>
                     <a href="https://<?php echo($domain["auth"]) ?>/logout?direct=public" class="logout">
