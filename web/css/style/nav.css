@@ -43,13 +43,11 @@ nav .left li ul {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    z-index: 10;
 }
 
 nav .left li:hover ul, nav .left li ul:hover {
     height: fit-content;
-}
-
-nav .left li ul li:first-child a {
 }
 
 nav .left li ul li:last-child a {
