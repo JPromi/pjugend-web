@@ -147,11 +147,15 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/session/firmung/get_session.php")
             <?php
             // firmling
             if(isset($dbSESSION_firmling) && !isset($dbSESSION)) {
+                $profile_firmling = $dbSESSION_firmling["firmling_id"];
+                $profile_firmling = "SELECT * FROM firmling WHERE id = $profile_firmling";
+                $profile_firmling = $con_firmung->query($profile_firmling);
+                $profile_firmling = $profile_firmling->fetch_assoc();
                 ?>
                 <div class="accountmenu hidden" id="menu-firmling">
                     <div class="info">
                         <img src="https://<?php echo $domain["cdn"];?>/firmung/firmling/profilepicture">
-                        <h2><?php echo($dbSESSION["username"]) ?></h2>
+                        <h2><?php echo($profile_firmling["firstname"]) ?> <?php echo($profile_firmling["lastname"]) ?></h2>
                     </div>
                     <div class="links">
 
