@@ -21,12 +21,13 @@ function createImage($imgOriginal, $imgType, $name, $gallery)
     $thumbnail = imagescale($image, 512/$imageratio, 512,  IMG_NEAREST_NEIGHBOUR);
 
     //move images
-    imagejpeg($image,  $cdnPath.'original/'.$name.'.jpg');
+    //imagejpeg($image, $cdnPath.'original/'.$name.'.jpg');
+    copy($imgOriginal, $cdnPath.'original/'.$name.'.jpg');
     imagejpeg($big, $cdnPath.'images/'.$name.'.jpg');
     imagejpeg($thumbnail, $cdnPath.'thumbnail/'.$name.'.jpg');
 
     //destroy images
-    imagedestroy($image);
+    //imagedestroy($image);
     imagedestroy($big);
     imagedestroy($thumbnail);
 }
