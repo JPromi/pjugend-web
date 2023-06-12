@@ -22,9 +22,18 @@ function createImage($imgOriginal, $imgType, $name, $gallery)
 
     //move images
     //imagejpeg($image, $cdnPath.'original/'.$name.'.jpg');
-    copy($imgOriginal, $cdnPath.'original/'.$name.'.jpg');
-    imagejpeg($big, $cdnPath.'images/'.$name.'.jpg');
-    imagejpeg($thumbnail, $cdnPath.'thumbnail/'.$name.'.jpg');
+    //imagejpeg($big, $cdnPath.'images/'.$name.'.jpg');
+    //imagejpeg($thumbnail, $cdnPath.'thumbnail/'.$name.'.jpg');
+
+    if($imgType == "image/jpeg") {
+        copy($imgOriginal, $cdnPath.'original/'.$name.'.jpg');
+        imagejpeg($big, $cdnPath.'images/'.$name.'.jpg');
+        imagejpeg($thumbnail, $cdnPath.'thumbnail/'.$name.'.jpg');
+    } elseif ($imgType == "image/png") {
+        copy($imgOriginal, $cdnPath.'original/'.$name.'.png');
+        imagepng($big, $cdnPath.'images/'.$name.'.png');
+        imagepng($thumbnail, $cdnPath.'thumbnail/'.$name.'.png');
+    }
 
     //destroy images
     //imagedestroy($image);
