@@ -151,7 +151,8 @@ if(isset($_POST["submit"])) {
         //gallery
         for($i=0 ; $i < count($_FILES["images"]["name"]); $i++) {
             try {
-                createImage($_FILES['images']['tmp_name'][$i], $_FILES['images']['type'][$i], substr(md5(date("Y-m-d h:m:i")) , 0, 5).$i."-".pathinfo($_FILES['images']['name'][$i], PATHINFO_FILENAME), $hashID);
+                //createImage($_FILES['images']['tmp_name'][$i], $_FILES['images']['type'][$i], substr(md5(date("Y-m-d h:m:i")) , 0, 5).$i."-".pathinfo($_FILES['images']['name'][$i], PATHINFO_FILENAME), $hashID);
+                createImage($_FILES['upload_image']['tmp_name'][$i], $_FILES['upload_image']['type'][$i], pathinfo($_FILES['upload_image']['name'][$i])['filename']."-".$i.substr(md5(date("Y-m-d h:m:i")) , 0, 5), $hash_id);
             } catch (\Throwable $th) {
                 //throw $th;
                 echo("<p class='error'>Fehler: ".$_FILES['images']['name'][$i]."</p>");

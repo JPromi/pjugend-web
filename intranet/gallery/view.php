@@ -223,7 +223,8 @@ if(isset($_POST["settings_save"])) {
         //gallery
         for($i=0 ; $i < count($_FILES["upload_image"]["name"]); $i++) {
             try {
-                createImage($_FILES['upload_image']['tmp_name'][$i], $_FILES['upload_image']['type'][$i], substr(md5(date("Y-m-d h:m:i")) , 0, 5).$i."-".pathinfo($_FILES['upload_image']['name'][$i], PATHINFO_FILENAME), $hash_id);
+                //createImage($_FILES['upload_image']['tmp_name'][$i], $_FILES['upload_image']['type'][$i], substr(md5(date("Y-m-d h:m:i")) , 0, 5).$i."-".pathinfo($_FILES['upload_image']['name'][$i], PATHINFO_FILENAME), $hash_id);
+                createImage($_FILES['upload_image']['tmp_name'][$i], $_FILES['upload_image']['type'][$i], pathinfo($_FILES['upload_image']['name'][$i])['filename']."-".$i.substr(md5(date("Y-m-d h:m:i")) , 0, 5), $hash_id);
             } catch (\Throwable $th) {
                 //throw $th;
                 echo("<p class='error'>Fehler: ".$_FILES['upload_image']['name'][$i]."</p>");
