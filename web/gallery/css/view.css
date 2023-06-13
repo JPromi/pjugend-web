@@ -11,7 +11,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 1rem;
-    width: 90%;
+    width: 95%;
     margin: 2rem auto 4rem auto;
 }
 
@@ -106,8 +106,8 @@
     
     .gallery label {
         height: 8rem;
-        min-width: 12rem;
-        max-width: 45%;
+        min-width: 5rem;
+        max-width: 47%;
         border-radius: .25rem;
     }
 
