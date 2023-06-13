@@ -55,6 +55,19 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
         };
         ?>
 
+        <!--Chat-->
+        <?php
+        if (in_array("chat", $dbSESSION_perm)) {
+            echo('
+            <a href="/chat" id="singlenav" class="navOpen">
+                <span class="material-symbols-outlined icon">chat</span>
+                <p id="navtext">Fileshare</p>
+                </span>
+            </a>
+            ');
+        };
+        ?>
+
         <!--Gallery-->
         <?php
         if (in_array("gallery", $dbSESSION_perm) || in_array("jugendteam_admin", $dbSESSION_perm)) {
