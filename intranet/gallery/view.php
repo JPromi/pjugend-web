@@ -67,15 +67,21 @@ include("../../private/intranet/assets/nav.php")
             <div class="window hidden" id="settings">
                 <h2>Einstellungen</h2>
                 
-                <!--<div class="block">
-                    <h3>Bilder Hochladen</h3>
-                    <input type="file" name="upload_image[]" accept="image/png, image/jpeg" multiple>
-                </div>-->
+                <div class="block">
+                    <h3>Allgemein</h3>
+                    <label>Titel: <input type="text" name="title" value="<?php echo $selectedGallery["title"] ?>" required></label>
+                    <label>Beschreibung: <textarea name="description"><?php echo $selectedGallery["description"] ?></textarea></label>
+                </div>
 
                 <div class="block">
+                    <?php
+                    if($selectedGallery["public_view"] == "1") {
+                        $checkbox = "checked";
+                    }
+                    ?>
                     <h3>Sichtbarkeit</h3>
-                    <label><input type="checkbox" name="public_view"> Öffentlich Sichtbar</label>
-                    <label>Passwort: <input type="text" name="password"></label>
+                    <label><input type="checkbox" name="public_view" <?php echo $checkbox; ?>> Öffentlich Sichtbar</label>
+                    <label>Passwort: <input type="text" name="password" vlaue="<?php echo $selectedGallery["password"]; ?>"></label>
                 </div>
 
                 <div class="block">
@@ -176,6 +182,8 @@ if(isset($_POST["delete"])) {
         unlink("../../cdn/gallery/".$hash_id.'/images/'.$_POST["image"][$i]);
         unlink("../../cdn/gallery/".$hash_id.'/original/'.$_POST["image"][$i]);
     }
+    
+    echo '<meta http-equiv="refresh" content="0; url=">';
 }
 
 //download all
@@ -233,22 +241,16 @@ if(isset($_POST["download_selection"])) {
 <?php
 //settings
 if(isset($_POST["settings_save"])) {
-    
-    //upload
-    /*if($_FILES["upload_image"]["tmp_name"][0] != "") {
-        //gallery
-        for($i=0 ; $i < count($_FILES["upload_image"]["name"]); $i++) {
-            try {
-                //createImage($_FILES['upload_image']['tmp_name'][$i], $_FILES['upload_image']['type'][$i], substr(md5(date("Y-m-d h:m:i")) , 0, 5).$i."-".pathinfo($_FILES['upload_image']['name'][$i], PATHINFO_FILENAME), $hash_id);
-                createImage($_FILES['upload_image']['tmp_name'][$i], $_FILES['upload_image']['type'][$i], pathinfo($_FILES['upload_image']['name'][$i])['filename']."-".$i.substr(md5(date("Y-m-d h:m:i")) , 0, 5), $hash_id);
-            } catch (\Throwable $th) {
-                //throw $th;
-                echo("<p class='error'>Fehler: ".$_FILES['upload_image']['name'][$i]."</p>");
-                exit();
-            }
-        }
-    }*/
 
+    //save settings
+    $p_title = checkInput($_POST["title"]);
+    $p_description = checkInput($_POST["description"]);
+    $p_password = checkInput($_POST["password"]);
+    $p_public_view = checkBoolean($_POST["public_view"]);
+
+    //update
+    $con_public->query("UPDATE gallery SET `title` = $p_title, `description` = $p_description, `public_view` = $p_public_view, `password` = $p_password WHERE hash_id = '$hash_id'");
+    echo $con_public->error;
 
     //delete gallery
     if($_POST["delete_gallery"] == "on") {
@@ -270,4 +272,31 @@ if(isset($_POST["settings_save"])) {
 }
 
 
+?>
+
+<?php
+function checkInput($input) {
+    global $con_public;
+    $input = htmlspecialchars($input);
+    $input = stripslashes($input);
+    $input = mysqli_real_escape_string($con_public, $input);
+
+    if(!(empty($input))) {
+        $input = "'".$input."'";
+    } else {
+        $input = "NULL";
+    }
+
+    return $input;
+}
+
+function checkBoolean($input) {
+    if($input == "on") {
+        $input = "1";
+    } else {
+        $input = "0";
+    }
+
+    return $input;
+}
 ?>

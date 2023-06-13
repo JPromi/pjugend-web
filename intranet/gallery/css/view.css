@@ -111,6 +111,10 @@
     display: flex;
 } 
 
+.alert .upload-status tr td:first-child {
+    padding: .25rem;
+}
+
 /* status */
 
 .upload-status .loading {
