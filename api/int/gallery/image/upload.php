@@ -12,6 +12,7 @@ if(!in_array('gallery', $dbSESSION_perm) && !in_array('jugendteam_admin', $dbSES
 }
 //set content type to json
 header('Content-Type: application/json; charset=utf-8');
+header("Access-Control-Allow-Origin: *");
 
 //check if get is defined
 if(!isset($_GET["g"])) {
@@ -32,10 +33,12 @@ if(!isset($gallery)) {
 }
 
 for ($i=0; $i < count($_FILES["image"]["name"]); $i++) {
+    $filename = date("Y-m-d_H-i-s", $_POST["image_lastmodify"][$i]).'_'.pathinfo($_FILES['image']['name'][$i])['filename']."-".$i.substr(md5(date("Y-m-d h:m:i")) , 0, 5);
     createImage($_FILES['image']['tmp_name'][$i],
                 $_FILES['image']['type'][$i],
-                pathinfo($_FILES['image']['name'][$i])['filename']."-".$i.substr(md5(date("Y-m-d h:m:i")) , 0, 5), $gallery["hash_id"]);
+                $filename,
+                $gallery["hash_id"]);
 
-    echo '{ "status": "ok", "code": "'.$_FILES['image']['name'][$i].' has been successfully uploaded." }';
+    echo '{ "status": "ok", "message": "'.$_FILES['image']['name'][$i].' has been successfully uploaded.", "new_name": "'.$filename.'" }';
 }
 ?>
