@@ -63,6 +63,7 @@ include("../../private/intranet/assets/nav.php")
 
         <form class="alert hidden" id="alert" method="POST" enctype="multipart/form-data">
 
+            <!--settings-->
             <div class="window hidden" id="settings">
                 <h2>Einstellungen</h2>
                 
@@ -85,6 +86,7 @@ include("../../private/intranet/assets/nav.php")
                 <input type="submit" name="settings_save" value="Speichern">
             </div>
 
+            <!--upload-->
             <div class="window hidden" id="upload">
                 <h2>Bilder Hochladen</h2>
 
