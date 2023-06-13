@@ -38,7 +38,7 @@ function createImage($imgOriginal, $imgType, $name, $gallery)
     }
 
     //destroy images
-    imagedestroy($image);
+    //imagedestroy($image);
     imagedestroy($big);
     imagedestroy($thumbnail);
 }
