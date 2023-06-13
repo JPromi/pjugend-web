@@ -3,16 +3,20 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/session/get_session.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/database/public.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/image/gallery.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/config.php';
 
+//set content type to json
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: https://'.$domain["intranet"]);
+header('Access-Control-Allow-Methods: GET, POST');
+header('Access-Control-Allow-Credentials: true');
 
 //check permissions
 if(!in_array('gallery', $dbSESSION_perm) && !in_array('jugendteam_admin', $dbSESSION_perm)) {
     http_response_code(403);
     exit();
 }
-//set content type to json
-header('Content-Type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin: *");
+
 
 //check if get is defined
 if(!isset($_GET["g"])) {
