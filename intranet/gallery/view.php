@@ -66,10 +66,10 @@ include("../../private/intranet/assets/nav.php")
             <div class="window hidden" id="settings">
                 <h2>Einstellungen</h2>
                 
-                <div class="block">
+                <!--<div class="block">
                     <h3>Bilder Hochladen</h3>
                     <input type="file" name="upload_image[]" accept="image/png, image/jpeg" multiple>
-                </div>
+                </div>-->
 
                 <div class="block">
                     <h3>Sichtbarkeit</h3>
@@ -85,6 +85,18 @@ include("../../private/intranet/assets/nav.php")
                 <input type="submit" name="settings_save" value="Speichern">
             </div>
 
+            <div class="window hidden" id="upload">
+                <h2>Bilder Hochladen</h2>
+
+                <input type="file" name="image_upload[]" id="image_upload" accept="image/png, image/jpeg" onchange="post_image('<?php echo($domain["api"]); ?>')" multiple>
+
+                <table class="upload-status" >
+                    <tbody id="upload-status">
+
+                    </tbody>
+                </table>
+            </div>
+
             <span class="back" onclick="closeAlerts()"></span>
         </form>
 
@@ -98,6 +110,7 @@ include("../../private/intranet/assets/nav.php")
                 <div class="btn">
                     <input type="submit" value="Download" name="download_all" title="alles Herunterladen">
                     <input type="button" onclick="openAlert('settings')" value="Settings">
+                    <input type="button" onclick="openAlert('upload')" value="Upload">
                 </div>
 
                 <div class="btn hidden" id="checkedSettings">
@@ -139,6 +152,7 @@ include("../../private/intranet/assets/nav.php")
         </form>
         <script src="js/select.js"></script>
         <script src="js/settings.js"></script>
+        <script src="js/upload.js"></script>
 
     </div>
     
@@ -219,7 +233,7 @@ if(isset($_POST["download_selection"])) {
 if(isset($_POST["settings_save"])) {
     
     //upload
-    if($_FILES["upload_image"]["tmp_name"][0] != "") {
+    /*if($_FILES["upload_image"]["tmp_name"][0] != "") {
         //gallery
         for($i=0 ; $i < count($_FILES["upload_image"]["name"]); $i++) {
             try {
@@ -231,7 +245,7 @@ if(isset($_POST["settings_save"])) {
                 exit();
             }
         }
-    }
+    }*/
 
 
     //delete gallery
