@@ -95,7 +95,7 @@ nav p {
     transition: transform ease-in-out 250ms;
 }
 
-#singlenav:hover {
+#singlenav:hover, #singlenav:focus {
     transform:translateX(5px);
 }
 
