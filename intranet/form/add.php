@@ -208,9 +208,9 @@ if(!(empty($_POST["submit"]))) {
     //create table
     $createTable = "CREATE TABLE form_".$formID." (
         id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        ".$tableString.",
         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        ip_address VARCHAR(255)
+        ip_address VARCHAR(255),
+        ".$tableString."
         )";
         
     $con_form_new->query($createTable);
