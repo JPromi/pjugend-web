@@ -163,25 +163,51 @@ include("../../private/intranet/assets/nav.php")
 
         <div class="builder" id="builder">
             <?php
-            $formIndex = "SELECT * FROM `form_index` WHERE form_id = '$formID'";
+            $formIndex = "SELECT * FROM `form_index` WHERE `form_id` = '$formID' AND `disabled` = '0'";
             $formIndex = $con_public_new->query($formIndex);
+
+            $counterFormElements = 0;
 
             while ($element = $formIndex->fetch_assoc()) {
                 //echo($element["place_index"]);
+
+                $counterFormElements++;
+
+                $form_option_text = NULL;
+                $form_option_date = NULL;
+                $form_option_email = NULL;
+                $form_option_number = NULL;
+                $form_option_stTitle = NULL;
+                $form_option_stDesc = NULL;
+
+                if($element["type"] == "text") {
+                    $form_option_text = "selected";
+                } else if($element["type"] == "date") {
+                    $form_option_date = "selected";
+                } else if($element["type"] == "email") {
+                    $form_option_email = "selected";
+                } else if($element["type"] == "number") {
+                    $form_option_number = "selected";
+                } else if($element["type"] == "stTitle") {
+                    $form_option_stTitle = "selected";
+                } else if($element["type"] == "stDesc") {
+                    $form_option_stDesc = "selected";
+                }
                 echo '
                 <div class="single" id="'.$element["place_index"].'">
                     <div class="settings">
                         <label>Type:</label>
-                        <select name="type[]" id="setting" onchange="changeContent(`'.$element["place_index"].'`)">
+                        <select name="type[]" id="setting'.$element["place_index"].'" onchange="changeContent(`'.$element["place_index"].'`)">
                             <option value=""></option>
-                            <option value="text">Text</option>
-                            <option value="date">Date</option>
-                            <option value="email">Email</option>
-                            <option value="number">Number</option>
-                            <option value="stTitle">Titel</option>
-                            <option value="stDesc">Beschreibung</option>
+                            <option value="text" '.$form_option_text.'>Text</option>
+                            <option value="date" '.$form_option_date.'>Date</option>
+                            <option value="email" '.$form_option_email.'>Email</option>
+                            <option value="number" '.$form_option_number.'>Number</option>
+                            <option value="stTitle" '.$form_option_stTitle.'>Titel</option>
+                            <option value="stDesc" '.$form_option_stDesc.'>Beschreibung</option>
                         </select>
-                        <input type="hidden" name="id[]" value="">
+                        <input type="hidden" name="id_element[]" value="'.$element["id"].'">
+                        <input type="hidden" name="id[]" value="'.$element["place_index"].'">
                         <a onclick="removeField(`'.$element["place_index"].'`)" title="Löschen">
                             <span class="material-symbols-outlined">
                             delete
@@ -193,16 +219,22 @@ include("../../private/intranet/assets/nav.php")
 
                 if($element["type"] == 'stTitle') {
                     echo '
-                        <label class="title"><input type="text" name="text[]" placeholder="Titel"></label>
+                        <label class="title"><input type="text" name="text[]" placeholder="Titel" value="'.$element["title"].'"></label>
                     ';
-                } else if ($element["type"] == 'stDescrption') {
+                } else if ($element["type"] == 'stDesc') {
                     echo '
-                        <label class="description"><textarea name="text[]" placeholder="Beschreibung"></textarea></label>
+                        <label class="description"><textarea name="text[]" placeholder="Beschreibung">'.$element["title"].'</textarea></label>
                     ';
                 } else {
+                    if($element["required"] == "1") {
+                        $elementRequired = 'checked';
+                    } else {
+                        $elementRequired = '';
+                    }
                     echo '
-                        <label><input type="text" name="text[]" id="" placeholder="Text"></label>
+                        <label><input type="text" name="text[]" id="" placeholder="Text" value="'.$element["title"].'"></label>
                         <input type="text" placeholder="Input" disabled>
+                        <label class="important"><input type="checkbox" name="required[]" value="'.$element["id"].'" '.$elementRequired.'> Pflichtfeld</label>
                     ';
                 }
 
@@ -244,111 +276,94 @@ include("../../private/intranet/assets/scripts-bottom.php");
 <?php
 
 if(!(empty($_POST["submit"]))) {
-    $PostTitle = htmlspecialchars($_POST["title"]);
-    $PostDesc = htmlspecialchars($_POST["description"]);
-    $ownerID = $dbSESSION["user_id"];
+    
+    //select all form_elements
+    $formIndex = "SELECT * FROM `form_index` WHERE `form_id` = '$formID' AND `disabled` = '0'";
+    $formIndex = $con_public->query($formIndex);
 
-    $tableArray = array();
+    $oldElements = array();
 
-    //permissions
-    $viewerID;
-    $editorID;
+    while ($element = $formIndex->fetch_assoc()) {
+        array_push($oldElements, $element["id"]);
+    }
 
-    if(!empty($_POST["editor"])) {
-        $editorID = implode(";", $_POST["editor"]);
-    };
-
-    if(!empty($_POST["viewer"])) {
-        $viewerID = implode(";", $_POST["viewer"]);
-    };
-
-    //insert into form settings
-    $addForm = "INSERT INTO `form`    (`title`, `description`, `owner`, `result_viewer`, `user_edit`) VALUES
-                                        ('$PostTitle', '$PostDesc', '$ownerID', '$viewerID', '$editorID')";
-    $con_public->query($addForm);
-    $formID = $con_public->insert_id;
-
-    //insert in form index
-    if (!empty($_POST["type"])) {
-    for ($i=0; $i < count($_POST["type"]); $i++) {
-        $required = "0";
-        if(!($_POST["type"] == "")) {
-
-            if(!empty($_POST["required"])) {
-                if(in_array($_POST["id"][$i], $_POST["required"])) {
-                    $required = "1";
-                }
-            }
-            
-            $placeIndex = $i + 1;
-            $title = htmlspecialchars($_POST["text"][$i]);
-            $type = htmlspecialchars($_POST["type"][$i]);
-            $addFormIndex = "INSERT INTO `form_index`   (`form_id`, `place_index`, `title`, `type`, `required`) VALUES
-                                                        ('$formID', '$placeIndex', '$title','$type' , '$required')";
-            $con_public->query($addFormIndex);
-
-            array_push($tableArray, "form_field" . $i+1 . " VARCHAR(255)");
+    //disable all deleted elements
+    foreach ($oldElements as $oldElement) {
+        
+        if(!in_array($oldElement, $_POST["id_element"])) {
+            $con_public->query("UPDATE form_index SET `disabled` = '1' WHERE id = $oldElement AND form_id = $formID");
         }
     }
 
-    $tableString = implode(", ", $tableArray);
+    //foreach element
+    $p_counter1 = 0;
+    foreach ($_POST["id_element"] as $element) {
 
-    //create table
-    $createTable = "CREATE TABLE form_".$formID." (
-        id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        ".$tableString.",
-        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        ip_address VARCHAR(255)
-        )";
-        
-    $con_form_new->query($createTable);
+        //update element
+        if(in_array($element, $oldElements)) {
+            $element_ci_title = checkInput($_POST["text"][$p_counter1]);
+            $element_ci_type = checkInput($_POST["type"][$p_counter1]);
+            $element_ci_place_index = checkInput($_POST["id"][$p_counter1]);
+
+            if(isset($_POST["required"])) {
+                if(in_array($element, $_POST["required"])) {
+                    $element_ci_required = '1';
+                } else {
+                    $element_ci_required = '0';
+                }
+            } else {
+                $element_ci_required = '0';
+            }
+
+            
+            $con_public->query("UPDATE form_index SET title = $element_ci_title, `place_index` = $element_ci_place_index, `type` = $element_ci_type, `required` = $element_ci_required WHERE id = '$element' AND form_id = '$formID'");
+        } 
+        //new element
+        else {
+            //check inputs
+            $element_ci_title = checkInput($_POST["text"][$p_counter1]);
+            $element_ci_type = checkInput($_POST["type"][$p_counter1]);
+            $element_ci_place_index = checkInput($_POST["id"][$p_counter1]);
+
+            if(isset($_POST["required"])) {
+                if(in_array($element, $_POST["required"])) {
+                    $element_ci_required = '1';
+                } else {
+                    $element_ci_required = '0';
+                }
+            } else {
+                $element_ci_required = '0';
+            }
+
+            $con_public->query("INSERT INTO form_index (`form_id`, `place_index`, `title`, `type`, `required`) VALUES ('$formID', $element_ci_place_index, $element_ci_title, $element_ci_type, $element_ci_required)");
+
+            echo $con_public->error;
+            $newElementID = $con_public->insert_id;
+
+            $con_form->query("ALTER TABLE `form_$formID` ADD `form_field$newElementID` TEXT");
+            echo $con_form->error;
+        }
+        $p_counter1++;
     }
+
     //go back
     echo('<meta http-equiv="refresh" content="0; url=view?id='.$formID.'">');
 }
 ?>
 
 <?php
-//functions
+function checkInput($input) {
+    global $con_public;
+    $input = htmlspecialchars($input);
+    $input = stripslashes($input);
+    $input = mysqli_real_escape_string($con_public, $input);
 
-//builder
-function contentBlock($block, $blockID) {
-    $textBlock = array("text", "date", "email", "number");
-
-    // get content
-    if(in_array($form, $textBlock)) {
-        $content = '
-                <label><input type="text" name="text[]" id="" placeholder="Text"></label>
-                <input type="text" placeholder="Input" disabled>
-            ';
-    } else if ($block == "checkbox") {
-        $content = '
-        <div id="checkboxes` + blockID + `">
-            <label><input type="checkbox" disabled> <input type="input" name="text[]" placeholder="Name"></label>
-            <label><input type="checkbox" disabled> <input type="input" name="text[]" placeholder="Name"></label>
-            <label><input type="checkbox" disabled> <input type="input" name="text[]" placeholder="Name"></label>
-            <label><input type="checkbox" disabled> <input type="input" name="text[]" placeholder="Name"></label>
-            <label><input type="checkbox" disabled> <input type="input" name="text[]" placeholder="Name"></label>
-        </div>
-        ';
+    if(!(empty($input))) {
+        $input = "'".$input."'";
+    } else {
+        $input = "NULL";
     }
 
-    $content = $content + `
-        <label class="important"><input type="checkbox" name="required[]" value="`+blockID+`"> Pflichtfeld</label>
-    `;
-
-    if($block == "") {
-        $content = "";
-    } else if ($block == "stTitle") {
-        $content = `
-        <label class="title"><input type="text" name="text[]" placeholder="Titel"></label>
-        `;
-    } else if ($block == "stDesc") {
-        $content = `
-        <label class="description"><textarea name="text[]" placeholder="Beschreibung"></textarea></label>
-        `;
-    }
-
-    return '<div class="single" id="'.$blockID.'">'.$content.'</div>';
+    return $input;
 }
 ?>
