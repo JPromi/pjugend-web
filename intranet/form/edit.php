@@ -84,6 +84,12 @@ include("../../private/intranet/assets/nav.php")
                     </div>
 
                     <div class="element">
+                        <h3>Löschen</h3>
+                        <label><input type="checkbox" name="delete" value="true"> Löschen Bestätigen</label>
+                        <input type="submit" name="delete_btn" value="Löschen">
+                    </div>
+
+                    <div class="element">
                         <h3>Mitglieder</h3>
                         <p>Bearbeiter / Betrachter hinzufügen</p>
                         <a onclick="alertadd('member')">
@@ -274,13 +280,33 @@ include("../../private/intranet/assets/scripts-bottom.php");
 </html>
 
 <?php
+//delete
+if(!(empty($_POST["delete_btn"])) && $_POST["delete"] == "true") {
 
+    $con_public->query("DELETE FROM form WHERE id = '$formID'");
+    $con_public->query("DELETE FROM form_index WHERE form_id = '$formID'");
+    $con_form->query("DROP TABLE `form_$formID`");
+    echo $con_form->error;
+
+    
+    echo('<meta http-equiv="refresh" content="0; url=/form">');
+
+}
+
+//save
 if(!(empty($_POST["submit"]))) {
     
     //select all form_elements
     $formIndex = "SELECT * FROM `form_index` WHERE `form_id` = '$formID' AND `disabled` = '0'";
     $formIndex = $con_public->query($formIndex);
 
+    //description ----------------------------
+    $p_title = checkInput($_POST["title"]);
+    $p_description = checkInput($_POST["description"]);
+
+    $con_public->query("UPDATE form SET title = $p_title, `description` = $p_description WHERE id = '$formID'");
+    
+    //elements -------------------------------
     $oldElements = array();
 
     while ($element = $formIndex->fetch_assoc()) {
