@@ -25,6 +25,7 @@ function addFormField() {
                     <option value="stTitle">Titel</option>
                     <option value="stDesc">Beschreibung</option>
                 </select>
+                <input type="hidden" name="id_element[]" value="new">
                 <input type="hidden" name="id[]" value="`+formID+`">
                 <a onclick="removeField('`+formID+`')" title="Löschen">
                     <span class="material-symbols-outlined">
