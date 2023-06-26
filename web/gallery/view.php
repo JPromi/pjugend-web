@@ -97,7 +97,7 @@ include '../../private/web/assets/nav.php';
                                     <span class="material-symbols-outlined checkbox">
                                     check_circle
                                     </span>
-                                <img src="'.$imagePath.'" onclick="window.location.href=`image?g='.$gallery["hash_id"].'&i='.$image.'`">
+                                <img src="'.$imagePath.'" onclick="window.location.href=`image?g='.$gallery["hash_id"].'&i='.$image.'#pre`">
                             </label>
                             ';
                         }

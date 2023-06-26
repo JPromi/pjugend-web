@@ -99,7 +99,7 @@ include '../../private/web/assets/nav.php';
             }            
         }
         ?>
-    <div class="content">
+    <div class="content" id="pre">
 
         <div class="back">
             <a href="/gallery/view?id=<?php echo($_GET["g"]); ?>" titl="Zurück">
@@ -113,7 +113,7 @@ include '../../private/web/assets/nav.php';
             <?php
             if($imagePosition >= 3) {
                 echo '
-                <a href="?g='.$_GET["g"].'&i='.$galleryFolder[intval($imagePosition) - 1].'">
+                <a href="?g='.$_GET["g"].'&i='.$galleryFolder[intval($imagePosition) - 1].'#pre">
                     <span class="material-symbols-outlined">
                     arrow_back_ios
                     </span>
@@ -140,7 +140,7 @@ include '../../private/web/assets/nav.php';
             <?php
             if($imagePosition < count($galleryFolder)-1) {
                 echo '
-                <a href="?g='.$_GET["g"].'&i='.$galleryFolder[intval($imagePosition) + 1].'">
+                <a href="?g='.$_GET["g"].'&i='.$galleryFolder[intval($imagePosition) + 1].'#pre">
                     <span class="material-symbols-outlined">
                     arrow_forward_ios
                     </span>
