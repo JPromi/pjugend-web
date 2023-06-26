@@ -1,16 +1,16 @@
 <?php
 $domain  = array(
-    "intranet" =>   "intranet.pjugend.at", //domain for intranet
-    "web" =>        "pjugend.at", //domain for public website       #currently not in use
-    "auth" =>       "auth.pjugend.at", //domain for login site
-    "cdn" =>        "cdn.pjugend.at", //domain for cdn              #currently not in use
-    "api" =>        "api.pjugend.at", //domain for cdn              #currently not in use
-    "default" =>    "pjugend.at" //domain for default
+    "intranet" =>   "intranet.pfarre-perchtoldsdorf.at",  # intranet domain
+    "web" =>        "pfarre-perchtoldsdorf.at",           # public site domain
+    "auth" =>       "auth.pfarre-perchtoldsdorf.at",      # authentication domain
+    "cdn" =>        "cdn.pfarre-perchtoldsdorf.at",       # content delivery network domain
+    "api" =>        "api.pfarre-perchtoldsdorf.at",       # api domain
+    "default" =>    "pfarre-perchtoldsdorf.at"            # default domain (should be the same as 'web')
 );
 
 $conf_title  = array(
-    "intranet" =>   "P'Jugend", //used in titel intranet
-    "web" =>   "P'Jugend", //used in titel public side
+    "intranet" =>   "P'Jugend",     # used for title on intranet site
+    "web" =>   "P'Jugend",          # used for title on public site
 );
 
 $conf_mail = array(
