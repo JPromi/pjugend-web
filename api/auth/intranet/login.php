@@ -69,7 +69,7 @@ if(isset($_REQUEST["username"]) && isset($_REQUEST["password"])) {
                     "firstname": "'.$verify["firstname"].'",
                     "lastname": "'.$verify["lastname"].'",
                     "login_date": "'.date("Y-m-d H:i:s").'",
-                    "coockie_hash": "'.$coockie_hash.'"
+                    "SESSION_ID": "'.$coockie_hash.'"
                 }';
             // Redirect to user home page
         } else {
