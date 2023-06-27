@@ -92,16 +92,6 @@ include("../../../private/intranet/assets/nav.php")
                                 value="<?php echo($teamProfile["email"]); ?>" 
                                 placeholder="<?php echo($teamProfile["email"]); ?>">
                         </label>
-
-                        <label>
-                            <?php
-                            if($teamProfile["show_age"] == "1") {
-                                $showAgeCheckbox = "checked";
-                            }
-                            ?>
-                            <input type="checkbox" name="show_age" <?php echo($showAgeCheckbox); ?>>
-                             Alter Anzeigen
-                        </label>
                         
                     </div>
 
