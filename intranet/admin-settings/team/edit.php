@@ -3,6 +3,7 @@
 include("../../../private/session/auth_session.php");
 include '../../../private/database/int.php';
 include '../../../private/database/public.php';
+include '../../../private/intranet/image/team_profile.php';
 ?>
 
 <?php
@@ -139,17 +140,16 @@ if(isset($_POST["submit"])) {
     $focus          = checkInput($_POST["focus"]);
     $email          = checkInput($_POST["email"]);
 
-    $show_age       = checkBoolean($_POST["show_age"]);
     $disabled       = checkBoolean($_POST["disable"]);
-    $user_id        = $_GET["id"];
+    $user_id        = checkInput($_GET["id"]);
 
 
     //entry
     if(!empty($teamProfile)) {
-        $profileUpdate = "UPDATE team SET `name` = $name, `description` = $description, `show_age` = $show_age, `focus` = $focus, `email` = $email, `user_id` = $user_id, `disabled` = $disabled WHERE user_id = '$user_id'";
+        $profileUpdate = "UPDATE team SET `name` = $name, `description` = $description, `focus` = $focus, `email` = $email, `user_id` = $user_id, `disabled` = $disabled WHERE user_id = '$user_id'";
         $con_public->query($profileUpdate);
     } else {
-        $profileInsert = "INSERT INTO team (`name`, `description`, `show_age`, `focus`, `email`, `user_id`, `disabled`) VALUE ($name, $description, '$show_age', $focus, $email, '$user_id', '$disabled')";
+        $profileInsert = "INSERT INTO team (`name`, `description`, `focus`, `email`, `user_id`, `disabled`) VALUE ($name, $description, $focus, $email, $user_id, '$disabled')";
         $con_public->query($profileInsert);
     }
 
