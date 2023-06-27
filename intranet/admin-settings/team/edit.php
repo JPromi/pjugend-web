@@ -155,18 +155,18 @@ if(isset($_POST["submit"])) {
 
     //profile picture
     if(!(empty($_FILES["profile_picture"]["tmp_name"]))) {
-        createTeamPicture($_FILES["profile_picture"]["tmp_name"], $_FILES["profile_picture"]["type"], 'im_p-'.substr(md5($user_id), 0, 10).$user_id);
+        createTeamPicture($_FILES["profile_picture"]["tmp_name"], $_FILES["profile_picture"]["type"], 'im_p-'.substr(md5($_GET["id"]), 0, 10).$_GET["id"]);
     }
 
     if(isset($_POST["profile_picture_delete"])) {
-        $mask = '../../../cdn/profile/team/picture/im_p-'.substr(md5($user_id), 0, 10).$user_id."*.*";
+        $mask = '../../../cdn/profile/team/picture/im_p-'.substr(md5($_GET["id"]), 0, 10).$_GET["id"]."*.*";
         array_map('unlink', glob($mask));
     }
 
     //delte entry
     if(isset($_POST["delete"])) {
-        $con_public->query("DELETE FROM team WHERE user_id = '$user_id'");
-        $mask = '../../../cdn/profile/team/picture/im_p-'.substr(md5($user_id), 0, 10).$user_id."*.*";
+        $con_public->query("DELETE FROM team WHERE user_id = $user_id");
+        $mask = '../../../cdn/profile/team/picture/im_p-'.substr(md5($_GET["id"]), 0, 10).$_GET["id"]."*.*";
         array_map('unlink', glob($mask));
     }
 
