@@ -45,6 +45,12 @@
 
 .content .left .main .information p {
     margin-bottom: 1rem;
+    display: flex;
+}
+
+.content .left .main .information p a {
+    color: #00000075;
+    margin-left: .5rem;
 }
 
 .content .left .tools {
