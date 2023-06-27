@@ -48,6 +48,8 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
             <div class="middle">
                 <div class="team">
                     <?php
+                    $teamUsers = array();
+
                     //get all users
                     $allUsers = "SELECT id, permission, permission_group, firstname, lastname FROM accounts ORDER BY id";
                     $allUsers = $con->query($allUsers);
@@ -61,6 +63,8 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
                     while ($user = $allUsers->fetch_assoc()) {
                         //check if is in group
                         if(in_array($permissionGroup_jugendteam["id"], explode(";", $user["permission_group"]))) {
+
+                            array_push($teamUsers, $user["id"]);
 
                             //selec team profile
                             $user_id = $user["id"];
@@ -95,6 +99,36 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
                                 ';
                             }
 
+
+                        }
+                    }
+
+                    //all where account doesnt exist
+                    $teamEntrys = "SELECT * FROM team WHERE user_id NOT IN ('".implode("','", $teamUsers )."')";
+                    $teamEntrys = $con_public->query($teamEntrys);
+
+
+
+                    while ($teamEntry = $teamEntrys->fetch_assoc()) {
+
+                            if (isset($teamEntry)) {
+                                $profile_image_root_path = $_SERVER["DOCUMENT_ROOT"]."/../cdn/profile/team/picture/im_p-".substr(md5($teamEntry["user_id"]), 0, 10).$teamEntry["user_id"].'-512.jpg';
+                                if(file_exists($profile_image_root_path)) {
+                                    $profile_image_path = "https://".$domain["cdn"].'/profile/team/picture/im_p-'.substr(md5($teamEntry["user_id"]), 0, 10).$teamEntry["user_id"].'-512.jpg';
+                                } else {
+                                    $profile_image_path = "https://".$domain["cdn"].'/profile/placeholder/picture.jpg';
+                                }
+                                
+                                echo '
+                                <div class="single" onclick="window.location.href=`/admin-settings/team/edit?id='.$user_id.'`">
+                                    <img src="'.$profile_image_path.'">
+                                    <h4>'.$teamEntry["name"].'</h4>
+    
+                                    <p class="focus sub">'.$teamEntry["focus"].'</p>
+                                    <p class="description">'.$teamEntry["description"].'</p>
+    
+                                </div>
+                                ';
 
                         }
                     }
