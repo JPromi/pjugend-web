@@ -96,6 +96,14 @@ include '../../private/web/assets/nav.php';
                     }
                     ?>
 
+                    <?php
+                    if(isset($event["price"])) {
+                        echo '
+                        <h6>Kosten: </h6>
+                        <p>'.$event["price"].' €</p>';
+                    }
+                    ?>
+
                     <h6>Veranstalter: </h6>
                         <p>
                         <?php
