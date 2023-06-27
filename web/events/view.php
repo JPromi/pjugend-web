@@ -2,6 +2,7 @@
 include '../../private/config.php';
 include '../../private/database/public.php';
 include '../../private/database/int.php';
+include '../../private/web/assets/team.php';
 ?>
 
 <?php
@@ -96,17 +97,26 @@ include '../../private/web/assets/nav.php';
                     ?>
 
                     <h6>Veranstalter: </h6>
-                    <p>
+                    
                         <?php
-                            $organizerString = str_replace(";", "','", $event["organizer"]);
-                            $organizer = "SELECT firstname, lastname FROM `accounts` WHERE id IN ('$organizerString')";
-                            $organizer = $con_new->query($organizer);
+                            $organizerArray = explode(";", $event["organizer"]);
 
-                            while ($person = $organizer->fetch_assoc()) {
-                                echo($person["firstname"] . " " . substr($person["lastname"], 0, 2) . ".<br>");
-                            }
+                            foreach ($organizerArray as $organizer) {                                
+                                echo teamEntry($organizer, "name");
+                                
+                                if(!empty(teamEntry($organizer, "email"))) {
+                                    echo '
+                                        <a href="mailto:'.teamEntry($organizer, "email").'">
+                                            <span class="material-symbols-outlined">
+                                            mail
+                                            </span>
+                                        </a>';
+                                }
+
+                                echo '<br>';
+                            };
                         ?>
-                    </p>
+                    
                     
                 </div>
             </div>
