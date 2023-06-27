@@ -97,7 +97,7 @@ include '../../private/web/assets/nav.php';
                     ?>
 
                     <h6>Veranstalter: </h6>
-                    
+                        <p>
                         <?php
                             $organizerArray = explode(";", $event["organizer"]);
 
@@ -116,7 +116,7 @@ include '../../private/web/assets/nav.php';
                                 echo '<br>';
                             };
                         ?>
-                    
+                        </p>
                     
                 </div>
             </div>
