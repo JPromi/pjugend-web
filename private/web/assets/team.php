@@ -2,7 +2,7 @@
 include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/database/public.php';
 
-function teamName($userID, $returnType = "name") {
+function teamEntry($userID, $returnType = "name") {
     
     global $con;
     global $con_public;
