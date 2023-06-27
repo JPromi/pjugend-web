@@ -4,7 +4,7 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/config.php';
 
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: https://'.$domain["intranet"]);
+header('Access-Control-Allow-Origin: * ');
 header('Access-Control-Allow-Methods: GET, POST');
 header('Access-Control-Allow-Credentials: true');
 
