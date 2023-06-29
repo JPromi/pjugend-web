@@ -95,7 +95,7 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
     <div class="content">
         <?php
         $pageLimit = 10;
-        $allEvents = "SELECT * FROM `event` WHERE only_specific_group = '0' AND visibility = 'all'";
+        $allEvents = "SELECT * FROM `event` WHERE visibility = 'all'";
         $allEvents = $con_public_new->query($allEvents);
         $eventsIds = array();
 
@@ -165,6 +165,13 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
             } else {
                 $event_img_path = "";
             }
+
+            $tmp_eventID = $event["id"];
+
+            $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$tmp_eventID' AND `start` >= NOW()")->fetch_assoc();
+            if(!isset($eventCalendar)) {
+                $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$tmp_eventID' ORDER BY `start` DESC")->fetch_assoc();
+            }
             ?>
 
             <div class="single" onclick="window.location.href=`/events/view?id=<?php echo($event['id']); ?>`"
@@ -175,10 +182,10 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
             >
                 <div class="date">
                     <?php
-                    if(!empty($event["date_from"])) {
+                    if(!empty($eventCalendar["start"])) {
                         echo '
-                        <h1>'.$weekShortName[date("w", strtotime($event["date_from"]))].'</h1>
-                        <p>'.date("j.n", strtotime($event["date_from"])).'</p>
+                        <h1>'.$weekShortName[date("w", strtotime($eventCalendar["start"]))].'</h1>
+                        <p>'.date("j.n", strtotime($eventCalendar["start"])).'</p>
                         ';
                     }
                     ?>
