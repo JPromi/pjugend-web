@@ -46,6 +46,52 @@ include("../../private/intranet/assets/nav.php")
         <form class="content" method="post" enctype="multipart/form-data">
 
             <div class="alert disabled" id="alert">
+
+                <!--date-->
+                <div class="alertbox date disabled" id="date">
+                    <h1>Termine</h1>
+                    
+                    <a onclick="addDate()">
+                        <span class="material-symbols-outlined">
+                        add
+                        </span>
+                    </a>
+
+                    <table class="list">
+                        <tbody id="datelist">
+                            <?php
+                            $event_dates = $con_public->query("SELECT * FROM event_calendar WHERE event_id = '$eventID' ORDER BY `start`");
+                            $event_dates_counter = 1;
+
+                            $all_event_datesID_old = array();
+                            while ($date = $event_dates->fetch_assoc()) {
+                                echo '
+                                    <tr id="date-'.$event_dates_counter.'">
+                                        <th>'.$event_dates_counter.'</th>
+                                        <td>
+                                            <input type="hidden" name="date_id[]" value="'.$date["id"].'">
+                                            <input type="datetime-local" name="date_start[]" value="'.$date["start"].'">
+                                            -
+                                            <input type="datetime-local" name="date_end[]" value="'.$date["end"].'">
+
+                                            <label>
+                                                <span class="material-symbols-outlined">
+                                                close
+                                                </span>
+                                                <input type="button" onclick="removedate('."'".$event_dates_counter."'".')">
+                                            </label>
+                                        </td>
+                                    </tr>
+                                ';
+                                array_push($all_event_datesID_old, $date["id"]);
+                                $event_dates_counter++;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+
+
                 <div class="alertbox organizer disabled" id="organizer">
                     <h1>Veranstalter Erstellen</h1>
                     <div class="list">
@@ -102,9 +148,15 @@ include("../../private/intranet/assets/nav.php")
                 <div class="information">
                     <h6>Zeit: </h6>
                     <div class="single">
-                        <input type="datetime-local" name="date_from">
+                        <!--<input type="datetime-local" name="date_from">
                         <p> - </p>
-                        <input type="datetime-local" name="date_to">
+                        <input type="datetime-local" name="date_to">-->
+
+                        <a onclick="alertadd('date')">
+                            <span class="material-symbols-outlined">
+                            edit
+                            </span>
+                        </a>
 
                     </div>
 
@@ -200,11 +252,18 @@ if(!empty($_POST["submit"])) {
     //$Pspec_group = $_POST["only_specific_group"];
     $Porganizer = implode(";", $_POST["organizer"]);
 
-    $addEvent = "INSERT INTO `event`    (title, description, date_from, date_to, age_from, age_to, location, organizer, price) VALUES
-                                        ($Ptitle, $Pdescription, $Pdate_from, $Pdate_to, $Page_from, $Page_to, $Plocation, $Porganizer, $Pcosts)";
+    $addEvent = "INSERT INTO `event`    (title, description, age_from, age_to, location, organizer, price) VALUES
+                                        ($Ptitle, $Pdescription, $Page_from, $Page_to, $Plocation, $Porganizer, $Pcosts)";
     $con_public->query($addEvent);
 
     $eventID = $con_public->insert_id;
+
+    for ($i=0; $i < count($_POST["date_id"]); $i++) { 
+            $P_date_start = valueCheckDate($_POST["date_start"][$i]);
+            $P_date_end = valueCheckDate($_POST["date_end"][$i]);
+
+            $con_public->query("INSERT INTO `event_calendar` (event_id, `start`, `end`) VALUES ('$eventID', $P_date_start, $P_date_end)");
+    }
 
     //links
     for ($i=0; $i < count($_POST["link"]); $i++) {
