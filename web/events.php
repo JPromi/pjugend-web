@@ -108,6 +108,14 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
         $weekShortName = array("so", "mo", "di", "mi", "do", "fr", "sa");
         
         while ($event = $allEvents->fetch_assoc()) {
+
+            $tmp_eventID = $event["id"];
+            
+            $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$tmp_eventID' AND `start` >= NOW()")->fetch_assoc();
+            if(!isset($eventCalendar)) {
+                $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$tmp_eventID' ORDER BY `start` DESC")->fetch_assoc();
+            }
+
             if(isset($_GET["age"]) || isset($_GET["title"]) || isset($_GET["date_from"])|| isset($_GET["date_to"])) {
                 //age
                 if(!($_GET["age"] == "")) {
@@ -129,7 +137,7 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
 
                 //date
                 if(isset($_GET["date_from"]) && isset($_GET["date_to"])) {
-                    if (strtotime($event["date_from"]) >= strtotime($_GET["date_from"])) {
+                    if (strtotime($eventCalendar["start"]) >= strtotime($_GET["date_from"])) {
                         array_push($eventsIds, $event["id"]);
                     }
                 }
