@@ -7,13 +7,18 @@ include '../../private/web/assets/team.php';
 
 <?php
 $eventID = $_GET["id"];
-$event = "SELECT * FROM `event` WHERE `only_specific_group` = '0' AND id = '$eventID'";
+$event = "SELECT * FROM `event` WHERE id = '$eventID'";
 $event = $con_public_new->query($event);
 $event = $event->fetch_assoc();
 
 if (empty($event)) {
     header("Location: ../events");
     exit();
+}
+
+$eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$eventID' AND `start` >= NOW()")->fetch_assoc();
+if(isset($eventCalendar)) {
+    $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$eventID' ORDER BY `start` DESC")->fetch_assoc();
 }
 ?>
 
@@ -56,15 +61,15 @@ include '../../private/web/assets/nav.php';
 
                 <div class="information">
                     <?php
-                        if(!empty($event["date_from"])) {
+                        if(!empty($eventCalendar["start"])) {
                     ?>
                     <h6>Datum: </h6>
                     <p>
                         <?php
-                        if(date("j.n.Y", strtotime($event["date_from"])) == date("j.n.Y", strtotime($event["date_to"]))) {
-                            echo(date("j.n.Y", strtotime($event["date_from"])));
+                        if(date("j.n.Y", strtotime($eventCalendar["start"])) == date("j.n.Y", strtotime($eventCalendar["end"]))) {
+                            echo(date("j.n.Y", strtotime($eventCalendar["start"])));
                         } else {
-                            echo(date("j.n.Y", strtotime($event["date_from"])) . " - ". date("j.n.Y", strtotime($event["date_to"])));
+                            echo(date("j.n.Y", strtotime($eventCalendar["start"])) . " - ". date("j.n.Y", strtotime($eventCalendar["end"])));
                         }
                         ?>
                     </p>
@@ -72,7 +77,7 @@ include '../../private/web/assets/nav.php';
                     <h6>Uhrzeit: </h6>
                     <p>
                         <?php
-                            echo(date("H:i", strtotime($event["date_from"])) . " - ". date("H:i", strtotime($event["date_to"])));
+                            echo(date("H:i", strtotime($eventCalendar["start"])) . " - ". date("H:i", strtotime($eventCalendar["end"])));
                         ?>
                     </p>
 

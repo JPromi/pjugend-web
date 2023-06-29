@@ -16,6 +16,11 @@ if(empty($event)) {
     header("Location: ../event");
     exit();
 };
+
+$eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$eventID' AND `start` >= NOW()")->fetch_assoc();
+if(isset($eventCalendar)) {
+    $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$eventID' ORDER BY `start` DESC")->fetch_assoc();
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,15 +67,15 @@ include("../../private/intranet/assets/nav.php")
 
                     <div class="information">
                         <?php
-                            if(!empty($event["date_from"])) {
+                            if(!empty($eventCalendar["start"])) {
                         ?>
                         <h6>Datum: </h6>
                         <p>
                             <?php
-                            if(date("j.n.Y", strtotime($event["date_from"])) == date("j.n.Y", strtotime($event["date_to"]))) {
-                                echo(date("j.n.Y", strtotime($event["date_from"])));
+                            if(date("j.n.Y", strtotime($eventCalendar["start"])) == date("j.n.Y", strtotime($eventCalendar["edn"]))) {
+                                echo(date("j.n.Y", strtotime($eventCalendar["start"])));
                             } else {
-                                echo(date("j.n.Y", strtotime($event["date_from"])) . " - ". date("j.n.Y", strtotime($event["date_to"])));
+                                echo(date("j.n.Y", strtotime($eventCalendar["start"])) . " - ". date("j.n.Y", strtotime($eventCalendar["end"])));
                             }
                             ?>
                         </p>
@@ -78,7 +83,7 @@ include("../../private/intranet/assets/nav.php")
                         <h6>Uhrzeit: </h6>
                         <p>
                             <?php
-                                echo(date("H:i", strtotime($event["date_from"])) . " - ". date("H:i", strtotime($event["date_to"])));
+                                echo(date("H:i", strtotime($eventCalendar["start"])) . " - ". date("H:i", strtotime($eventCalendar["end"])));
                             ?>
                         </p>
 
