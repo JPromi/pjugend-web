@@ -18,7 +18,7 @@ if(empty($event)) {
 };
 
 $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$eventID' AND `start` >= NOW()")->fetch_assoc();
-if(isset($eventCalendar)) {
+if(!isset($eventCalendar)) {
     $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$eventID' ORDER BY `start` DESC")->fetch_assoc();
 }
 ?>
