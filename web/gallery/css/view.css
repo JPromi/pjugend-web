@@ -10,16 +10,16 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: .25rem;
     width: 95%;
     margin: 2rem auto 4rem auto;
 }
 
 .gallery label {
-    height: 18rem;
-    border-radius: .5rem;
+    height: 10vw;
+    border-radius: .15rem;
     cursor: pointer;
-    box-shadow: .5rem .5rem 2rem #00000025;
+    /*box-shadow: .5rem .5rem 2rem #00000025;*/
     overflow: hidden;
     transition: transform ease-in-out 250ms;
 }
@@ -98,6 +98,12 @@
 }
 
 /* screen size */
+@media screen and (max-width: 1300px) {
+    .gallery label {
+        height: 8rem;
+    }
+}
+
 @media screen and (max-width: 750px) {
     .gallery {
         gap: .1rem;
