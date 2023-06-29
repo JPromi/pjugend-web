@@ -29,6 +29,48 @@ function addLink() {
 
 }
 
+
+/* dates */
+
+function removedate(dateID) {
+    document.getElementById("date-" + dateID).remove();
+}
+
+function addDate() {
+    //last element
+    var lastChild = document.getElementById('datelist').lastElementChild;
+
+    try {
+        var lastID = lastChild.id.replace("date-", "");
+    } catch (error) {
+        var lastID = 0;
+    }
+
+    var newID = parseInt(lastID) + 1;
+    
+    const links = document.getElementById("datelist");
+    var codeblock = `
+        <tr id="date-` + newID + `">
+            <th>` + newID + `</th>
+            <td>
+                <input type="hidden" name="date_id[]" value="new">
+                <input type="datetime-local" name="date_start[]">
+                -
+                <input type="datetime-local" name="date_end[]">
+
+                <label>
+                    <span class="material-symbols-outlined">
+                    close
+                    </span>
+                    <input type="button" onclick="removedate('` + newID + `')">
+                </label>
+            </td>
+        </tr>
+    `;
+    links.innerHTML += codeblock;
+
+}
+
 /* alert */
 function alertadd(elementId) {
     document.getElementById("alert").classList.remove("disabled"); 

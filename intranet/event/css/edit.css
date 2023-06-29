@@ -198,6 +198,47 @@
     display: flex;
 }
 
+.content .alert .date {
+    height: 27rem;
+    overflow: auto;
+    width: 30rem;
+}
+
+.content .alert .date table {
+    width: fit-content;
+    margin: 0 auto;
+    border-spacing: 0;
+}
+
+.content .alert .date table tr:nth-child(2n+1) {
+    background-color: #21212110;
+}
+
+.content .alert .date table tr td, .content .alert .date table tr th {
+    padding: 0 .5rem;
+}
+
+.content .alert .date table tr td {
+    padding: .25rem 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.content .alert .date input[type=datetime-local] {
+    border: 0;
+    border-bottom: 1px solid #21212150;
+    outline: none;
+    padding: .25rem .5rem;
+    width: 10rem;
+    background-color: transparent;
+}
+
+.content .alert .date label input {
+    display: none;
+}
+
+
 /* screen */
 @media screen and (max-width: 700px) {
 
@@ -227,5 +268,11 @@
 
     .content .middle {
         overflow: visible;
+    }
+
+    .content .alert .date {
+        height: 27rem;
+        overflow: auto;
+        width: 80%;
     }
 }

@@ -57,6 +57,52 @@ include("../../private/intranet/assets/nav.php")
         <form class="content" method="post" enctype="multipart/form-data">
 
             <div class="alert disabled" id="alert">
+
+                <!--date-->
+                <div class="alertbox date disabled" id="date">
+                    <h1>Termine</h1>
+                    
+                    <a onclick="addDate()">
+                        <span class="material-symbols-outlined">
+                        add
+                        </span>
+                    </a>
+
+                    <table class="list">
+                        <tbody id="datelist">
+                            <?php
+                            $event_dates = $con_public->query("SELECT * FROM event_calendar WHERE event_id = '$eventID' ORDER BY `start`");
+                            $event_dates_counter = 1;
+
+                            $all_event_datesID_old = array();
+                            while ($date = $event_dates->fetch_assoc()) {
+                                echo '
+                                    <tr id="date-'.$event_dates_counter.'">
+                                        <th>'.$event_dates_counter.'</th>
+                                        <td>
+                                            <input type="hidden" name="date_id[]" value="'.$date["id"].'">
+                                            <input type="datetime-local" name="date_start[]" value="'.$date["start"].'">
+                                            -
+                                            <input type="datetime-local" name="date_end[]" value="'.$date["end"].'">
+
+                                            <label>
+                                                <span class="material-symbols-outlined">
+                                                close
+                                                </span>
+                                                <input type="button" onclick="removedate('."'".$event_dates_counter."'".')">
+                                            </label>
+                                        </td>
+                                    </tr>
+                                ';
+                                array_push($all_event_datesID_old, $date["id"]);
+                                $event_dates_counter++;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--organizer-->
                 <div class="alertbox organizer disabled" id="organizer">
                     <h1>Veranstalter Bearbeiten</h1>
                     <div class="list">
@@ -119,11 +165,17 @@ include("../../private/intranet/assets/nav.php")
                 </div>
 
                 <div class="information">
-                    <h6>Zeit: </h6>
+                    <h6>Termine: </h6>
                     <div class="single">
-                        <input type="datetime-local" name="date_from" value="<?php echo($event["date_from"]); ?>">
+                        <!--<input type="datetime-local" name="date_from" value="<?php echo($event["date_from"]); ?>">
                         <p> - </p>
-                        <input type="datetime-local" name="date_to" value="<?php echo($event["date_to"]); ?>">
+                        <input type="datetime-local" name="date_to" value="<?php echo($event["date_to"]); ?>">-->
+
+                        <a onclick="alertadd('date')">
+                            <span class="material-symbols-outlined">
+                            edit
+                            </span>
+                        </a>
 
                     </div>
 
@@ -213,8 +265,8 @@ if(!empty($_POST["submit"])) {
     $Ptitle = valueCheck(htmlspecialchars($_POST["title"]));
     $Pdescription = valueCheck(htmlspecialchars($_POST["description"]));
 
-    $Pdate_from = valueCheckDate($_POST["date_from"]);
-    $Pdate_to = valueCheckDate($_POST["date_to"]);
+    # $Pdate_from = valueCheckDate($_POST["date_from"]);
+    # $Pdate_to = valueCheckDate($_POST["date_to"]);
     
     $Page_from = valueCheck($_POST["age_from"]);
     $Page_to =  valueCheck($_POST["age_to"]);
@@ -225,12 +277,9 @@ if(!empty($_POST["submit"])) {
 
     $Pcosts = valueCheck($_POST["costs"]);
 
-    echo($Porganizer);
     $updateEvent = "UPDATE `event` SET 
                                         `title` = $Ptitle,
                                         `description` = $Pdescription,
-                                        `date_from` = $Pdate_from,
-                                        `date_to` = $Pdate_to,
                                         `age_from` = $Page_from,
                                         `age_to` = $Page_to,
                                         `location` = $Plocation,
@@ -238,6 +287,28 @@ if(!empty($_POST["submit"])) {
                                         `price` = $Pcosts
                                         WHERE `id`='$eventID'";
     mysqli_query($con_public, $updateEvent);
+
+    //update calendar
+    for ($i=0; $i < count($_POST["date_id"]); $i++) { 
+        if(in_array($_POST["date_id"][$i], $all_event_datesID_old)) {
+            $P_date_start = valueCheckDate($_POST["date_start"][$i]);
+            $P_date_end = valueCheckDate($_POST["date_end"][$i]);
+            $P_date_id = valueCheck($_POST["date_id"][$i]);
+
+            $con_public->query("UPDATE event_calendar SET `start` = $P_date_start, `end` = $P_date_end WHERE id = $P_date_id AND event_id = '$eventID'");
+        } elseif ($_POST["date_id"][$i] == "new") {
+            $P_date_start = valueCheckDate($_POST["date_start"][$i]);
+            $P_date_end = valueCheckDate($_POST["date_end"][$i]);
+
+            $con_public->query("INSERT INTO `event_calendar` (event_id, `start`, `end`) VALUES ('$eventID', $P_date_start, $P_date_end)");
+        }
+    }
+
+    foreach ($all_event_datesID_old as $oldID) {
+        if(!in_array($oldID, $_POST["date_id"])) {
+            $con_public->query("DELETE FROM event_calendar WHERE id = '$oldID' AND event_id = '$eventID'");
+        }
+    }
 
     //links
     $removeLinks = "DELETE FROM `event_link` WHERE `event_id`='$eventID'";
@@ -258,7 +329,7 @@ if(!empty($_POST["submit"])) {
         array_map('unlink', glob($mask));
     }
 
-    echo '<meta http-equiv="refresh" content="0; url=view?id='.$eventID.'">';
+    //echo '<meta http-equiv="refresh" content="0; url=view?id='.$eventID.'">';
     
 } else if (!empty($_POST["delete"])) {
 
