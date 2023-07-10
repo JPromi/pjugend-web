@@ -51,27 +51,56 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
             -->
             <div class="middle">
 
+                    <div class="search">
+                        <input type="text" placeholder="Suche" id="filterTable" onkeyup="search('usrData')">
+
+                        <span class="material-symbols-outlined" id="searchRemove" onclick="clearInput('filterTable')">
+                        close
+                        </span>
+                    </div>
+
             
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Benutzername</th>
-                            <th>Vorname</th>
-                            <th>Nachname</th>
+                            <th>
+                                <div class="ct">
+                                    ID
+                                    <div class="arrow"></div>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="ct">
+                                    Benutzername
+                                    <div class="arrow"></div>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="ct">
+                                    Vorname
+                                    <div class="arrow"></div>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="ct">
+                                    Nachname
+                                    <div class="arrow"></div>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="usrData">
+                        <tr><!--placeholder--></tr>
                     <?php
                     $accounts = "SELECT id, username, lastname, firstname FROM accounts ORDER BY firstname";
                     $accounts = $con_new->query($accounts);
                     while ($account = $accounts->fetch_assoc()) {
                         echo '
-                        <tr onclick="window.location.href=`/admin-settings/user/info?id='.$account["id"].'`">
+                        <tr class="entry" onclick="window.location.href=`/admin-settings/user/info?id='.$account["id"].'`">
                             <td>'.$account["id"].'</td>
-                            <td>'.$account["username"].'</td>
-                            <td>'.$account["firstname"].'</td>
-                            <td>'.$account["lastname"].'</td>
+                            <td class="name">'.$account["username"].'</td>
+                            <td class="name">'.$account["firstname"].'</td>
+                            <td class="name">'.$account["lastname"].'</td>
                         </tr>
                         ';
                     }
@@ -82,6 +111,8 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
             </div>
             
         </div>
+        <script src="/admin-settings/user/js/order.js"></script>
+        <script src="/admin-settings/user/js/search.js"></script>
     </div>
 
 </body>
