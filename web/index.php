@@ -25,9 +25,21 @@ include '../private/web/assets/nav.php';
 
 <body>
     <div class="content">
-        <div class="ph">
-            <h2>Hey,... eh,... schön das du den Weg hier her gefunden hast.</h2>
-            <p>Zurzeit gibt es hier noch nicht wirklich was zu sehen, schau ein anderes mal wieder vorbei</p>
+
+        <div class="top">
+            <!--slideshow-->
+            <div class="slideshow">
+                <div class="images" id="slideshow">
+                    <a href="#img1" id="img1">
+                        <img src="https://picsum.photos/800/500" alt="">
+                    </a>
+                </div>
+                <div class="preview">
+
+                </div>
+            </div>
+            <script src="js/slideshow.js"></script>
+
         </div>
     </div>
 </body>
