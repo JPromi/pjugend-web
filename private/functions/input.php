@@ -13,4 +13,18 @@ function checkInput($input) {
 
     return $input;
 }
+
+function checkTextInput($input) {
+    global $con;
+    $input = stripslashes($input);
+    $input = mysqli_real_escape_string($con, $input);
+
+    if(!(empty($input))) {
+        $input = "'".$input."'";
+    } else {
+        $input = "NULL";
+    }
+
+    return $input;
+}
 ?>
