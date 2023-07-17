@@ -7,7 +7,7 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/config.php';
 
 //set content type to json
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: https://'.$domain["intranet"]);
+header('Access-Control-Allow-Origin: * https://'.$domain["intranet"]);
 header('Access-Control-Allow-Methods: GET, POST');
 header('Access-Control-Allow-Credentials: true');
 
