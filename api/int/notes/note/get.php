@@ -29,7 +29,7 @@ if(isset($_REQUEST["id"])) {
     $owner = checkInput($note["owner_id"]);
     $owner = $con->query("SELECT id, firstname, lastname, username FROM accounts WHERE id = $owner")->fetch_assoc();
 
-    if($tmp_user_id == $note["owner_id"]) {
+    if($dbSESSION["user_id"] == $note["owner_id"]) {
         $tmp_permission = 'owner';
     } else {
         $tmp_permission = $con->query("SELECT * FROM notes_permission WHERE note_id = $tmp_note AND user_id = $tmp_user_id")->fetch_assoc();
