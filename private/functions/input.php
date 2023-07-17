@@ -27,4 +27,14 @@ function checkTextInput($input) {
 
     return $input;
 }
+
+function checkBoolean($input) {
+    if($input == "on") {
+        $input = "1";
+    } else {
+        $input = "0";
+    }
+
+    return $input;
+}
 ?>
