@@ -37,4 +37,12 @@ function checkBoolean($input) {
 
     return $input;
 }
+
+function ifElseInput($input1, $input2) {
+    if($input1) {
+        return $input1;
+    } else {
+        return $input2;
+    }
+}
 ?>
