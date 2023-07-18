@@ -45,4 +45,14 @@ function ifElseInput($input1, $input2) {
         return $input2;
     }
 }
+
+function inputCheckDate($input)
+{
+    if($input == "") {
+        $input = "NULL";
+    } else {
+        $input = "'". date("Y-m-d H:i", strtotime($input)) ."'";
+    }
+    return $input;
+}
 ?>
