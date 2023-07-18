@@ -110,24 +110,26 @@ include '../../private/web/assets/nav.php';
                     ?>
 
                     <h6>Veranstalter: </h6>
-                        <p>
+                        <p class="col">
                         <?php
                             $organizerArray = explode(";", $event["organizer"]);
-
-                            foreach ($organizerArray as $organizer) {                                
-                                echo teamEntry($organizer, "name");
+                            $all_organizer = $con_public->query("SELECT * FROM `event_organizer` WHERE event_id = '$eventID'");
+                            while ($organizer = $all_organizer->fetch_assoc()) {
+                                echo '<span>';
+                                echo teamEntry($organizer["user_id"], "name");
                                 
-                                if(!empty(teamEntry($organizer, "email"))) {
+                                if(!empty(teamEntry($organizer["user_id"], "email"))) {
                                     echo '
-                                        <a href="mailto:'.teamEntry($organizer, "email").'">
+                                        <a href="mailto:'.teamEntry($organizer["user_id"], "email").'">
                                             <span class="material-symbols-outlined">
                                             mail
                                             </span>
                                         </a>';
                                 }
+                                echo '</span>';
 
                                 echo '<br>';
-                            };
+                            }
                         ?>
                         </p>
                     
