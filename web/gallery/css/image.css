@@ -1,9 +1,26 @@
+body {
+    background-color: #212121;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    color: #FFF;
+}
+
+.header h3 {
+    text-align: center;
+    width: 100%;
+    color: #666666;
+}
+
 .content {
     display: flex;
     flex-direction: column;
-    height: 90vh;
+    height: 100vh;
     width: 90%;
-    margin: 1rem auto;
+    margin: 0 auto;
+    padding: 1rem 0;
 }
 
 .maincontent {
@@ -22,7 +39,7 @@
     height: 100%;
     width: 100%;
     object-fit: contain;
-    filter: drop-shadow(1rem 1rem 1rem #00000020);
+    filter: drop-shadow(1rem 1rem 1rem #FFFFFF20);
 }
 
 .hiddenOpacity {
@@ -30,7 +47,7 @@
 }
 
 .content a {
-    color: #000;
+    color: #FFF;
 }
 
 .btn {

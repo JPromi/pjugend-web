@@ -64,16 +64,14 @@ $imagePosition = array_search($imageName, $galleryFolder);
 
     <link rel="stylesheet" href="/css/style/style.css">
     <link rel="stylesheet" href="css/image.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     
     <?php
     include '../../private/favicon/main.php';
     ?>
     
 </head>
-
-<?php
-include '../../private/web/assets/nav.php';
-?>
 
 <body>
 <?php
@@ -100,14 +98,17 @@ include '../../private/web/assets/nav.php';
         }
         ?>
     <div class="content" id="pre">
-
-        <div class="back">
-            <a href="/gallery/view?id=<?php echo($_GET["g"]); ?>" titl="Zurück">
-                <span class="material-symbols-outlined">
-                arrow_back
-                </span>
-            </a>
+        <div class="header">
+            <div class="back">
+                <a href="/gallery/view?id=<?php echo($_GET["g"]); ?>" titl="Zurück">
+                    <span class="material-symbols-outlined">
+                    arrow_back
+                    </span>
+                </a>
+            </div>
+            <h3><?php echo $_GET["i"]; ?></h3>
         </div>
+        
 
         <div class="maincontent" id="image">
             <?php
@@ -167,9 +168,5 @@ include '../../private/web/assets/nav.php';
             
     </div>
 </body>
-
-<?php
-include '../../private/web/assets/footer.php';
-?>
 
 </html>
