@@ -19,9 +19,9 @@ function teamEntry($userID, $returnType = "name") {
     } else {
         $account = $con->query("SELECT firstname, lastname FROM accounts WHERE id = $userID")->fetch_assoc();
 
-        if($returnType = "name") {
+        if($returnType == "name") {
             return $account["firstname"] . " " . substr($account["lastname"], 0, 2) . ".";
-        } elseif ($returnType = "email") {
+        } elseif ($returnType == "email") {
             return NULL;
         }
     }
