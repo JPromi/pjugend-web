@@ -5,7 +5,7 @@ include("../../private/session/auth_session.php");
 
 <?php
 include '../../private/database/int.php';
-include '../../private/function/input.php';
+include '../../private/functions/input.php';
 
 $userID = $dbSESSION['user_id'];
 
@@ -58,8 +58,8 @@ if (!(isset($_GET["note"]))) {
         //check if title or text is definated
         if (!(empty($_POST["title"]) && empty($_POST["text"]))) {
             //check if exist in databse
-            $title = htmlspecialchars($_POST["title"]);
-            $text = $_POST["text"];
+            $title = mysqli_real_escape_string($con, stripslashes($_POST["title"]));
+            $text = mysqli_real_escape_string($con, stripslashes($_POST["text"]));
 
             if (empty($_POST["text"])) {
                 $dbNOTE = "SELECT * FROM `notes` WHERE id = '$noteID'";
