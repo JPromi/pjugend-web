@@ -5,6 +5,7 @@ include("../../private/session/auth_session.php");
 include("../../private/database/int.php");
 include("../../private/database/public.php");
 
+include("../../private/functions/input.php");
 include("../../private/intranet/image/event_cover.php");
 ?>
 
@@ -107,7 +108,13 @@ include("../../private/intranet/assets/nav.php")
                     <h1>Veranstalter Bearbeiten</h1>
                     <div class="list">
                         <?php
-                        $organizerIds = explode(";", $event["organizer"]);
+                        $all_organizer = $con_public->query("SELECT * FROM `event_organizer` WHERE event_id = '$eventID'");
+                        $organizerIds = array();
+
+                        while ($organizer = $all_organizer->fetch_assoc()) {
+                            array_push($organizerIds, $organizer["user_id"]);
+                        }
+
                         $user = "SELECT id, firstname, lastname FROM `accounts` ORDER BY firstname";
                         $user = $con_new->query($user);
                         while ($suser = $user->fetch_assoc()) {
@@ -271,9 +278,6 @@ if(!empty($_POST["submit"])) {
     $Page_from = valueCheck($_POST["age_from"]);
     $Page_to =  valueCheck($_POST["age_to"]);
     $Plocation = valueCheck($_POST["location"]);
-    //$Pprice = $_POST["price"];
-    //$Pspec_group = $_POST["only_specific_group"];
-    $Porganizer = implode(";", $_POST["organizer"]);
 
     $Pcosts = valueCheck($_POST["costs"]);
 
@@ -283,10 +287,29 @@ if(!empty($_POST["submit"])) {
                                         `age_from` = $Page_from,
                                         `age_to` = $Page_to,
                                         `location` = $Plocation,
-                                        `organizer` = $Porganizer,
                                         `price` = $Pcosts
                                         WHERE `id`='$eventID'";
     mysqli_query($con_public, $updateEvent);
+
+    //organizer
+    $o_organizer = $con_public->query("SELECT user_id FROM event_organizer WHERE event_id = '$eventID'");
+    $o1_organizer = array();
+    while ($orga = $o_organizer->fetch_assoc()) {
+        array_push($o1_organizer, $orga["user_id"]);
+        $tmp_usr = checkInput($orga["user_id"]);
+
+        if(!in_array($orga["user_id"], $_POST["organizer"])) {
+            $con_public->query("DELETE FROM event_organizer WHERE event_id = '$eventID' AND user_id = $tmp_usr");
+        }
+    }
+    
+    for ($i=0; $i < count($_POST["organizer"]); $i++) { 
+        if(in_array($_POST["organizer"][$i], $o1_organizer)) {
+        } else {
+            $tmp_usr = checkInput($_POST["organizer"][$i]);
+            $con_public->query("INSERT INTO event_organizer (event_id, user_id) VALUES ('$eventID', $tmp_usr)");
+        }
+    }
 
     //update calendar
     for ($i=0; $i < count($_POST["date_id"]); $i++) { 
@@ -329,22 +352,22 @@ if(!empty($_POST["submit"])) {
         array_map('unlink', glob($mask));
     }
 
-    //echo '<meta http-equiv="refresh" content="0; url=view?id='.$eventID.'">';
+    echo '<meta http-equiv="refresh" content="0; url=view?id='.$eventID.'">';
     
 } else if (!empty($_POST["delete"])) {
 
     //remove cover
-    if(!(empty($_POST["coverDel"]))) {
+    if(file_exists('../../cdn/event/image/img-t_'. substr(md5($eventID), 5) .'.jpg')) {
         unlink('../../cdn/event/image/img-t_'. substr(md5($eventID), 5) .'.jpg');
     }
 
     //remove links
-    $removeLinks = "DELETE FROM `event_link` WHERE `event_id`='$eventID'";
-    mysqli_query($con_public, $removeLinks);
+    $con_public->query("DELETE FROM `event_link` WHERE `event_id`='$eventID'");
 
     //remove event
-    $removeEvent = "DELETE FROM `event` WHERE `id`='$eventID'";
-    mysqli_query($con_public, $removeEvent);
+    $con_public->query("DELETE FROM `event` WHERE `id`='$eventID'");
+    $con_public->query("DELETE FROM `event_organizer` WHERE `event_id`='$eventID'");
+    $con_public->query("DELETE FROM `event_calendar` WHERE `event_id`='$eventID'");
 
     echo '<meta http-equiv="refresh" content="0; url=../event">';
 

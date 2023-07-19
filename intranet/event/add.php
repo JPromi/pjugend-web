@@ -5,6 +5,7 @@ include("../../private/session/auth_session.php");
 include("../../private/database/int.php");
 include("../../private/database/public.php");
 
+include("../../private/functions/input.php");
 include("../../private/intranet/image/event_cover.php");
 ?>
 
@@ -248,31 +249,41 @@ if(!empty($_POST["submit"])) {
     $Page_to =  valueCheck($_POST["age_to"]);
     $Plocation = valueCheck($_POST["location"]);
     $Pcosts = valueCheck($_POST["costs"]);
-    //$Pprice = $_POST["price"];
-    //$Pspec_group = $_POST["only_specific_group"];
-    $Porganizer = implode(";", $_POST["organizer"]);
 
-    $addEvent = "INSERT INTO `event`    (title, description, age_from, age_to, location, organizer, price) VALUES
-                                        ($Ptitle, $Pdescription, $Page_from, $Page_to, $Plocation, $Porganizer, $Pcosts)";
+    $addEvent = "INSERT INTO `event`    (title, description, age_from, age_to, location, price) VALUES
+                                        ($Ptitle, $Pdescription, $Page_from, $Page_to, $Plocation, $Pcosts)";
     $con_public->query($addEvent);
 
     $eventID = $con_public->insert_id;
 
-    for ($i=0; $i < count($_POST["date_id"]); $i++) { 
-            $P_date_start = valueCheckDate($_POST["date_start"][$i]);
-            $P_date_end = valueCheckDate($_POST["date_end"][$i]);
+    if(isset($_POST["date_id"])) {
+        for ($i=0; $i < count($_POST["date_id"]); $i++) { 
+                $P_date_start = valueCheckDate($_POST["date_start"][$i]);
+                $P_date_end = valueCheckDate($_POST["date_end"][$i]);
 
-            $con_public->query("INSERT INTO `event_calendar` (event_id, `start`, `end`) VALUES ('$eventID', $P_date_start, $P_date_end)");
+                $con_public->query("INSERT INTO `event_calendar` (event_id, `start`, `end`) VALUES ('$eventID', $P_date_start, $P_date_end)");
+        }
+    }
+
+    //organizer
+    if(isset($_POST["organizer"])) {
+        for ($i=0; $i < count($_POST["organizer"]); $i++) {
+            $tmp_usr = checkInput($_POST["organizer"][$i]);
+            $con_public->query("INSERT INTO event_organizer (event_id, user_id) VALUES ('$eventID', $tmp_usr)");
+        }
     }
 
     //links
-    for ($i=0; $i < count($_POST["link"]); $i++) {
-        if(!(empty($_POST["linkTitle"][$i]) || empty($_POST["link"][$i]))) {
-            $addLink = "INSERT INTO `event_link` (event_id, title, link) VALUES ('$eventID', ".valueCheck($_POST["linkTitle"][$i]).", ".valueCheck($_POST["link"][$i]).")";
-            mysqli_query($con_public, $addLink);
+    if(isset($_POST["link"])) {
+        for ($i=0; $i < count($_POST["link"]); $i++) {
+            if(!(empty($_POST["linkTitle"][$i]) || empty($_POST["link"][$i]))) {
+                $addLink = "INSERT INTO `event_link` (event_id, title, link) VALUES ('$eventID', ".valueCheck($_POST["linkTitle"][$i]).", ".valueCheck($_POST["link"][$i]).")";
+                mysqli_query($con_public, $addLink);
+            }
+           
         }
-       
     }
+    
     //cover
     if(!(empty($_FILES["cover"]["tmp_name"]))) {
         createEventCover($_FILES["cover"]["tmp_name"], $_FILES["cover"]["type"], 'img-t_'. substr(md5($eventID), 5));
