@@ -3,7 +3,12 @@
 require($_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php');
 
 //get sesstion from db
-$session_hash = $_COOKIE["SESSION_ID"];
+if(isset($_REQUEST["SESSION_ID"])) {
+    $session_hash = $_REQUEST["SESSION_ID"];
+} else {
+    $session_hash = $_COOKIE["SESSION_ID"];
+}
+
 $dbSESSION = $con_new->query("SELECT * FROM `session` WHERE `cookie_hash`='$session_hash'");
 $dbSESSION = $dbSESSION->fetch_assoc();
 
