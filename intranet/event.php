@@ -198,7 +198,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
                     if(!empty($eventCalendar["start"])) {
                         echo '
                         <h1>'.$weekShortName[date("w", strtotime($eventCalendar["start"]))].'</h1>
-                        <p>'.date("j.n", strtotime($eventCalendar["start"])).'</p>
+                        <p title="'.date("j.n.Y", strtotime($eventCalendar["start"])).'">'.date("j.n.y", strtotime($eventCalendar["start"])).'</p>
                         ';
                     }
                     ?>
