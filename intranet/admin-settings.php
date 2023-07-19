@@ -47,23 +47,6 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
             </div>
         </div>
     </div>
-    <?php
-    //admin settings
-    if(in_array("admin", $dbSESSION_perm)) {
-    ?>
-        <a href="/admin-settings/user">Benutzer</a>
-    <?php
-    }
-    ?>
-
-    <?php
-    //jt admin settings
-    if(in_array("jugendteam_admin", $dbSESSION_perm)) {
-    ?>
-        <a href="/admin-settings/social-media">Social Media</a>
-    <?php
-    }
-    ?>
 </body>
 
 <?php
