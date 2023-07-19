@@ -138,7 +138,6 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
                 </div>
 
                 <div class="btn">
-                    <a href="/admin-settings/firmung/registration/edit?year=<?php echo $year ?>&regID=<?php echo $regID ?>">Bearbeiten</a>
                     <a href="/admin-settings/firmung/firmlinge/add?year=<?php echo $year ?>&regID=<?php echo $regID ?>">Firmling Anlegen</a>
                 </div>
             </div>
