@@ -12,8 +12,8 @@
 .shadow-border {
     margin: 0 1rem;
     overflow: hidden;
-    border-radius: 1rem;
-    box-shadow: 0 0 1rem #21212150;
+    border-radius: .5rem;
+    box-shadow: 0 0 .5rem #21212110;
 }
 
 .scroll {
