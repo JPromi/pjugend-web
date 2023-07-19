@@ -4,6 +4,8 @@ include("../../private/session/auth_session.php");
 
 include("../../private/database/int.php");
 include("../../private/database/public.php");
+include '../../private/web/assets/team.php';
+include '../../private/config.php';
 ?>
 
 <?php
@@ -108,23 +110,31 @@ include("../../private/intranet/assets/nav.php")
                         ?>
 
                         <h6>Veranstalter: </h6>
-                        <p>
-                            <?php
-                                $organizerString = str_replace(";", "','", $event["organizer"]);
-                                $organizer = "SELECT firstname, lastname FROM `accounts` WHERE id IN ('$organizerString')";
-                                $organizer = $con_new->query($organizer);
-
-                                while ($person = $organizer->fetch_assoc()) {
-                                    echo($person["firstname"] . " " . $person["lastname"] . "<br>");
+                        <p class="col">
+                        <?php
+                            $organizerIDs = array();
+                            $all_organizer = $con_public->query("SELECT * FROM `event_organizer` WHERE event_id = '$eventID'");
+                            while ($organizer = $all_organizer->fetch_assoc()) {
+                                array_push($organizerIDs, $organizer["user_id"]);
+                                echo '<span>';
+                                echo teamEntry($organizer["user_id"], "name");
+                                
+                                if(!empty(teamEntry($organizer["user_id"], "email"))) {
+                                    echo '
+                                        <a href="mailto:'.teamEntry($organizer["user_id"], "email").'">
+                                            <span class="material-symbols-outlined">
+                                            mail
+                                            </span>
+                                        </a>';
                                 }
-                            ?>
+                                echo '</span>';
+                            }
+                        ?>
                         </p>
-                        
                     </div>
                 </div>
                 <div class="tools">
                     <?php
-                    $organizerIDs = explode(";", $event["organizer"]);
                     if(in_array($dbSESSION["user_id"], $organizerIDs) || in_array("jugendteam_admin", $dbSESSION_perm)) {
                         ?>
                         <button onclick="window.location.href=`/event/edit?id=<?php echo($eventID); ?>`">
