@@ -5,6 +5,7 @@ include("../../private/session/auth_session.php");
 
 <?php
 include '../../private/database/int.php';
+include '../../private/function/input.php';
 
 $userID = $dbSESSION['user_id'];
 
