@@ -7,6 +7,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/database/public.php");
 ?>
 
 <?php
+    //handle post search request
     if(isset($_POST["submit"])) {
         $generateParameter;
         echo json_encode($_POST);
@@ -26,11 +27,11 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/database/public.php");
         }
 
         if(!($_GET["page"] == "")) {
-            $generateParameter =  $generateParameter . "&page=" . $_GET["page"];
+            $generateParameter =  $generateParameter;
         }
         $generateParameter = "?" . substr($generateParameter, 1);
         
-        header("Location: " . $generateParameter);
+        header("Location: /events" . $generateParameter);
     }
 ?>
 
@@ -98,7 +99,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 
     <div class="content">
         <?php
-        $pageLimit = 40;
+        $pageLimit = 10;
         $allEvents = "SELECT * FROM `event`";
         $allEvents = $con_public_new->query($allEvents);
         $eventsIds = array();
@@ -112,6 +113,14 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
         $weekShortName = array("so", "mo", "di", "mi", "do", "fr", "sa");
         
         while ($event = $allEvents->fetch_assoc()) {
+
+            $tmp_eventID = $event["id"];
+            
+            $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$tmp_eventID' AND `start` >= NOW()")->fetch_assoc();
+            if(!isset($eventCalendar)) {
+                $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$tmp_eventID' ORDER BY `start` DESC")->fetch_assoc();
+            }
+
             if(isset($_GET["age"]) || isset($_GET["title"]) || isset($_GET["date_from"])|| isset($_GET["date_to"])) {
                 //age
                 if(!($_GET["age"] == "")) {
@@ -133,7 +142,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
 
                 //date
                 if(isset($_GET["date_from"]) && isset($_GET["date_to"])) {
-                    if (strtotime($event["date_from"]) >= strtotime($_GET["date_from"])) {
+                    if (strtotime($eventCalendar["start"]) >= strtotime($_GET["date_from"])) {
                         array_push($eventsIds, $event["id"]);
                     }
                 }
@@ -143,6 +152,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
             }
         }
         $eventsIds = array_unique($eventsIds);
+        rsort($eventsIds);
 
         $STARTevent = ($pageLimit * $currentPage - $pageLimit);
         $ENDevent = $STARTevent + $pageLimit;
@@ -160,15 +170,47 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
         $allEvents = $con_public_new->query($allEvents);
 
         while ($event = $allEvents->fetch_assoc()) {
+
+            $event_img_root_path = $_SERVER["DOCUMENT_ROOT"].'/../cdn/event/image/img-t_'.substr(md5($event["id"]), 5).'-256.jpg';
+
+            if(file_exists($event_img_root_path)) {
+                $event_img_path = "https://".$domain["cdn"].'/event/image/img-t_'.substr(md5($event["id"]), 5).'-256.jpg';
+            } else {
+                $event_img_path = "";
+            }
+
+            $tmp_eventID = $event["id"];
+
+            $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$tmp_eventID' AND `start` >= NOW()")->fetch_assoc();
+            if(!isset($eventCalendar)) {
+                $eventCalendar = $con_public->query("SELECT * FROM `event_calendar` WHERE event_id = '$tmp_eventID' ORDER BY `start` DESC")->fetch_assoc();
+            }
             ?>
 
-            <div class="single" onclick="window.location.href=`/event/view?id=<?php echo($event["id"]); ?>`">
+            <div class="single" onclick="window.location.href=`/event/view?id=<?php echo($event['id']); ?>`"
+            style="
+                background-image: linear-gradient(90deg, rgba(255, 255, 255) 0%, rgba(255, 255, 255, .75) 100%),
+                url(<?php echo($event_img_path); ?>);
+                "
+            >
+                <div class="date">
+                    <?php
+                    if(!empty($eventCalendar["start"])) {
+                        echo '
+                        <h1>'.$weekShortName[date("w", strtotime($eventCalendar["start"]))].'</h1>
+                        <p>'.date("j.n", strtotime($eventCalendar["start"])).'</p>
+                        ';
+                    }
+                    ?>
+                    
+                </div>
                 <div class="text">
-                    <h1>
+
+                    <h2>
                         <?php 
                         echo($event["title"]); 
                         ?>
-                    </h1>
+                    </h2>
 
                     <p class="description">
                         <?php 
@@ -176,11 +218,6 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
                         ?>
                     </p>
 
-                    <p class="date">
-                        <?php 
-                        echo(date("j.n.Y h:m", strtotime($event["date_from"])) . " - " . date("j.n.Y h:m", strtotime($event["date_to"]))); 
-                        ?>
-                    </p>
                 </div>
             </div>
 
