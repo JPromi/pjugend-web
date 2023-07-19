@@ -27,18 +27,6 @@ include '../private/web/assets/nav.php';
     <div class="content">
 
         <div class="top">
-            <!--slideshow-->
-            <div class="slideshow">
-                <div class="images" id="slideshow">
-                    <a href="#img1" id="img1">
-                        <img src="https://picsum.photos/800/500" alt="">
-                    </a>
-                </div>
-                <div class="preview">
-
-                </div>
-            </div>
-            <script src="js/slideshow.js"></script>
 
         </div>
     </div>
