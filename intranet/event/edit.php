@@ -302,28 +302,31 @@ if(!empty($_POST["submit"])) {
             $con_public->query("DELETE FROM event_organizer WHERE event_id = '$eventID' AND user_id = $tmp_usr");
         }
     }
-    
-    for ($i=0; $i < count($_POST["organizer"]); $i++) { 
-        if(in_array($_POST["organizer"][$i], $o1_organizer)) {
-        } else {
-            $tmp_usr = checkInput($_POST["organizer"][$i]);
-            $con_public->query("INSERT INTO event_organizer (event_id, user_id) VALUES ('$eventID', $tmp_usr)");
+    if(isset($_POST["organizer"])) {
+        for ($i=0; $i < count($_POST["organizer"]); $i++) { 
+            if(in_array($_POST["organizer"][$i], $o1_organizer)) {
+            } else {
+                $tmp_usr = checkInput($_POST["organizer"][$i]);
+                $con_public->query("INSERT INTO event_organizer (event_id, user_id) VALUES ('$eventID', $tmp_usr)");
+            }
         }
     }
 
     //update calendar
-    for ($i=0; $i < count($_POST["date_id"]); $i++) { 
-        if(in_array($_POST["date_id"][$i], $all_event_datesID_old)) {
-            $P_date_start = valueCheckDate($_POST["date_start"][$i]);
-            $P_date_end = valueCheckDate($_POST["date_end"][$i]);
-            $P_date_id = valueCheck($_POST["date_id"][$i]);
+    if(isset($_POST["date_id"])) {
+        for ($i=0; $i < count($_POST["date_id"]); $i++) { 
+            if(in_array($_POST["date_id"][$i], $all_event_datesID_old)) {
+                $P_date_start = valueCheckDate($_POST["date_start"][$i]);
+                $P_date_end = valueCheckDate($_POST["date_end"][$i]);
+                $P_date_id = valueCheck($_POST["date_id"][$i]);
 
-            $con_public->query("UPDATE event_calendar SET `start` = $P_date_start, `end` = $P_date_end WHERE id = $P_date_id AND event_id = '$eventID'");
-        } elseif ($_POST["date_id"][$i] == "new") {
-            $P_date_start = valueCheckDate($_POST["date_start"][$i]);
-            $P_date_end = valueCheckDate($_POST["date_end"][$i]);
+                $con_public->query("UPDATE event_calendar SET `start` = $P_date_start, `end` = $P_date_end WHERE id = $P_date_id AND event_id = '$eventID'");
+            } elseif ($_POST["date_id"][$i] == "new") {
+                $P_date_start = valueCheckDate($_POST["date_start"][$i]);
+                $P_date_end = valueCheckDate($_POST["date_end"][$i]);
 
-            $con_public->query("INSERT INTO `event_calendar` (event_id, `start`, `end`) VALUES ('$eventID', $P_date_start, $P_date_end)");
+                $con_public->query("INSERT INTO `event_calendar` (event_id, `start`, `end`) VALUES ('$eventID', $P_date_start, $P_date_end)");
+            }
         }
     }
 
