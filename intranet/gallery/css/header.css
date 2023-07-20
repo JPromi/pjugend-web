@@ -2,6 +2,9 @@
     padding: 0.5rem 1rem;
 }
 
-.content .header h4 {
+.content .header a {
+    font-weight: bolder;
     font-size: 2rem;
+    color: #000000;
+    text-decoration: none;
 }
