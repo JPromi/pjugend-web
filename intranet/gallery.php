@@ -51,7 +51,27 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/intranet/assets/nav.php")
             include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/gallery/nav.php';
             ?>
             <div class="middle">
+                <?php
+                $galleries = $con_public->query("SELECT * FROM gallery WHERE owner = '$user_id' OR id IN (SELECT gallery_id FROM gallery_permission WHERE user_id = '$user_id')");
+                while($gallery = $galleries->fetch_assoc()) {
 
+                    //get thumbnail
+                    $pathGallery = $_SERVER["DOCUMENT_ROOT"].'/../cdn/gallery/'.$gallery["hash_id"].'/thumbnail/';
+                    $galleryFolder = scandir ($pathGallery);
+    
+                    if($galleryFolder[2] != "") {
+                        $thumbnail = 'https://'.$domain["cdn"].'/gallery/'.$gallery["hash_id"].'/thumbnail/'.$galleryFolder[2];
+                    } else {
+                        $thumbnail = 'https://'.$domain["cdn"].'/gallery/placeholder/gallery.jpg';
+                    }
+                    echo '
+                    <a class="single" href="/gallery/view?id='.$gallery["hash_id"].'">
+                        <img src="'.$thumbnail.'">
+                        <h4>'.$gallery["title"].'</h4>
+                    </a>
+                    ';
+                }
+                ?>
             </div>
         </div>
 
