@@ -42,7 +42,7 @@ include '../../private/web/assets/nav.php';
                 $sessionPublic = $_COOKIE["PUBLIC_SESSION_ID"];
                 $galleryID = $gallery["id"];
                 
-                $gallerySession = $con_public->query("SELECT * FROM gallery_session WHERE cookie_hash = '$sessionPublic' AND gallery_id = '$galleryID'");
+                $gallerySession = $con_public->query("SELECT * FROM gallery_session WHERE cookie_hash = '$sessionPublic' AND gallery_id = '$galleryID' AND public = '1'");
                 $gallerySession = $gallerySession->fetch_assoc();
 
                 //check if cookie is expired

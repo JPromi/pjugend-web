@@ -5,7 +5,7 @@ include '../../private/database/public.php';
 
 <?php
 $hashID = mysqli_real_escape_string($con_public, stripcslashes($_GET["id"]));
-$gallery = "SELECT * FROM gallery WHERE hash_id = '$hashID'";
+$gallery = "SELECT * FROM gallery WHERE hash_id = '$hashID' AND public = '1'";
 $gallery = $con_public->query($gallery);
 $gallery = $gallery->fetch_assoc();
 ?>
