@@ -10,10 +10,23 @@ include("../../private/intranet/image/gallery.php");
 
 <?php
 $hash_id = mysqli_real_escape_string($con_public, stripcslashes($_GET["id"]));
-$selectedGallery = "SELECT * FROM gallery WHERE hash_id = '$hash_id'";
-$selectedGallery = $con_public->query($selectedGallery);
-$selectedGallery = $selectedGallery->fetch_assoc();
-$hash_id = $selectedGallery["hash_id"];
+$user_id = $dbSESSION["user_id"];
+
+
+if(in_array("jugendteam_admin", $dbSESSION_perm)) {
+    $selectedGallery = "SELECT * FROM gallery WHERE hash_id = '$hash_id'";
+    $selectedGallery = $con_public->query($selectedGallery);
+    $selectedGallery = $selectedGallery->fetch_assoc();
+    $hash_id = $selectedGallery["hash_id"];
+}else if(in_array("gallery", $dbSESSION_perm)) {
+    $selectedGallery = "SELECT * FROM gallery WHERE hash_id = '$hash_id' AND (owner = '$user_id' OR id IN (SELECT gallery_id FROM gallery_permission WHERE user_id = '$user_id'))";
+    $selectedGallery = $con_public->query($selectedGallery);
+    $selectedGallery = $selectedGallery->fetch_assoc();
+    $hash_id = $selectedGallery["hash_id"];
+} else {
+    header("Location: ../gallery");
+    exit();
+}
 
 if(!isset($selectedGallery)) {
     header("Location: ../gallery");
@@ -23,12 +36,7 @@ if(!isset($selectedGallery)) {
 ?>
 
 <?php
-if($selectedGallery["owner"] == $dbSESSION["user_id"] || in_array("jugendteam_admin", $dbSESSION_perm) || in_array($dbSESSION["user_id"], explode(";", $selectedGallery["user_edit"]))) {
 
-} else {
-    header("Location: ../gallery");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
