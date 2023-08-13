@@ -24,12 +24,12 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/session/firmung/get_session.php")
                 <li><a href="/events">Veranstaltungen</a></li>
                 <li><a href="/gallery">Galerie</a></li>
                 <li><a href="/socials">Social Media</a></li>
-                <li>
+                <!--<li>
                     <a>Sakramente</a>
                     <ul>
                         <li><a href="/firmung">Firmung</a></li>
                     </ul>
-                </li>
+                </li>-->
                 <li><a href="/about">Über uns</a></li>
             </ul>
             <div class="right">

@@ -16,7 +16,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/../private/config.php");
         <div class="block">
             <h4>Intern</h4>
             <a href="https://<?php echo($domain["auth"]); ?>/">Login</a>
-            <a href="https://<?php echo($domain["auth"]); ?>/?l=firmung">Firmling Login</a>
+            <!--<a href="https://<?php echo($domain["auth"]); ?>/?l=firmung">Firmling Login</a>-->
         </div>
 
     </div>
