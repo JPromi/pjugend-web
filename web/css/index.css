@@ -1,0 +1,81 @@
+/* events */
+.events {
+    width: 70rem;
+    max-width: 90%;
+    margin: 2rem auto 2rem auto;
+}
+
+.events .elements {
+    height: 22rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: .25rem;
+}
+
+.events .elements .event {
+    display: flex;
+    background-color: #e9e9e9;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 0 .5rem #21212110;
+    cursor: pointer;
+    user-select: none;
+
+    border-radius: .15rem;
+    overflow: hidden;
+    background-repeat: no-repeat !important;
+    background-size: 100% !important;
+    background-position: center !important;
+
+    transition: all ease-in-out 250ms;
+
+    padding: 1rem;
+}
+
+.events .elements .event.placeholder {
+    cursor: default;
+    opacity: .5;
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, .85) 0%, rgba(255, 255, 255, .0) 50%)
+}
+
+.events .elements .event:hover {
+    background-size: 105% !important;
+}
+
+.events .elements .event .text {
+    margin-top: auto;
+    width: 100%;
+}
+
+.events .elements .event .text h3 {
+    font-size: 1.5rem;
+    min-width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #0c0c0c;
+}
+
+.events .elements .event .text p {
+    color: #242424;
+    font-style: italic;
+    font-size: .9rem;
+}
+
+/* event element grid */
+.events .elements .event:nth-child(1) {
+    grid-area: 1 / 1 / 3 / 3;
+}
+
+.events .elements .event:nth-child(2) {
+    grid-area: 1 / 3 / 2 / 5;
+}
+
+.events .elements .event:nth-child(3) {
+    grid-area: 2 / 3 / 3 / 4;
+}
+
+.events .elements .event:nth-child(4) {
+    grid-area: 2 / 4 / 3 / 5;
+}
