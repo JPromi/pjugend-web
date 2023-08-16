@@ -64,9 +64,7 @@ include '../private/web/assets/nav.php';
                         array_push($event_elements, array(
                             'date' => strtotime($eventCalendar["start"]),
                             'code' => '
-                            <div onclick="window.location.href=`/events/view?id='.$event['id'].'`" class="event" style="  background-image: linear-gradient(0deg, rgba(255, 255, 255, .85) 0%, rgba(255, 255, 255, .0) 50%),
-                                                            url('.$event_img_path.');"
-                            >
+                            <div onclick="window.location.href=`/events/view?id='.$event['id'].'`" class="event">
                                 <div class="text">
                                     <h3>'.$event["title"].'</h3>
                                     <p>'.
@@ -74,8 +72,11 @@ include '../private/web/assets/nav.php';
                                         .', '.
                                         date("d", strtotime($eventCalendar["start"]))
                                         .' '.
-                                        $monthName[date("m", strtotime($eventCalendar["start"])) - 1].date("Y", strtotime($eventCalendar["start"]))
+                                        $monthName[date("m", strtotime($eventCalendar["start"])) - 1]
                                     .'</p>
+                                </div>
+                                <div class="e-background">
+                                    <img src="'.$event_img_path.'">
                                 </div>
                             </div>
                             ')
@@ -93,7 +94,8 @@ include '../private/web/assets/nav.php';
                     for ($i=$events_counter; $i < $events_max; $i++) { 
                         echo '
                         <div class="event placeholder" id="event' . $events_counter . '">
-
+                            <div class="e-background">
+                            </div>
                         </div>
                         ';
                     }
@@ -103,6 +105,21 @@ include '../private/web/assets/nav.php';
             </div>
             
 
+        </div>
+
+        <div class="news">
+            <h2>Neuigkeiten</h2>
+            <div class="elements">
+                <div class="new">
+                    <h3>Text</h3>
+                </div>
+                <div class="new">
+                    <h3>Text</h3>
+                </div>
+                <div class="new">
+                    <h3>Text</h3>
+                </div>
+            </div>
         </div>
     </div>
 </body>
