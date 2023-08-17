@@ -213,6 +213,7 @@ nav .right .profile.profile-firmling img {
     width: 100%;
     height: 100%;
     background-color: #00000015;
+    z-index: 199;
 }
 
 /* mobile */
