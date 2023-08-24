@@ -25,9 +25,9 @@ include("../private/session/auth_session.php");
 include("../private/intranet/assets/nav.php")
 ?>
 <body class="main" id="main">
-
-    
-    
+    <div class="content">
+        
+    </div>
 </body>
 
 <?php
