@@ -3,6 +3,14 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/config.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/database/public.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/database/form.php';
+
+require $_SERVER["DOCUMENT_ROOT"].'/../private/email/src/Exception.php';
+require $_SERVER["DOCUMENT_ROOT"].'/../private/email/src/PHPMailer.php';
+require $_SERVER["DOCUMENT_ROOT"].'/../private/email/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 ?>
 
 <?php
@@ -52,7 +60,7 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
                 $formIndex = "SELECT * FROM `form_index` WHERE form_id = '$formID' ORDER BY place_index";
                 $formIndex = $con_public_new->query($formIndex);
 
-                $noInputs = array("stTitle", "stDesc");
+                $noInputs = array("stTitle", "stDesc", "emailVer");
 
                 while ($formElement = $formIndex->fetch_assoc()) {
                     echo '<div class="single">';
@@ -76,6 +84,10 @@ include $_SERVER["DOCUMENT_ROOT"].'/../private/web/assets/nav.php';
                     } else if($formElement["type"] == "stDesc") {
                         echo '
                             <p>'.str_replace("\n", "<br>", $formElement["title"]).'</>
+                        ';
+                    } else if($formElement["type"] == "emailVer") {
+                        echo '
+                            <label><p class="required">*</p> '.$formElement["title"].'<input type="email" name="form_field'.$formElement["id"].'" required></label>
                         ';
                     }
                     echo '</div>';
@@ -119,7 +131,7 @@ if(isset($_POST["submit"])) {
         };
     }
 
-    echo '<br>'.json_encode($formFieldsArray).'<br>';
+    // echo '<br>'.json_encode($formFieldsArray).'<br>';
 
     //push result in array
     foreach ($formFieldsArray as $formField) {
@@ -134,6 +146,42 @@ if(isset($_POST["submit"])) {
     $formfieldsPost = $con_form->query($formfieldsPost);
 
     $postID = $con_form->insert_id;
+
+    //sent confirmation email
+    
+    $verification_email_form_ids = $con_public->query("SELECT id FROM form_index WHERE form_id = '$formID' AND `type` = 'emailVer'");
+    
+    $mail = new PHPMailer(true);
+    
+    try {
+        $mail->isSMTP();
+        // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->Host       = $conf_mail["host"];
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $conf_mail["username"];
+        $mail->Password   = $conf_mail["password"];
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port       = $conf_mail["port"];
+        $mail->CharSet    = 'UTF-8';
+
+        //Recipients
+        $mail->setFrom($conf_mail["email"], $conf_title["web"]);
+
+        while ($e_ver_id = $verification_email_form_ids->fetch_assoc()) {
+            $mail->addAddress($_POST["form_field".$e_ver_id["id"]]);
+        }
+
+        //Content
+        $mail->isHTML(false);
+        $mail->Subject = $conf_title["web"].' Formular';
+        $mail->Body = $form["email_template"];
+
+        $mail->send();
+    } catch (\Throwable $th) {
+        $mail->ErrorInfo;
+        echo '<meta http-equiv="refresh" content="0; url=/form/post?post_id='.$postID.'&form_id='.$formID.'&error=mail">';
+        exit();
+    }
 
     //redirect
     echo '<meta http-equiv="refresh" content="0; url=/form/post?post_id='.$postID.'&form_id='.$formID.'">';
