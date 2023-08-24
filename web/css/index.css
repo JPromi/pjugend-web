@@ -27,6 +27,8 @@
     overflow: hidden;
 
     padding: 1rem;
+    color: #000;
+    text-decoration: none;
 }
 
 .events .elements .event.placeholder {
@@ -115,18 +117,90 @@
 
 .news .elements {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: .25rem;
+}
+
+.news .elements .new:nth-child(1) {
+    grid-area: 1 / 1 / 2 / 4;
+}
+
+.news .elements .new:nth-child(2) {
+    grid-area: 1 / 4 / 2 / 7;
+}
+
+.news .elements .new:nth-child(3) {
+    grid-area: 2 / 1 / 3 / 3;
+}
+
+.news .elements .new:nth-child(4) {
+    grid-area: 2 / 3 / 3 / 5;
+}
+
+.news .elements .new:nth-child(5) {
+    grid-area: 2 / 5 / 3 / 7;
 }
 
 .news .elements .new {
     border-radius: .15rem;
     box-shadow: 0 0 .5rem #21212110;
-    background-color: #e9e9e9;
+    background-color: #f3f3f3;
     padding: 1rem;
+
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+}
+
+.news .elements .new:hover .content img {
+    transform: scale(95%);
+}
+
+.news .elements .new:hover h3,
+.news .elements .new:hover .content p {
+    transform: scale(102%);
+}
+
+.news .elements .new:hover h3 {
+    transform: translateY(-2%);
+}
+
+.news .elements .new h3,
+.news .elements .new .content p {
+    transition: transform ease-in-out 150ms;
+}
+
+.news .elements .new .content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: .3rem;
+}
+
+.news .elements .new .content p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.news .elements .new .content img {
+    height: 15rem;
+    object-fit: cover;
+    aspect-ratio: 3/4;
+    border-radius: .25rem;
+    box-shadow: .25rem .25rem 1rem #0000002a;
+
+    transition: transform ease-in-out 150ms;
+}
+
+.news .elements .new:nth-child(3) .content img,
+.news .elements .new:nth-child(4) .content img,
+.news .elements .new:nth-child(5) .content img {
+    height: 10rem;
 }
 
 /* mobile */
+
 @media screen and (max-width: 700px) {
     /* events */
     .events .elements {
@@ -159,6 +233,24 @@
         width: 100%;
         height: 100%;
         background: linear-gradient(0deg, rgba(255, 255, 255, .85) 0%, rgba(255, 255, 255, .0) 75%);
+    }
+
+    /* news */
+    .news .elements {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .news .elements .new .content {
+        flex-direction: column;
+    }
+
+    .news .elements .new .content img {
+        margin: 0 auto;
+        height: auto;
+        max-height: 50vw;
+        width: 90%;
+        max-width: 25rem;
     }
 }
 
