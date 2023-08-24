@@ -192,6 +192,8 @@ include("../../private/intranet/assets/nav.php")
                     $form_option_date = "selected";
                 } else if($element["type"] == "email") {
                     $form_option_email = "selected";
+                } else if($element["type"] == "emailVer") {
+                    $form_option_emailVer = "selected";
                 } else if($element["type"] == "number") {
                     $form_option_number = "selected";
                 } else if($element["type"] == "stTitle") {
@@ -208,6 +210,7 @@ include("../../private/intranet/assets/nav.php")
                             <option value="text" '.$form_option_text.'>Text</option>
                             <option value="date" '.$form_option_date.'>Date</option>
                             <option value="email" '.$form_option_email.'>Email</option>
+                            <option value="emailVer" '.$form_option_emailVer.'>Email Verification</option>
                             <option value="number" '.$form_option_number.'>Number</option>
                             <option value="stTitle" '.$form_option_stTitle.'>Titel</option>
                             <option value="stDesc" '.$form_option_stDesc.'>Beschreibung</option>
@@ -230,6 +233,11 @@ include("../../private/intranet/assets/nav.php")
                 } else if ($element["type"] == 'stDesc') {
                     echo '
                         <label class="description"><textarea name="text[]" placeholder="Beschreibung">'.$element["title"].'</textarea></label>
+                    ';
+                } else if ($element["type"] == 'emailVer') {
+                    echo '
+                        <label><input type="text" name="text[]" id="" placeholder="Text" value="'.$element["title"].'"></label>
+                        <input type="text" placeholder="Input" disabled>
                     ';
                 } else {
                     if($element["required"] == "1") {

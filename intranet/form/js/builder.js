@@ -20,6 +20,7 @@ function addFormField() {
                     <option value="text">Text</option>
                     <option value="date">Date</option>
                     <option value="email">Email</option>
+                    <option value="emailVer">Email Verification</option>
                     <option value="number">Number</option>
                     <!--<option value="checkbox">Checkbox</option>-->
                     <option value="stTitle">Titel</option>
@@ -84,6 +85,11 @@ function contentBlock(block, blockID) {
     } else if (block === "stDesc") {
         content = `
         <label class="description"><textarea name="text[]" placeholder="Beschreibung"></textarea></label>
+        `;
+    } else if (block === "emailVer") {
+        content = `
+        <label><input type="text" name="text[]" id="" placeholder="Text"></label>
+        <input type="text" placeholder="Input" disabled>
         `;
     }
 
