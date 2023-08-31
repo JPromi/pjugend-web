@@ -1,8 +1,12 @@
 <?php
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
 //include auth_session.php file on all user panel pages
-include("../../../private/session/auth_session.php");
-include("../../../private/database/int.php");
-include("../../../private/intranet/image/profile_picture.php");
+include $_SERVER["DOCUMENT_ROOT"].'/../private/session/auth_session.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/intranet/image/profile_picture.php';
+include $_SERVER["DOCUMENT_ROOT"].'/../private/functions/input.php';
 ?>
 
 <?php
@@ -14,10 +18,12 @@ if(!(in_array("admin", $dbSESSION_perm))) {
 
 <?php
 //get account
-$accountID = $_GET["id"];
-$account = "SELECT * FROM `accounts` WHERE id = '$accountID'";
-$account = $con_new->query($account);
-$account = $account->fetch_assoc();
+$accountID = checkTextInput($_GET["id"], "string");
+$account = $con->query("SELECT * FROM `accounts` WHERE id = '$accountID'")->fetch_assoc();
+$accountPermission = $con->query("SELECT permission_id FROM `accounts_permission` WHERE user_id = '$accountID'")->fetch_all();
+$accountPermission = array_column($accountPermission, 0);
+$accountPermissionGroup = $con->query("SELECT group_id FROM `accounts_permission_group` WHERE user_id = '$accountID'")->fetch_all();
+$accountPermissionGroup = array_column($accountPermissionGroup, 0);
 ?>
 
 <?php
@@ -126,7 +132,7 @@ include("../../../private/intranet/assets/nav.php")
                         <div class="list">
                             <?php
                             while ($perm = $permissions->fetch_assoc()) {
-                                if(in_array($perm["id"], explode(";", $account["permission"]))) {
+                                if(in_array($perm["id"], $accountPermission)) {
                                     $hasPermission = "checked";
                                 } else {
                                     $hasPermission = "";
@@ -145,7 +151,7 @@ include("../../../private/intranet/assets/nav.php")
                         <div class="list">
                         <?php
                         while ($group = $groups->fetch_assoc()) {
-                            if(in_array($group["id"], explode(";", $account["permission_group"]))) {
+                            if(in_array($group["id"], $accountPermissionGroup)) {
                                 $hasGroup = "checked";
                             } else {
                                 $hasGroup = "";
@@ -186,20 +192,6 @@ if(isset($_POST["submit"])) {
     } else {
         $password = "'".$account["password"]."'";
     }
-    
-    //permissions
-    if(isset($_POST["permission"])) {
-        $permission = "'".implode(";", $_POST["permission"])."'";
-    } else {
-        $permission = "NULL";
-    }
-
-    //groups
-    if(isset($_POST["group"])) {
-        $group = "'".implode(";", $_POST["group"])."'";
-    } else {
-        $group = "NULL";
-    }
 
     $userID = $account["id"];
     $editUser = "UPDATE `accounts` SET 
@@ -208,12 +200,45 @@ if(isset($_POST["submit"])) {
                                     `lastname` = $lastname, 
                                     `email` = $email, 
                                     `birthdate` = $birthdate, 
-                                    `password` = $password, 
-                                    `permission` = $permission, 
-                                    `permission_group` = $group 
+                                    `password` = $password
                                     WHERE `id` = '$userID'";
     $con->query($editUser);
 
+    //permissions
+
+    // delete
+    if(empty($_POST["permission"])) {
+        $p_permission_del = $accountPermission;
+    } else {
+        $p_permission_del = array_diff($accountPermission, $_POST["permission"]);
+    }
+    $con->query("DELETE FROM accounts_permission WHERE user_id = '$accountID' AND permission_id IN ('".implode("', '", $p_permission_del)."')");
+    
+    //insert
+    if(!empty($_POST["permission"])) {
+        $p_permission_insert = array_diff($_POST["permission"], $accountPermission);
+
+        $con->query("INSERT INTO accounts_permission (user_id, permission_id) VALUES ".insertPermArray($p_permission_insert));
+    }
+
+    //group
+
+    // delete
+    if(empty($_POST["group"])) {
+        $p_permissionGroup_del = $accountPermissionGroup;
+    } else {
+        $p_permissionGroup_del = array_diff($accountPermissionGroup, $_POST["group"]);
+    }
+    $con->query("DELETE FROM accounts_permission_group WHERE user_id = '$accountID' AND group_id IN ('".implode("', '", $p_permissionGroup_del)."')");
+    
+    //insert
+    if(!empty($_POST["group"])) {
+        $p_permissionGroup_insert = array_diff($_POST["group"], $accountPermissionGroup);
+
+        $con->query("INSERT INTO accounts_permission_group (user_id, group_id) VALUES ".insertPermArray($p_permissionGroup_insert));
+    }
+
+    // profilepicture
     if(!(empty($_FILES["profile_picture"]["tmp_name"]))) {
         createProfilePicture($_FILES["profile_picture"]["tmp_name"], $_FILES["profile_picture"]["type"], 'im_p-'.substr(md5($account["id"]), 0, 10).$account["id"]);
     }
@@ -228,28 +253,14 @@ if(isset($_POST["submit"])) {
 ?>
 
 <?php
-
-//function
-function checkInput($input) {
-    global $con;
-    $input = htmlspecialchars($input);
-    $input = stripslashes($input);
-    $input = mysqli_real_escape_string($con, $input);
-
-    if(!(empty($input))) {
-        $input = "'".$input."'";
-    } else {
-        $input = "NULL";
+//functions
+function insertPermArray($array) {
+    global $accountID;
+    $retrun = array();
+    for ($i=0; $i < count($array); $i++) { 
+        array_push($retrun, "('".$accountID."', ".checkInput($array[$i]).")");
     }
 
-    return $input;
-}
-
-function checkInputPassword($input) {
-    global $con;
-    $input = stripslashes($input);
-    $input = mysqli_real_escape_string($con, $input);
-
-    return $input;
+    return implode(", ", $retrun);
 }
 ?>
