@@ -44,10 +44,17 @@ include '../../private/web/assets/nav.php';
 
     <div class="box">
         <?php
-        if(isset($post)) {
+        if(isset($post) && empty($_GET["error"])) {
             echo '
-            <h4>Erfolgreich Gesendet</h4>
+            <h4>Erfolgreich Gespeichert</h4>
             <p>Deine Ergebnisse wurden erfolgreich gespeichert</p>
+            <a href="../">Zurück</a>
+            ';
+        } else if(isset($post) && $_GET["error"] == "mail") {
+            echo '
+            <h4>Email konnte nicht versendet werden</h4>
+            <p>Deine Ergebnisse wurden erfolgreich gespeichert, <br> aber es konnte keine bestätigungs E-Mail versendet werden.</p>
+            <p>Bitte wenden Sie sich an <a href="mailto:'.$conf_info["dev_email"].'">'.$conf_info["dev_email"].'</a></p><br>
             <a href="../">Zurück</a>
             ';
         } else {
