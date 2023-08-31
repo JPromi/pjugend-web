@@ -1,12 +1,17 @@
 <?php
-function checkInput($input) {
+function checkInput($input, $type = "db") {
     global $con;
     $input = htmlspecialchars($input);
     $input = stripslashes($input);
     $input = mysqli_real_escape_string($con, $input);
 
     if(!(empty($input))) {
-        $input = "'".$input."'";
+        if($type == "db") {
+            $input = "'".$input."'";
+        } else if ($type == "string") {
+            $input = $input;
+        }
+        
     } else {
         $input = "NULL";
     }
@@ -14,13 +19,17 @@ function checkInput($input) {
     return $input;
 }
 
-function checkTextInput($input) {
+function checkTextInput($input, $type = "db") {
     global $con;
     $input = stripslashes($input);
     $input = mysqli_real_escape_string($con, $input);
 
     if(!(empty($input))) {
-        $input = "'".$input."'";
+        if($type == "db") {
+            $input = "'".$input."'";
+        } else if ($type == "string") {
+            $input = $input;
+        }
     } else {
         $input = "NULL";
     }
@@ -53,6 +62,14 @@ function inputCheckDate($input)
     } else {
         $input = "'". date("Y-m-d H:i", strtotime($input)) ."'";
     }
+    return $input;
+}
+
+function checkInputPassword($input) {
+    global $con;
+    $input = stripslashes($input);
+    $input = mysqli_real_escape_string($con, $input);
+
     return $input;
 }
 ?>
