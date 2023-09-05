@@ -1,7 +1,4 @@
 <?php
-ini_set('display_startup_errors', 1);
-ini_set('display_errors', 1);
-error_reporting(-1);
 //include auth_session.php file on all user panel pages
 include $_SERVER["DOCUMENT_ROOT"].'/../private/session/auth_session.php';
 include $_SERVER["DOCUMENT_ROOT"].'/../private/database/int.php';
